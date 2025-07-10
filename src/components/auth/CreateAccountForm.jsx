@@ -4,9 +4,15 @@ import RecaptchaImage from '../../assets/Icons/Recaptcha.png';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function CreateAccountForm() {
+
+  const navigate=useNavigate();
+
+  const handleClick=()=>{
+    navigate("/auth/login")
+  }
   return (
     <div className="flex h-screen w-full font-['Segoe_UI',_sans-serif]">
       {/* Left Side Image */}
@@ -27,7 +33,7 @@ function CreateAccountForm() {
         <div className="w-full max-w-[350px] space-y-5">
           {/* Title & Link */}
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900">Create an account</h2>
+            <h2 className="text-2xl  text-gray-900">Create an account</h2>
             <p className="text-sm text-gray-600">
               Already have an account?{" "}
 
@@ -36,19 +42,19 @@ function CreateAccountForm() {
           </div>
 
           {/* Username */}
-          <div className="grid gap-2">
+          <div className="grid gap-3">
             <Label htmlFor="username">User name</Label>
             <Input id="username" placeholder="User name" />
           </div>
 
           {/* Email */}
-          <div className="grid gap-2">
+          <div className="grid gap-3">
             <Label htmlFor="email">Email address</Label>
             <Input id="email" type="email" placeholder="Email address" />
           </div>
 
           {/* Password */}
-          <div className="grid gap-2">
+          <div className="grid gap-3">
             <Label htmlFor="password">Create new Password</Label>
             <Input id="password" type="password" placeholder="New password" />
           </div>
@@ -59,7 +65,7 @@ function CreateAccountForm() {
           </p>
 
           {/* Terms */}
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-gray-700">
             By creating an account, you agree to our{" "}
             <a href="#" className="text-[#FDB43C] hover:underline">
               Terms of use
@@ -81,6 +87,7 @@ function CreateAccountForm() {
           {/* Submit Button */}
           <Button
             type="submit"
+            onClick={handleClick}
             className="bg-[#FFD36A] text-white p-6 w-full rounded-full font-bold text-base mt-2 hover:bg-[#e6c859]"
           >
             Create an account

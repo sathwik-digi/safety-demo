@@ -41,7 +41,6 @@ export const routers = createBrowserRouter([
                 path: "signin",
                 element: <Signin />,
             },
-
             {
                 path: "create-account",
                 element: <CreateAccount />,
