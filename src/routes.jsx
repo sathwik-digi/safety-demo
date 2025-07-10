@@ -10,6 +10,7 @@ import Signin from "./pages/Signin";
 import Login from "./pages/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Register from "./pages/Registration/Register";
+import RegistrationSuccess from "./components/register/RegistrationSuccess";
  
 export const routers = createBrowserRouter([
       {
@@ -52,6 +53,10 @@ export const routers = createBrowserRouter([
             {
                 path: "register",
                 element: <Register />,
+            },
+            {
+                path: "registration-success",
+                element: <RegistrationSuccess />,
             },
         ],
     },
