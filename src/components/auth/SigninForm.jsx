@@ -16,7 +16,7 @@ const SigninForm = () => {
   return (
     <div className="flex h-screen w-full font-['Segoe_UI',_sans-serif]">
       <div
-        className="flex-1 bg-cover bg-center bg-no-repeat"
+        className="flex-1 bg-cover bg-center bg-no-repeat md:shrink-0"
         style={{
           backgroundImage: `url(${backgroundImage})`,
         }}
