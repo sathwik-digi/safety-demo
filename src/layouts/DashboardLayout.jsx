@@ -6,9 +6,9 @@ import Footer from "../components/Footer";
 function DashboardLayout() {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
