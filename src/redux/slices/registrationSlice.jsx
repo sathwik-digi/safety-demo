@@ -15,6 +15,6 @@ const registrationSlice = createSlice({
  
 });
 
-export const { changeAccountId } = registrationSlice.actions;
+export const { saveRegistrationData } = registrationSlice.actions;
 
 export default registrationSlice.reducer;
