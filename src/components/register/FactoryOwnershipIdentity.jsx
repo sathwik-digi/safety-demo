@@ -3,6 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import EditIcon from "../../assets/Icons/edit-pencil-icon.png"
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -19,6 +21,19 @@ const formSchema = z.object({
 });
 
 export default function FactoryOwnershipIdentity() {
+
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
+    
+
+    const handleFileChange=(event)=>{
+        const file = event.target[0];
+        if(file){
+            const imageUrl = URL.createObjectURL(file);
+            setSelectedImage(imageUrl);
+            setImageFile(file);
+        }
+    }
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -36,6 +51,30 @@ export default function FactoryOwnershipIdentity() {
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-6xl mx-auto p-6 space-y-8">
             <p className="font-semibold text-[36px]">Factory Ownership Identity</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+
+                {selectedImage && (
+                    <img
+                        src={selectedImage}
+                        alt="Selected"
+                        style={{
+                            display: "block",
+                            width: "150px",
+                            height: "150px",
+                            objectFit: "cover",
+                            margin: "10px auto",
+                            borderRadius: "50%",
+                        }}
+                    />
+                )}
+
+                <img src={EditIcon} className="w-7 h-7" />
+
+
+                
+
+                <input type="file" accept="image/jpg, image/png, image/jpeg" onChange={handleFileChange} />
+
                 {/* Name */}
                 <div>
                     <label className="text-[#666666] block mb-1">Name of the person</label>
@@ -44,18 +83,18 @@ export default function FactoryOwnershipIdentity() {
                 </div>
 
                 {/* Email */}
-                <div>
+                {/* <div>
                     <label className="text-[#666666] block mb-1">Email ID</label>
                     <Input className="border-[#cccccc]" type="email" placeholder="@gmail.com" {...register("email")} />
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-                </div>
+                </div> */}
 
                 {/* Contact Number */}
-                <div>
+                {/* <div>
                     <label className="text-[#666666] block mb-1">Contact Number</label>
                     <Input className="border-[#cccccc]" type="text" placeholder="+91" {...register("contactNumber")} />
                     {errors.contactNumber && <p className="text-red-500 text-sm mt-1">{errors.contactNumber.message}</p>}
-                </div>
+                </div> */}
 
                 {/* Alternative Contact */}
                 <div>
