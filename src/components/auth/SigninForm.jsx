@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import backgroundImage from '../../assets/Images/LoginBackground.png';
 import { Input } from "@/components/ui/input";
@@ -9,8 +9,45 @@ import { Checkbox } from "@/components/ui/checkbox"
 const SigninForm = () => {
   const navigate = useNavigate();
 
-  const handleSignIn=()=>{
-    navigate("/auth/create-account")
+  const [formData,setFormData]=useState(
+    {
+      email:"",
+      credentials:"",
+    }
+  )
+  const [errors, setErrors] = useState({
+    email: "",
+    credentials: "",
+  });
+
+  const handleChange=(e)=>{
+    const {id,value}=e.target
+    setFormData((prev)=>({...prev,[id]:value}));
+
+    if(value.trim()!==""){
+      setErrors((prev) => ({ ...prev, [id]: "" }));
+    }
+  }
+
+  const handleSignIn=(e)=>{
+
+    e.preventDefault();
+    let isValid=true;
+    const newErrors={email: "",credentials: ""};
+
+    if(!formData.email.trim()){
+      newErrors.email="Please enter Email address";
+      isValid = false;
+    }
+    if(!formData.credentials.trim()){
+      newErrors.credentials="Please enter the credentials";
+      isValid =false;
+    }
+    setErrors(newErrors);
+
+    if(isValid){
+      navigate("/auth/create-account")
+    }
   }
 
   return (
@@ -29,12 +66,14 @@ const SigninForm = () => {
 
           <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="email">Email or phone number</Label>
-            <Input type="email" id="email" placeholder="Email" />
+            <Input type="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange}/>
+            {errors.email && <p className={"text-red-500 text-sm"}>{errors.email}</p>}
           </div>
 
           <div className="grid w-full max-w-sm mt-5 items-center gap-3">
-            <Label htmlFor="email">Credentials</Label>
-            <Input type="email" id="email" placeholder="credentials" />
+            <Label htmlFor="credentials">Credentials</Label>
+            <Input type="credentials" id="credentials" placeholder="credentials" value={formData.credentials} onChange={handleChange}/>
+            {errors.credentials && <p className={"text-red-500 text-sm"}>{errors.credentials}</p>}
           </div>
 
           <Button
