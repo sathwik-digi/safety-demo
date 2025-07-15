@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import backgroundImage from "../../assets/Images/LoginBackground.png";
 import RecaptchaImage from '../../assets/Icons/Recaptcha.png';
 import { Input } from "@/components/ui/input";
@@ -10,8 +10,47 @@ function CreateAccountForm() {
 
   const navigate=useNavigate();
 
-  const handleClick=()=>{
-    navigate("/auth/login")
+  const [formData,setFormData]=useState({
+    userName:"",
+    email:"",
+    password:""
+  })
+
+  const handleChange=(e)=>{
+    const {id,value}=e.target
+    setFormData((prev)=>({...prev,[id]:value}));
+
+    if(value.trim()!==""){
+      setErrors((prev) => ({ ...prev, [id]: "" }));
+    }
+  }
+  const [errors,setErrors]=useState({
+    userName:"",
+    email:"",
+    password:""
+  })
+
+  const handleClick=(e)=>{
+    e.preventDefault();
+    let isValid=true;
+    const newErrors={email:"",userName:"",password:""}
+    if(!formData.userName.trim()){
+      newErrors.userName="Please enter user name";
+      isValid=false;
+    }
+    if(!formData.email.trim()){
+      newErrors.email="Please enter email address";
+      isValid =false;
+    }
+    if(!formData.password.trim()){
+      newErrors.password="Please enter password";
+      isValid=false;
+    }
+    setErrors(newErrors);
+
+    if(isValid){
+      navigate("/auth/login");
+    }
   }
   return (
     <div className="flex h-screen w-full font-['Segoe_UI',_sans-serif]">
@@ -43,20 +82,23 @@ function CreateAccountForm() {
 
           {/* Username */}
           <div className="grid gap-3">
-            <Label htmlFor="username">User name</Label>
-            <Input id="username" placeholder="User name" />
+            <Label htmlFor="userName">User name</Label>
+            <Input id="userName" placeholder="User name" value={formData.userName} onChange={handleChange} />
+            {errors.userName && <p className={"text-red-500 text-sm"}>{errors.userName}</p>}
           </div>
 
           {/* Email */}
           <div className="grid gap-3">
             <Label htmlFor="email">Email address</Label>
-            <Input id="email" type="email" placeholder="Email address" />
+            <Input id="email" type="email" placeholder="Email address" value={formData.email} onChange={handleChange} />
+            {errors.email && <p className={"text-red-500 text-sm"}>{errors.email}</p>}
           </div>
 
           {/* Password */}
           <div className="grid gap-3">
             <Label htmlFor="password">Create new Password</Label>
-            <Input id="password" type="password" placeholder="New password" />
+            <Input id="password" type="password" placeholder="New password" value ={formData.password} onChange={handleChange} />
+            {errors.password && <p className={"text-red-500 text-sm"}>{errors.password}</p>}
           </div>
 
           {/* Password Hint */}

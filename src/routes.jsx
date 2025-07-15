@@ -12,6 +12,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Register from "./pages/Registration/Register";
 import RegistrationSuccess from "./components/register/RegistrationSuccess";
 import FactoryList from "./components/dashboard/FactoryList";
+import Otp from "./pages/Otp";
  
 export const routers = createBrowserRouter([
       {
@@ -67,6 +68,10 @@ export const routers = createBrowserRouter([
             {
                 path: "registration-success",
                 element: <RegistrationSuccess />,
+            },
+            {
+                path: "Otp",
+                element: <Otp/>,
             },
         ],
     },
