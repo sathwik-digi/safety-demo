@@ -92,7 +92,7 @@ function FactoryList() {
             <div
               key={idx}
               className="flex gap-5 border-b border-gray-300 py-6 items-center cursor-pointer"
-              onClick={() => navigate('/factory-details')}
+              onClick={() => navigate('/factory-details', { state: factory?.status  })}
             >
               <img
                 src={factory.logo}
