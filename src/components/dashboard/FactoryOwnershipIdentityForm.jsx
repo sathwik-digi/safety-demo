@@ -56,7 +56,7 @@ function FactoryOwnershipIdentityForm({ onBack }) {
         </div>
       </div>
 
-      {/* Ownership Identity Form */}
+      {/* FactoryOwnership Identity Form */}
       <div className="mt-10 mx-10">
         <h2 className="text-[36px] font-semibold text-[#000000] mb-6">Factory Ownership Identity</h2>
         <form className="grid grid-cols-2 gap-6 gap-x-20">
