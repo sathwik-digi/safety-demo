@@ -1,10 +1,17 @@
 import './App.css';
 import { RouterProvider} from "react-router-dom";
 import {routers} from "./routes";
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import { Toaster } from 'sonner'
 
 function App() {
   return (
-    <RouterProvider router={routers} />
+    <Provider store={store}>
+      <Toaster />
+      <RouterProvider router={routers} />
+    </Provider>
+    
   );
 }
 

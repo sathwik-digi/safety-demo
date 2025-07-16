@@ -1,8 +1,8 @@
 import React from "react";
-import SideBar from "../../components/dashboard/SideBar";
+import DashboardPage from "../../components/dashboard/DashboardPage";
 function Dashboard() {
   return (
-   <SideBar />
+   <DashboardPage />
   );
 }
 

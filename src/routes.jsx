@@ -10,6 +10,10 @@ import Signin from "./pages/Signin";
 import Login from "./pages/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Register from "./pages/Registration/Register";
+import RegistrationSuccess from "./components/register/RegistrationSuccess";
+import FactoryList from "./components/dashboard/FactoryList";
+import Otp from "./pages/Otp";
+import FactoryDetails from "./components/dashboard/FactoryDetails";
  
 export const routers = createBrowserRouter([
       {
@@ -23,14 +27,26 @@ export const routers = createBrowserRouter([
           ],
       },
     {
-        path: "/dashboard",
+        path:"",
         element: <DashboardLayout />,
-        children: [
+        children:[
             {
-                path: "",
+                path: "/dashboard",
                 element: <Dashboard />,
             },
-        ],
+            {
+                path: "/factorylist",
+                element: <FactoryList />,
+            },
+            {
+                path: "/factory-details",
+                element: <FactoryDetails />,
+            },
+            // {
+            //     path: "/role-base-access",
+            //     element: <R />,
+            // }
+        ]
     },
     {
         path: "/auth",
@@ -40,7 +56,6 @@ export const routers = createBrowserRouter([
                 path: "signin",
                 element: <Signin />,
             },
-
             {
                 path: "create-account",
                 element: <CreateAccount />,
@@ -52,6 +67,14 @@ export const routers = createBrowserRouter([
             {
                 path: "register",
                 element: <Register />,
+            },
+            {
+                path: "registration-success",
+                element: <RegistrationSuccess />,
+            },
+            {
+                path: "Otp",
+                element: <Otp/>,
             },
         ],
     },
