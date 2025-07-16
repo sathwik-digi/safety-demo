@@ -34,6 +34,11 @@ function DashboardLayout() {
         <p className="text-[14px] font-medium text-[#344054]">Dashboard</p>
       </div>
 
+      <div className="flex items-center gap-3 cursor-pointer" onClick={()=>navigate('/role-base-access')}>
+        <img src={DashboardIcon} alt="Dashboard icon" className="w-5 h-5" />
+        <p className="text-[14px] font-medium text-[#344054]">Sub Admin</p>
+      </div>
+
       <div className="flex items-center gap-3 cursor-pointer">
         <img src={InventoryManagementIcon} alt="Inventory icon" className="w-5 h-5" />
         <p className="text-[14px] font-medium text-[#344054]">Inventory Management</p>
