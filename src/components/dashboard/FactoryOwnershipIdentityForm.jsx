@@ -1,6 +1,4 @@
 import React from "react";
-import onesubseaLogo from "../../assets/Images/onesubsea_logo.png";
-import locationIcon from "../../assets/Icons/google_maps-icon.png";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea"
@@ -8,53 +6,9 @@ import approveIcon from "../../assets/Icons/approve-icon.png"
 import resubmitIcon from "../../assets/Icons/resubmit-icon.png"
 import declineIcon from "../../assets/Icons/decline-icon.png"
 
-function FactoryOwnershipIdentityForm({ onBack }) {
+function FactoryOwnershipIdentityForm({ onBack, status }) {
   return (
     <div className="ml-10 mt-10 max-w-6xl">
-      {/* Factory Header Section */}
-      <div className="flex p-6 border-gray-300 rounded-md">
-        <div className="w-[13rem] h-[11rem] mr-6">
-          <img
-            src={onesubseaLogo}
-            alt="One Subsea Logo"
-            className="object-contain w-full h-full"
-          />
-        </div>
-
-        <div className="flex-1">
-          <h2 className="text-[36px] font-bold text-[#000000]">One subsea</h2>
-          <p className="text-[20px] font-semibold text-[#000000] mb-1">
-            Production, Manufacturing & Processing Technology
-          </p>
-          <p className="text-[14px] font-normal text-[#18191A] mb-1 flex items-center gap-1">
-            <img src={locationIcon} alt="Location Icon" className="w-4 h-4" />
-            23BP & 240P, Vakalapudi, Kakinada Industrial Area, Kakinada, Andhra Pradesh 533005
-          </p>
-          <a
-            href="https://www.onesubsea.slb.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[14px] font-normal text-[#565959] underline"
-          >
-            https://www.onesubsea.slb.com/
-          </a>
-
-          <div className="flex border-t w-[98%] border-black mt-3 pt-2 text-sm text-gray-800">
-            <div className="mr-10">
-              <p className="text-[18px] font-semibold text-[#3A3A3A]">Sanjay Kumar</p>
-              <p className="text-[16px] text-[#939393] font-normal">Owner</p>
-            </div>
-            <div className="mr-10">
-              <p className="text-[18px] font-semibold text-[#3A3A3A]">Total no of Employees</p>
-              <p className="font-medium text-[16px] text-[#ADADAD]">56</p>
-            </div>
-            <div>
-              <p className="text-[18px] font-semibold text-[#3A3A3A]">Started from</p>
-              <p className="font-medium text-[16px] text-[#ADADAD]">2022</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* FactoryOwnership Identity Form */}
       <div className="mt-10 mx-10">
@@ -125,37 +79,41 @@ function FactoryOwnershipIdentityForm({ onBack }) {
         </div>
       </div>
 
-      <div class=" pb-15 mt-10 mx-10">
-        <h3 className="text-center text-[#FEC84B] text-xl font-semibold mb-4">Comments</h3>
+      {status !== "Verify" && (
+        <div class=" pb-15 mt-10 mx-10">
+          <h3 className="text-center text-[#FEC84B] text-xl font-semibold mb-4">Comments</h3>
 
-        <Textarea
-          placeholder="Reason why the Application is Rejected or Resubmit"
-          className="w-full h-28 border border-gray-300 rounded-md px-4 py-2 text-gray-700 resize-none"
-        />
+          <Textarea
+            placeholder="Reason why the Application is Rejected or Resubmit"
+            className="w-full h-28 border border-gray-300 rounded-md px-4 py-2 text-gray-700 resize-none"
+          />
 
-        <div className="flex justify-center gap-6 mt-8">
-          <Button
-            type="button"
-            className="bg-[#12B76A] hover:bg-green-600 text-white px-6 py-2 rounded-md flex items-center gap-2"
-          >
-            <img src={approveIcon} alt="Approve Icon" className="w-5 h-5" /> Approve
-          </Button>
+          <div className="flex justify-center gap-6 mt-8">
+            <Button
+              type="button"
+              className="bg-[#12B76A] hover:bg-green-600 text-white px-6 py-2 rounded-md flex items-center gap-2"
+            >
+              <img src={approveIcon} alt="Approve Icon" className="w-5 h-5" /> Approve
+            </Button>
 
-          <Button
-            type="button"
-            className="bg-[#FEC84B] hover:bg-yellow-500 text-white px-6 py-2 rounded-md flex items-center gap-2"
-          >
-             <img src={resubmitIcon} alt="Resubmit Icon" className="w-5 h-5" /> Resubmit
-          </Button>
+            <Button
+              type="button"
+              className="bg-[#FEC84B] hover:bg-yellow-500 text-white px-6 py-2 rounded-md flex items-center gap-2"
+            >
+              <img src={resubmitIcon} alt="Resubmit Icon" className="w-5 h-5" /> Resubmit
+            </Button>
 
-          <Button
-            type="button"
-            className="bg-[#F04438] hover:bg-red-600 text-white px-6 py-2 rounded-md flex items-center gap-2"
-          >
-            <img src={declineIcon} alt="Decline Icon" className="w-5 h-5" /> Decline
-          </Button>
+            <Button
+              type="button"
+              className="bg-[#F04438] hover:bg-red-600 text-white px-6 py-2 rounded-md flex items-center gap-2"
+            >
+              <img src={declineIcon} alt="Decline Icon" className="w-5 h-5" /> Decline
+            </Button>
+          </div>
         </div>
-      </div>
+      )
+
+      }
 
     </div>
   );
