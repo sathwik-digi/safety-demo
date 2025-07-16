@@ -27,34 +27,26 @@ export const routers = createBrowserRouter([
           ],
       },
     {
-        path: "/dashboard",
+        path:"",
         element: <DashboardLayout />,
-        children: [
+        children:[
             {
-                path: "",
+                path: "/dashboard",
                 element: <Dashboard />,
             },
-        ],
-    },
-    {
-        path: "/factorylist",
-        element: <DashboardLayout />,
-        children: [
             {
-                path: "",
+                path: "/factorylist",
                 element: <FactoryList />,
             },
-        ],
-    },
-    {
-        path: "/factory-details",
-        element: <DashboardLayout />,
-        children: [
             {
-                path: "",
+                path: "/factory-details",
                 element: <FactoryDetails />,
             },
-        ],
+            // {
+            //     path: "/role-base-access",
+            //     element: <R />,
+            // }
+        ]
     },
     {
         path: "/auth",
