@@ -14,6 +14,7 @@ import RegistrationSuccess from "./components/register/RegistrationSuccess";
 import FactoryList from "./components/dashboard/FactoryList";
 import Otp from "./pages/Otp";
 import FactoryDetails from "./components/dashboard/FactoryDetails";
+import RoleBaseAccess from "./components/dashboard/RoleBaseAccess";
  
 export const routers = createBrowserRouter([
       {
@@ -42,10 +43,10 @@ export const routers = createBrowserRouter([
                 path: "/factory-details",
                 element: <FactoryDetails />,
             },
-            // {
-            //     path: "/role-base-access",
-            //     element: <R />,
-            // }
+            {
+                path: "/role-base-access",
+                element: <RoleBaseAccess />,
+            }
         ]
     },
     {
