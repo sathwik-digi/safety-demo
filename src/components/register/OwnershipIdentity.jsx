@@ -10,11 +10,11 @@ const formSchema = z.object({
     contactNumber: z.string().min(10, { message: "Enter a valid number." }),
     alternativeContactNumber: z.string().min(10, { message: "Enter a valid number." }),
     aadhaarNumber: z.string().min(12, { message: "Enter a valid Aadhaar number." }),
-    panNumber: z.string().min(5, { message: "Enter a valid PAN number." }),
+    panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, { message: "Enter a valid Indian PAN (e.g., ABCDE1234F)." }),
     permanentAddress: z.string().min(2, { message: "Permanent Address must be at least 2 characters." }),
     state: z.string().min(2, { message: "State must be at least 2 characters." }),
     district: z.string().min(2, { message: "District must be at least 2 characters." }),
-    pinCode: z.string().min(2, { message: "PinCode must be at least 2 characters." }),
+    pinCode: z.string().min(6, { message: "PinCode must be at least 2 characters." }),
     city: z.string().min(2, { message: "City must be at least 2 characters." }),
 });
 
@@ -34,7 +34,7 @@ export default function OwnershipIdentity() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-6xl mx-auto p-6 space-y-8">
-            <p className="font-semibold text-[36px]">Ownership Identity</p>
+            <p className="font-semibold text-[27px] md:text-[36px]">Ownership Identity</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Name */}    
                 <div>
