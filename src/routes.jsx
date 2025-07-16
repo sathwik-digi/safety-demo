@@ -13,6 +13,7 @@ import Register from "./pages/Registration/Register";
 import RegistrationSuccess from "./components/register/RegistrationSuccess";
 import FactoryList from "./components/dashboard/FactoryList";
 import Otp from "./pages/Otp";
+import FactoryDetails from "./components/dashboard/FactoryDetails";
  
 export const routers = createBrowserRouter([
       {
@@ -42,6 +43,16 @@ export const routers = createBrowserRouter([
             {
                 path: "",
                 element: <FactoryList />,
+            },
+        ],
+    },
+    {
+        path: "/factory-details",
+        element: <DashboardLayout />,
+        children: [
+            {
+                path: "",
+                element: <FactoryDetails />,
             },
         ],
     },

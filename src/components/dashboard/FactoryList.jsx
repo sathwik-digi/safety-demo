@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate } from "react-router-dom";
 import {factories} from "../../constants"
 // import {
 //   Pagination,
@@ -13,6 +14,7 @@ import {factories} from "../../constants"
 function FactoryList() {
   const [filterType, setFilterType] = useState("District");
   const [statusFilter, setStatusFilter] = useState("All Factory's / Industries");
+  const navigate = useNavigate();
 
   const statusOptions = [
     "All Factory's / Industries",
@@ -89,8 +91,8 @@ function FactoryList() {
           .map((factory, idx) => (
             <div
               key={idx}
-              className="flex gap-5 border-b border-gray-300 py-6 items-center"
-              // onClick={}
+              className="flex gap-5 border-b border-gray-300 py-6 items-center cursor-pointer"
+              onClick={() => navigate('/factory-details')}
             >
               <img
                 src={factory.logo}
