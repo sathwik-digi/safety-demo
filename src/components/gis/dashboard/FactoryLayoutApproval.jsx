@@ -2,9 +2,9 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea"
-import approveIcon from "../../assets/Icons/approve-icon.png"
-import resubmitIcon from "../../assets/Icons/resubmit-icon.png"
-import layoutApproval from "../../assets/Images/layout-approval.png"
+import approveIcon from "../../../assets/Icons/approve-icon.png"
+import resubmitIcon from "../../../assets/Icons/resubmit-icon.png"
+import layoutApproval from "../../../assets/Images/layout-approval.png"
 
 function FactoryLayoutApproval() {
   return (

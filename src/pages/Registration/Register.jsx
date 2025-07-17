@@ -1,5 +1,5 @@
 import React from "react";
-import RegistrationForm from "../../components/register/RegistrationForm";
+import RegistrationForm from "../../components/gis/register/RegistrationForm";
 function Register() {
   return (
     <RegistrationForm />

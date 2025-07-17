@@ -4,8 +4,8 @@ import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import EditIcon from "../../assets/Icons/edit-pencil-icon.png"
-import UplaodImage from "../../assets/Images/upload-image.jpeg"
+import EditIcon from "../../../assets/Icons/edit-pencil-icon.png"
+import UplaodImage from "../../../assets/Images/upload-image.jpeg"
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),

@@ -1,5 +1,5 @@
 import React from "react";
-import Irtlogo from "../../assets/Images/irt-logo.png"
+import Irtlogo from "../../../assets/Images/irt-logo.png"
 
 const RegistrationSuccess = () => {
   return (

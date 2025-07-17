@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import onesubseaLogo from "../../assets/Images/onesubsea_logo.png";
-import locationIcon from "../../assets/Icons/google_maps-icon.png";
+import onesubseaLogo from "../../../assets/Images/onesubsea_logo.png";
+import locationIcon from "../../../assets/Icons/google_maps-icon.png";
 import OwnershipIdentityForm from "./OwnershipIdentityForm";
 import FactoryOwnershipIdentityForm from "./FactoryOwnershipIdentityForm";
 import FactoryLayoutApproval from "./FactoryLayoutApproval";

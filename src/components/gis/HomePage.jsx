@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import HomeBgImage from "../assets/Images/Home-page-bg.jpg";
+import HomeBgImage from "../../assets/Images/Home-page-bg.jpg";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
-import { saveRegistrationData } from "../redux/slices/registrationSlice";
+import { saveRegistrationData } from "../../redux/slices/registrationSlice";
 import { toast } from "sonner"
 
 function HomePage() {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+import Header from "../components/gis/Header";
 import IRTSiteLogo from "../assets/Images/irt-logo.png"
 import DashboardIcon from "../assets/Icons/dashboard-icon.png"
 import InventoryManagementIcon from "../assets/Icons/inventorymanagement-icon.png"
@@ -13,7 +13,7 @@ import HelpIcon from "../assets/Icons/help-circle.png"
 import LogOutIcon from "../assets/Icons/log-out.png"
 import UnionIcon from "../assets/Icons/Union.png"
 
-function DashboardLayout() {
+function IrtDashboardLayout() {
   const navigate = useNavigate();
   
   return (
@@ -103,4 +103,4 @@ function DashboardLayout() {
   );
 }
 
-export default DashboardLayout;
+export default IrtDashboardLayout;
