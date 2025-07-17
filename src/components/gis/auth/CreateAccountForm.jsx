@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import backgroundImage from "../../assets/Images/LoginBackground.png";
-import RecaptchaImage from '../../assets/Icons/Recaptcha.png';
+import backgroundImage from "../../../assets/Images/LoginBackground.png";
+import RecaptchaImage from '../../../assets/Icons/Recaptcha.png';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";

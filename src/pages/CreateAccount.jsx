@@ -1,5 +1,5 @@
 import React from "react";
-import CreateAccountForm from "../components/auth/CreateAccountForm";
+import CreateAccountForm from "../components/gis/auth/CreateAccountForm";
 function CreateAccount() {
   return (
     <CreateAccountForm />
