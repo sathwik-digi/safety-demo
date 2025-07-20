@@ -29,39 +29,44 @@ function IrtDashboardLayout() {
           />
         </div>
         {/* Menu Items */}
-      <div className="flex items-center gap-3 cursor-pointer" onClick={()=>navigate('/dashboard')}>
+      <div className="flex items-center gap-3 cursor-pointer" onClick={()=>navigate('/irt/dashboard')}>
         <img src={DashboardIcon} alt="Dashboard icon" className="w-5 h-5" />
         <p className="text-[14px] font-medium text-[#344054]">Dashboard</p>
       </div>
 
-      <div className="flex items-center gap-3 cursor-pointer" onClick={()=>navigate('/role-base-access')}>
+      <div className="flex items-center gap-3 cursor-pointer">
         <img src={DashboardIcon} alt="Dashboard icon" className="w-5 h-5" />
-        <p className="text-[14px] font-medium text-[#344054]">Sub Admin</p>
+        <p className="text-[14px] font-medium text-[#344054]">IRT Tree</p>
       </div>
 
       <div className="flex items-center gap-3 cursor-pointer">
         <img src={InventoryManagementIcon} alt="Inventory icon" className="w-5 h-5" />
-        <p className="text-[14px] font-medium text-[#344054]">Inventory Management</p>
+        <p className="text-[14px] font-medium text-[#344054]">Status</p>
       </div>
 
       <div className="flex items-center gap-3 cursor-pointer">
         <img src={DocumentManagementIcon} alt="Document icon" className="w-5 h-5" />
-        <p className="text-[14px] font-medium text-[#344054]">Document Management</p>
+        <p className="text-[14px] font-medium text-[#344054]">Messages</p>
       </div>
 
       <div className="flex items-center gap-3 cursor-pointer">
         <img src={LMSIcon} alt="LMS icon" className="w-5 h-5" />
-        <p className="text-[14px] font-medium text-[#344054]">LMS</p>
+        <p className="text-[14px] font-medium text-[#344054]">Location</p>
       </div>
 
       <div className="flex items-center gap-3 cursor-pointer">
         <img src={BlogIcon} alt="Blog icon" className="w-5 h-5" />
-        <p className="text-[14px] font-medium text-[#344054]">Blog</p>
+        <p className="text-[14px] font-medium text-[#344054]">Member's</p>
       </div>
 
-      <div className="flex items-center gap-3 cursor-pointer" onClick={()=>navigate('/factorylist')}>
+      <div className="flex items-center gap-3 cursor-pointer" >
         <img src={FactoryIcon} alt="Factory icon" className="w-5 h-5" />
-        <p className="text-[14px] font-medium text-[#344054]">Factory List</p>
+        <p className="text-[14px] font-medium text-[#344054]">View Task</p>
+      </div>
+
+      <div className="flex items-center gap-3 cursor-pointer" >
+        <img src={FactoryIcon} alt="Factory icon" className="w-5 h-5" />
+        <p className="text-[14px] font-medium text-[#344054]">View Incident</p>
       </div>
 
       <div className="pt-[50px] pb-[80px]">

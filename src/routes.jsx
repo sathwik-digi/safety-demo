@@ -16,6 +16,10 @@ import FactoryList from "./components/gis/dashboard/FactoryList";
 import Otp from "./pages/Otp";
 import FactoryDetails from "./components/gis/dashboard/FactoryDetails";
 import RoleBaseAccess from "./components/gis/dashboard/RoleBaseAccess";
+import DashboardPage from "./components/irt/dashboard/DashboardPage";
+import AddIncident from "./components/irt/dashboard/AddIncident";
+import ViewIncident from "./components/irt/dashboard/viewIncident";
+import ViewIncidentTaskDetails from "./components/irt/dashboard/ViewIncidentTaskDetails";
  
 export const routers = createBrowserRouter([
       {
@@ -56,7 +60,19 @@ export const routers = createBrowserRouter([
         children:[
             {
                 path: "dashboard",
-                element: <Dashboard />,
+                element: <DashboardPage />,
+            },
+            {
+                path: "addincident",
+                element: <AddIncident />,
+            },
+            {
+                path: "viewincident",
+                element: <ViewIncident />,
+            },
+            {
+                path: "viewincidenttaskdetails",
+                element: <ViewIncidentTaskDetails />,
             },
         ]
     },
