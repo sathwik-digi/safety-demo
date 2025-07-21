@@ -296,3 +296,13 @@ export const factories = [
       status: "Rejected",
     },
   ];
+
+export const irtDashboardData =[
+          { label: "Total No incidents", value: 52 },
+          { label: "Total Task", value: 22 },
+          { label: "Completed Task", value: 52 },
+          { label: "InProgress Task", value: 8 },
+          { label: "Pending Task", value: 12 },
+          { label: "Active Events", value: 5 },
+          { label: "Active Incident", value: 13 },
+        ]
