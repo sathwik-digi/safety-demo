@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import locationIcon from "../../../assets/Icons/google_maps-icon.png";
 import { Progress } from "@/components/ui/progress";
+import DashboardPage from "./DashboardPage";
 
 const teams = [
   {
@@ -40,7 +41,8 @@ const teams = [
 ];
 
 function ViewIncident() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const getBorderColor = (color) => {
     return {
       green: "border-green-500",
@@ -60,53 +62,57 @@ function ViewIncident() {
   };
 
   return (
-    <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      {teams.map((team, index) => (
-        <div
-          key={index}
-          className={`border rounded-md p-4 shadow-sm ${getBorderColor(team.color)}`}
-        >
-          {/* Team Title */}
-          <h2 className="font-semibold text-lg mb-1">{team.name}</h2>
+    <div className="space-y-6 text-[#1F2937]">
+      <DashboardPage />
 
-          {/* Location */}
-          <div className="flex items-center text-sm text-gray-500 mb-2">
-            <img src={locationIcon} alt="Location" className="w-4 h-4 mr-1" />
-            {team.location}
-          </div>
-
-          {/* In-Charge */}
-          <p className="text-gray-700 font-medium">{team.inCharge}</p>
-          <p className="text-gray-400 text-sm">In charge</p>
-
-          {/* Members */}
-          <p className="text-gray-400 text-sm mt-2">No. of Members</p>
-          <p className="text-black font-semibold">{team.members}</p>
-
-          {/* Progress */}
-          <div className="my-3">
-            <Progress value={(team.progress / 10) * 100} />
-            <p className="text-xs text-right text-gray-500 mt-1">
-              0{team.progress}/10
-            </p>
-          </div>
-
-          {/* View Tasks Button */}
-          <Button
-            className={`w-full py-1.5 rounded-md mt-2 border text-sm font-medium ${getButtonColor(
-              team.color
-            )}`}
-            onClick={() => navigate('/irt/viewincidenttaskdetails')}
+      <div className="px-4 sm:px-6 md:px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {teams.map((team, index) => (
+          <div
+            key={index}
+            className={`border rounded-xl p-4 shadow-sm bg-white ${getBorderColor(team.color)}`}
           >
-            View Task’s
-          </Button>
+            {/* Team Title */}
+            <h2 className="font-semibold text-lg mb-1">{team.name}</h2>
 
-          {/* Generate Report Button */}
-          <Button className="w-full py-1.5 mt-2 border border-black rounded-md text-sm font-medium hover:bg-gray-100">
-            Generate Report
-          </Button>
-        </div>
-      ))}
+            {/* Location */}
+            <div className="flex items-center text-sm text-gray-500 mb-2">
+              <img src={locationIcon} alt="Location" className="w-4 h-4 mr-1" />
+              {team.location}
+            </div>
+
+            {/* In-Charge */}
+            <p className="text-gray-700 font-medium">{team.inCharge}</p>
+            <p className="text-gray-400 text-sm">In charge</p>
+
+            {/* Members */}
+            <p className="text-gray-400 text-sm mt-2">No. of Members</p>
+            <p className="text-black font-semibold">{team.members}</p>
+
+            {/* Progress */}
+            <div className="my-3">
+              <Progress value={(team.progress / 10) * 100} />
+              <p className="text-xs text-right text-gray-500 mt-1">
+                0{team.progress}/10
+              </p>
+            </div>
+
+            {/* View Task Button */}
+            <Button
+              className={`w-full py-2 rounded-md mt-2 border text-sm font-medium bg-white ${getButtonColor(
+                team.color
+              )}`}
+              onClick={() => navigate("/irt/viewincidenttaskdetails")}
+            >
+              View Tasks
+            </Button>
+
+            {/* Generate Report Button */}
+            <Button className="w-full py-2 mt-2 border border-black rounded-md text-sm font-medium bg-white hover:bg-gray-100">
+              Generate Report
+            </Button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

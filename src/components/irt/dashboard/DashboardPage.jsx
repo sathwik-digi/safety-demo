@@ -3,17 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Import, MapPin, PlusCircle } from "lucide-react";
-import incidentMap from "../../../assets/Images/layout-approval.png"
-import locationIcon from "../../../assets/Icons/google_maps-icon.png"
+import incidentMap from "../../../assets/Images/layout-approval.png";
+import locationIcon from "../../../assets/Icons/google_maps-icon.png";
 import { irtDashboardData } from "../../../constants";
-import searchIcon from "../../../assets/Icons/search-icon.png"
+import searchIcon from "../../../assets/Icons/search-icon.png";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function DashboardPage() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
+
   return (
-    <div className=" space-y-6">
+    <div className="space-y-6">
       {/* Stats Cards */}
-      <div className="p-6 grid grid-cols-7 gap-4">
+      <div className="p-4 md:p-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
         {irtDashboardData.map((item, index) => (
           <div
             key={index}
@@ -25,37 +33,110 @@ function DashboardPage() {
         ))}
       </div>
 
-      {/* Search & Buttons with top/bottom border */}
+      {/* Search & Buttons */}
       <div className="border-y py-4">
-        <div className="px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          {/* Search Input */}
-           <div className="relative w-full md:w-[40%]">
-            <Input
-              type="text"
-              placeholder="Search any Incident or Location"
-               className="pl-10 border border-gray-300 rounded-lg"
-            />
-            <img
-              src={searchIcon}
-              alt="search location"
-             className="absolute left-3 top-2.5 w-4 h-4 opacity-60"
-            />
+        <div className="px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Left Section - Search + Filters */}
+          <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-[70%]">
+            {/* Search Input */}
+            <div className="relative w-full md:w-[40%]">
+              <Input
+                type="text"
+                placeholder="Search any Incident or Location"
+                className="pl-10 border border-gray-300 rounded-lg"
+              />
+              <img
+                src={searchIcon}
+                alt="search location"
+                className="absolute left-3 top-2.5 w-4 h-4 opacity-60"
+              />
+            </div>
+
+            {/* Dropdown Filters */}
+            <div className="flex flex-col sm:flex-row gap-[16px] md:gap-[30px] md:pl-[50px] w-full md:w-auto">
+              {/* District */}
+              <Select>
+                <SelectTrigger className="w-full sm:w-[120px] border-gray-300 rounded-lg">
+                  <SelectValue placeholder="District" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="east">East</SelectItem>
+                  <SelectItem value="west">West</SelectItem>
+                  <SelectItem value="north">North</SelectItem>
+                  <SelectItem value="south">South</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Position */}
+              <Select>
+                <SelectTrigger className="w-full sm:w-[120px] border-gray-300 rounded-lg">
+                  <SelectValue placeholder="Position" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="manager">Manager</SelectItem>
+                  <SelectItem value="engineer">Engineer</SelectItem>
+                  <SelectItem value="inspector">Inspector</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Department */}
+              <Select>
+                <SelectTrigger className="w-full sm:w-[130px] border-gray-300 rounded-lg">
+                  <SelectValue placeholder="Department" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="safety">Safety</SelectItem>
+                  <SelectItem value="operations">Operations</SelectItem>
+                  <SelectItem value="hr">HR</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
-          {/* Buttons */}
-          <div className="flex gap-4">
-            <Button className="bg-yellow-400 text-[#FFFFFF] hover:bg-yellow-500" onClick={()=>navigate('/irt/addincident')}>
+          {/* Right Section - Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+            <Button
+              className="bg-yellow-400 text-white hover:bg-yellow-500 w-full sm:w-auto"
+              onClick={() => navigate("/irt/addincident")}
+            >
               <PlusCircle className="w-4 h-4 mr-2" /> Add Incident
             </Button>
-            <Button className="bg-yellow-400 text-[#FFFFFF] hover:bg-yellow-500">
+            <Button className="bg-yellow-400 text-white hover:bg-yellow-500 w-full sm:w-auto">
               <PlusCircle className="w-4 h-4 mr-2" /> Add Task
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Location Input, Map & Footer - Shifted Right */}
-      <div className="p-6 ml-10 space-y-4">
+      {/* Incident Name, Date, IRT */}
+      <div className="px-4 md:px-6 py-4 flex flex-col md:flex-row items-center gap-[20px] border-b">
+        {/* Incident Name */}
+        <div className="w-full md:w-[30%]">
+          <Input
+            type="text"
+            placeholder="Incident Name"
+            className="border border-gray-300 rounded-lg px-4 py-2"
+          />
+        </div>
+
+        {/* Date */}
+        <div className="w-full md:w-[20%]">
+          <Input
+            type="date"
+            className="border border-gray-300 rounded-lg px-4 py-2 text-muted-foreground"
+          />
+        </div>
+
+        {/* IRT Button */}
+        <div className="w-full md:w-auto md:ml-auto">
+          <Button className="bg-yellow-400 text-white hover:bg-yellow-500 rounded-lg px-6 py-2 font-medium w-full md:w-auto">
+            IRT
+          </Button>
+        </div>
+      </div>
+
+      {/* Location Input + Map + Footer */}
+      <div className="px-4 md:px-6 pb-8 space-y-4">
         {/* Location Input */}
         <div className="relative w-full md:w-[40%]">
           <Input
@@ -71,16 +152,16 @@ function DashboardPage() {
         </div>
 
         {/* Map Section */}
-        <div className="w-[95%] border rounded-lg overflow-hidden">
+        <div className="w-full border rounded-lg overflow-hidden">
           <img
             src={incidentMap}
             alt="Map"
-            className="w-full h-[400px] object-cover"
+            className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover"
           />
         </div>
 
-        {/* Footer Incident Info */}
-        <div className="text-sm text-gray-600 pl-1">
+        {/* Footer Text */}
+        <div className="text-sm text-gray-600">
           Flood Crises, Bengaluru, 22:30 pm / 10-5-2025
         </div>
       </div>
