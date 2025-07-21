@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
@@ -17,6 +17,10 @@ import {
 
 function DashboardPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isDashboard = location.pathname === "/irt/dashboard";
+  const isViewIncident = location.pathname === "/irt/viewincident";
+  const isViewIncidentTaskDetails = location.pathname === "/irt/viewincidenttaskdetails";
 
   return (
     <div className="space-y-6">
@@ -53,6 +57,7 @@ function DashboardPage() {
             </div>
 
             {/* Dropdown Filters */}
+            {!isDashboard && (
             <div className="flex flex-col sm:flex-row gap-[16px] md:gap-[30px] md:pl-[50px] w-full md:w-auto">
               {/* District */}
               <Select>
@@ -91,7 +96,9 @@ function DashboardPage() {
                 </SelectContent>
               </Select>
             </div>
+            )}
           </div>
+          
 
           {/* Right Section - Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
@@ -109,33 +116,41 @@ function DashboardPage() {
       </div>
 
       {/* Incident Name, Date, IRT */}
-      <div className="px-4 md:px-6 py-4 flex flex-col md:flex-row items-center gap-[20px] border-b">
+      {!(isDashboard || isViewIncident || isViewIncidentTaskDetails) && (
+      <div className="px-4 md:px-6 py-4 flex flex-col md:flex-row items-center gap-[70px] ">
         {/* Incident Name */}
-        <div className="w-full md:w-[30%]">
+        <div className="w-full md:w-[50%] pl-6">
+          <label className="mb-3 block">Incident Name</label>
           <Input
             type="text"
-            placeholder="Incident Name"
-            className="border border-gray-300 rounded-lg px-4 py-2"
+            placeholder="Type"
+            className="border border-gray-300 rounded-lg px-4 py-6"
           />
         </div>
 
         {/* Date */}
         <div className="w-full md:w-[20%]">
+          <label className="mb-3 block">Date</label>
+          {/* <span>From</span><span>To</span> */}
           <Input
             type="date"
             className="border border-gray-300 rounded-lg px-4 py-2 text-muted-foreground"
           />
         </div>
-
-        {/* IRT Button */}
-        <div className="w-full md:w-auto md:ml-auto">
-          <Button className="bg-yellow-400 text-white hover:bg-yellow-500 rounded-lg px-6 py-2 font-medium w-full md:w-auto">
-            IRT
-          </Button>
-        </div>
       </div>
+      )}
+
+      {/* IRT Button - Separate Row */}
+      {!(isDashboard || isViewIncident || isViewIncidentTaskDetails) && (
+      <div className="px-4 md:px-6 py-4 flex justify-center border-b">
+        <Button className="bg-yellow-400 text-white hover:bg-yellow-500 rounded-lg px-6 py-2 font-medium">
+          IRT
+        </Button>
+      </div>
+      )}
 
       {/* Location Input + Map + Footer */}
+      {!(isViewIncident || isViewIncidentTaskDetails) && (
       <div className="px-4 md:px-6 pb-8 space-y-4">
         {/* Location Input */}
         <div className="relative w-full md:w-[40%]">
@@ -165,6 +180,7 @@ function DashboardPage() {
           Flood Crises, Bengaluru, 22:30 pm / 10-5-2025
         </div>
       </div>
+      )}
     </div>
   );
 }

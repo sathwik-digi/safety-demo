@@ -9,10 +9,10 @@ function ViewIncidentTaskDetails() {
 
       <div className="p-4 md:p-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-6 mb-6 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 mb-6 gap-4">
           <div>
-            <h1 className="text-xl font-semibold">Team Alpha</h1>
-            <p className="text-sm text-gray-500 flex items-center">
+            <h1 className="text-[20px] text-[#000000] font-semibold">Team Alpha</h1>
+            <p className="text-[#454B54] font-medium text-[12px] flex items-center">
               <span className="mr-1">📍</span> Kakinada, Andhra Pradesh
             </p>
           </div>
@@ -36,7 +36,7 @@ function ViewIncidentTaskDetails() {
           </div>
         </div>
 
-        {/* Table */}
+        {/* Table */} 
         <div className="overflow-x-auto">
           {/* Table Header */}
           <div className="grid min-w-[800px] grid-cols-7 text-sm font-medium text-gray-500 py-2 border-b px-2">
