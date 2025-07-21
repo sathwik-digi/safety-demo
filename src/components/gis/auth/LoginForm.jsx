@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import backgroundImage from '../../../assets/Images/LoginBackground.png';
+import mobileBackgroundImage from '../../../assets/Images/mobile-auth-background.png';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -65,31 +66,39 @@ function LoginForm() {
       } else {
         navigate("/dashboard");
       }
-    }    
+    }
   };
 
   return (
-    <div className="flex h-screen w-full font-['Segoe_UI',_sans-serif]">
+    <div className="flex flex-col md:flex-row h-screen w-full font-['Segoe_UI',_sans-serif]">
       {/* Left Side Background */}
-      <div
-        className="flex-1 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      />
+      <div className="">
+        <img
+          src={backgroundImage}
+          className="hidden md:block w-[80vw] h-screen object-cover"
+          alt="Desktop background"
+        />
+        <img
+          src={mobileBackgroundImage}
+          className="block md:hidden w-[100vw] h-[50vw]"
+          alt="Mobile background"
+        />
+      </div>
 
       {/* Right Side Form */}
-      <div className="w-[550px] flex flex-col justify-start pt-[100px] items-end pr-[140px] bg-white relative">
+      <div className="w-full md:w-[550px] flex flex-col justify-start md:pt-42 pt-10 px-4 md:px-16 bg-white relative">
         {/* Toggle */}
-        <div className="flex ml-4 mb-6">
+        <div className="flex ml-50 mb-1">
           <div className="flex items-center space-x-2">
             <Switch id="admin-mode" checked={isAdminMode} onCheckedChange={setIsAdminMode} />
-            <Label htmlFor="admin-mode">{isAdminMode ? "Switch to User?" : "Switch to Admin?"}</Label>
+            <Label htmlFor="admin-mode">{isAdminMode ? "Switch to User" : "Switch to Admin"}</Label>
           </div>
         </div>
 
         {/* Close Button */}
-        <div className="absolute top-[40px] right-[60px] text-2xl cursor-pointer text-gray-800">
+        {/* <div className="absolute top-[40px] right-[60px] text-2xl cursor-pointer text-gray-800">
           ×
-        </div>
+        </div> */}
 
         {/* Login Form */}
         <div className="w-full max-w-[350px] space-y-6">

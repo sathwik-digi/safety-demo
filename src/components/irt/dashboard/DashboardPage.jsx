@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Import, MapPin, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import incidentMap from "../../../assets/Images/layout-approval.png";
 import locationIcon from "../../../assets/Icons/google_maps-icon.png";
 import { irtDashboardData } from "../../../constants";
