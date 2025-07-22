@@ -43,7 +43,7 @@ function DashboardPage() {
           {/* Left Section - Search + Filters */}
           <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-[70%]">
             {/* Search Input */}
-            <div className="relative w-full md:w-[40%]">
+            <div className="relative w-full md:w-[60%]">
               <Input
                 type="text"
                 placeholder="Search any Incident or Location"
@@ -151,7 +151,7 @@ function DashboardPage() {
 
       {/* Location Input + Map + Footer */}
       {!(isViewIncident || isViewIncidentTaskDetails) && (
-      <div className="px-4 md:px-6 pb-8 space-y-4">
+      <div className="px-4 md:px-6 pb-8 space-y-4 mr-[40px] ml-[40px]">
         {/* Location Input */}
         <div className="relative w-full md:w-[40%]">
           <Input
