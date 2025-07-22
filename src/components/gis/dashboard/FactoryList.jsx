@@ -1,15 +1,6 @@
 import React, { useState } from "react";
-import {useNavigate } from "react-router-dom";
-import {factories} from "../../../constants"
-// import {
-//   Pagination,
-//   PaginationContent,
-//   PaginationEllipsis,
-//   PaginationItem,
-//   PaginationLink,
-//   PaginationNext,
-//   PaginationPrevious,
-// } from "@/components/ui/pagination"
+import { useNavigate } from "react-router-dom";
+import { factories } from "../../../constants";
 
 function FactoryList() {
   const [filterType, setFilterType] = useState("District");
@@ -33,8 +24,6 @@ function FactoryList() {
     "Layout Approval": "Verify",
     "Rejected Application": "Rejected",
   };
-
-  
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -86,73 +75,49 @@ function FactoryList() {
       </div>
 
       {/* Factory List */}
-        {factories
-          .filter((factory) => factory.status === statusMap[statusFilter])
-          .map((factory, idx) => (
-            <div
-              key={idx}
-              className="flex gap-5 border-b border-gray-300 py-6 items-center cursor-pointer"
-              onClick={() => navigate('/gis/factory-details', { state: factory?.status  })}
-            >
-              <img
-                src={factory.logo}
-                alt={factory.name}
-                className="w-20 h-20 object-contain"
-              />
-              <div>
-                <h2 className="text-[32px] font-bold text-gray-900">
-                  {factory.name}
-                </h2>
-                <p className="text-[14px] font-normal text-[#565959] mb-1">
-                  {factory.description}
-                </p>
-                <p className="text-[14px] font-normal text-[#18191A]">
-                  {factory.address}
-                </p>
-                <a
-                  href={factory.link}
-                  className="text-[14px] font-normal text-[#565959] underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {factory.link}
-                </a>
-                {/* Status Display */}
-                <p
-                  className={`text-[14px] font-medium mt-1 ${getStatusColor(factory.status)}`}
-                >
-                  • {factory.status}
-                </p>
-              </div>
+      {factories
+        .filter((factory) => factory.status === statusMap[statusFilter])
+        .map((factory, idx) => (
+          <div
+            key={idx}
+            className="flex flex-col sm:flex-row gap-4 sm:gap-5 border-b border-gray-300 py-6 cursor-pointer"
+            onClick={() =>
+              navigate("/gis/factory-details", { state: factory?.status })
+            }
+          >
+            <img
+              src={factory.logo}
+              alt={factory.name}
+              className="w-20 h-20 object-contain self-center sm:self-start"
+            />
+            <div className="flex-1 text-center sm:text-left">
+              <h2 className="text-[24px] sm:text-[32px] font-bold text-gray-900">
+                {factory.name}
+              </h2>
+              <p className="text-[14px] font-normal text-[#565959] mb-1">
+                {factory.description}
+              </p>
+              <p className="text-[14px] font-normal text-[#18191A]">
+                {factory.address}
+              </p>
+              <a
+                href={factory.link}
+                className="text-[14px] font-normal text-[#565959] underline block"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {factory.link}
+              </a>
+              <p
+                className={`text-[14px] font-medium mt-1 ${getStatusColor(
+                  factory.status
+                )}`}
+              >
+                • {factory.status}
+              </p>
             </div>
+          </div>
         ))}
-
-    {/* <Pagination>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>
-            2
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination> */}
-
-
     </div>
   );
 }
