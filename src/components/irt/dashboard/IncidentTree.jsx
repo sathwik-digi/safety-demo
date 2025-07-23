@@ -14,6 +14,8 @@ import { Tree, TreeNode } from "react-organizational-chart";
 
 function IncidentTree() {
   const [activeTab, setActiveTab] = useState("response");
+
+  const [showcomm, setShowcomm] = useState(false);
   const [showOperationsDetails, setShowOperationsDetails] = useState(false);
   const [showPlanningDetails, setShowPlanningDetails] = useState(false);
   const [showLogisticsDetails, setShowLogisticsDetails] = useState(false);
@@ -131,6 +133,7 @@ function IncidentTree() {
       role: "INCIDENT COMMANDER",
       avatarUrl: "https://placehold.co/40x40/324EA1/ffffff?text=IC",
       bgColor: "#324EA1",
+      bottomNumber: 7,
     },
     deputy: {
       id: "deputy",
@@ -730,7 +733,7 @@ function IncidentTree() {
 
     return (
       <div
-        className="rounded-xl shadow-md px-4 py-3 text-sm w-60 flex items-center relative"
+        className="rounded-xl shadow-md px-4 py-3 text-sm w-70 flex items-center justify-center relative"
         style={{ backgroundColor: person.bgColor, color: "white" }}
       >
         <img
@@ -742,13 +745,14 @@ function IncidentTree() {
         <div className="flex-grow text-left">
           <p className="font-semibold text-base leading-tight">{person.name}</p>
           <p className="text-xs font-normal opacity-80 whitespace-pre-line">{person.role}</p>
+          <span className="text-xs font-medium opacity-70">1/3</span>
         </div>
-        {isPurpleBlue && (
-          <span className="absolute top-2 right-8 text-xs font-medium opacity-70">1/3</span>
-        )}
+        {/* {isPurpleBlue && (
+         
+        )} */}
         {/* Make the MoreHorizontal icon clickable */}
         <MoreHorizontal
-          className="absolute top-2 right-2 w-5 h-5 opacity-70 cursor-pointer"
+          className="w-5 h-5 opacity-70 cursor-pointer"
           color="white"
           onClick={handleMoreClick}
           title="More options"
@@ -779,8 +783,8 @@ function IncidentTree() {
         <button
           onClick={() => setActiveTab("response")}
           className={`px-6 py-2 rounded-md border text-sm font-medium transition-all ${activeTab === "response"
-              ? "border-yellow-400 text-yellow-500 shadow-yellow-200 shadow-md"
-              : "border-none bg-white text-gray-700 shadow-md"
+            ? "border-yellow-400 text-yellow-500 shadow-yellow-200 shadow-md"
+            : "border-none bg-white text-gray-700 shadow-md"
             }`}
         >
           Response System
@@ -788,8 +792,8 @@ function IncidentTree() {
         <button
           onClick={() => setActiveTab("table")}
           className={`px-6 py-2 rounded-md border text-sm font-medium transition-all ${activeTab === "table"
-              ? "border-yellow-400 text-yellow-500 shadow-yellow-200 shadow-md"
-              : "border-none bg-white text-gray-700 shadow-md"
+            ? "border-yellow-400 text-yellow-500 shadow-yellow-200 shadow-md"
+            : "border-none bg-white text-gray-700 shadow-md"
             }`}
         >
           Table System
@@ -799,109 +803,127 @@ function IncidentTree() {
       {/* Organizational Tree Display Section */}
       {activeTab === "response" && (
         <div className="p-10 flex justify-center overflow-auto">
-          <div className="scale-[0.75] origin-top">
+          <div className="scale-[0.5] origin-top">
             <Tree
               lineWidth={"2px"}
               lineColor={"#ccc"}
               lineBorderRadius={"12px"}
-              label={<Box person={nodes.incidentCommander} />}
-            >
-              <TreeNode label={<Box person={nodes.deputy} />} />
-              <TreeNode label={<Box person={nodes.infoMediaOfficer} />} />
-              <TreeNode label={<Box person={nodes.safetyOfficer} />} />
-              <TreeNode label={<Box person={nodes.liaisonOfficer} />} />
-
-              {/* Operations Section with clickable number to toggle details */}
-              <TreeNode label={
+              label={
                 <div className="flex flex-col items-center">
-                  <Box person={nodes.operationsSection} />
+                  <Box person={nodes.incidentCommander} />
                   <button
-                    onClick={() => setShowOperationsDetails(!showOperationsDetails)}
+                    onClick={() => setShowcomm(!showcomm)}
                     className="mt-4 w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 text-white font-bold text-sm shadow-md cursor-pointer hover:bg-orange-600 transition-colors"
                     title="Click to expand/collapse Operations Section details"
                   >
-                    {nodes.operationsSection.bottomNumber}
+                    {nodes.incidentCommander.bottomNumber}
                   </button>
                 </div>
-              }>
-                {/* Conditionally render children of Operations Section */}
-                {showOperationsDetails && (
-                  <>
-                    <TreeNode label={<Box person={nodes.stagingArea} />} />
-                    <TreeNode label={<Box person={nodes.responseBranch} />}>
-                      <TreeNode label={<Box person={nodes.divisionGeographical} />}>
-                        <TreeNode label={<Box person={nodes.groupFunctional} />} />
-                      </TreeNode>
-                    </TreeNode>
-                    <TreeNode label={<Box person={nodes.transportationBranch} />}>
-                      <TreeNode label={<Box person={nodes.road} />} />
-                      <TreeNode label={<Box person={nodes.rail} />} />
-                      <TreeNode label={<Box person={nodes.water} />} />
-                      <TreeNode label={<Box person={nodes.air} />} />
-                    </TreeNode>
-                  </>
-                )}
-              </TreeNode>
+              }
+            >
+              {showcomm && (
+                <>
+                  <TreeNode label={<Box person={nodes.deputy} />} />
+                  <TreeNode label={<Box person={nodes.infoMediaOfficer} />} />
+                  <TreeNode label={<Box person={nodes.safetyOfficer} />} />
+                  <TreeNode label={<Box person={nodes.liaisonOfficer} />} />
 
-              {/* Planning Section with clickable number to toggle details */}
-              <TreeNode label={
-                <div className="flex flex-col items-center">
-                  <Box person={nodes.planningSection} />
-                  <button
-                    onClick={() => setShowPlanningDetails(!showPlanningDetails)}
-                    className="mt-4 w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 text-white font-bold text-sm shadow-md cursor-pointer hover:bg-orange-600 transition-colors"
-                    title="Click to expand/collapse Planning Section details"
-                  >
-                    {nodes.planningSection.bottomNumber}
-                  </button>
-                </div>
-              }>
-                {/* Conditionally render children of Planning Section */}
-                {showPlanningDetails && (
-                  <>
-                    <TreeNode label={<Box person={nodes.resourceUnit} />} />
-                    <TreeNode label={<Box person={nodes.situationUnit} />} />
-                    <TreeNode label={<Box person={nodes.documentationUnit} />} />
-                    <TreeNode label={<Box person={nodes.demobilizationUnit} />} />
-                  </>
-                )}
-              </TreeNode>
+                  {/* Operations Section with clickable number to toggle details */}
+                  <TreeNode label={
+                    <div className="flex flex-col items-center">
+                      <Box person={nodes.operationsSection} />
+                      <button
+                        onClick={() => setShowOperationsDetails(!showOperationsDetails)}
+                        className="mt-4 w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 text-white font-bold text-sm shadow-md cursor-pointer hover:bg-orange-600 transition-colors"
+                        title="Click to expand/collapse Operations Section details"
+                      >
+                        {nodes.operationsSection.bottomNumber}
+                      </button>
+                    </div>
+                  }>
+                    {/* Conditionally render children of Operations Section */}
+                    {showOperationsDetails && (
+                      <>
+                        <TreeNode label={<Box person={nodes.stagingArea} />} />
+                        <TreeNode label={<Box person={nodes.responseBranch} />}>
+                          <TreeNode label={<Box person={nodes.divisionGeographical} />}>
+                            <TreeNode label={<Box person={nodes.groupFunctional} />} />
+                          </TreeNode>
+                        </TreeNode>
+                        <TreeNode label={<Box person={nodes.transportationBranch} />}>
+                          <TreeNode label={<Box person={nodes.road} />} />
+                          <TreeNode label={<Box person={nodes.rail} />} />
+                          <TreeNode label={<Box person={nodes.water} />} />
+                          <TreeNode label={<Box person={nodes.air} />} />
+                        </TreeNode>
+                      </>
+                    )}
+                  </TreeNode>
 
-              {/* Logistics Section with clickable number to toggle details */}
-              <TreeNode label={
-                <div className="flex flex-col items-center">
-                  <Box person={nodes.logisticsSection} />
-                  <button
-                    onClick={() => setShowLogisticsDetails(!showLogisticsDetails)}
-                    className="mt-4 w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 text-white font-bold text-sm shadow-md cursor-pointer hover:bg-orange-600 transition-colors"
-                    title="Click to expand/collapse Logistics Section details"
-                  >
-                    {nodes.logisticsSection.bottomNumber}
-                  </button>
-                </div>
-              }>
-                {/* Conditionally render children of Logistics Section */}
-                {showLogisticsDetails && (
-                  <>
-                    <TreeNode label={<Box person={nodes.serviceBranch} />}>
-                      <TreeNode label={<Box person={nodes.communicationUnit} />} />
-                      <TreeNode label={<Box person={nodes.medicalUnit} />} />
-                      <TreeNode label={<Box person={nodes.foodUnit} />} />
-                    </TreeNode>
-                    <TreeNode label={<Box person={nodes.supportBranch} />}>
-                      <TreeNode label={<Box person={nodes.resourceProvisioningUnit} />} />
-                      <TreeNode label={<Box person={nodes.facilitiesUnit} />} />
-                      <TreeNode label={<Box person={nodes.groundSupportUnit} />} />
-                    </TreeNode>
-                    <TreeNode label={<Box person={nodes.financeBranch} />}>
-                      <TreeNode label={<Box person={nodes.timeUnit} />} />
-                      <TreeNode label={<Box person={nodes.compensationClaimUnit} />} />
-                      <TreeNode label={<Box person={nodes.procurementUnit} />} />
-                      <TreeNode label={<Box person={nodes.costUnit} />} />
-                    </TreeNode>
-                  </>
-                )}
-              </TreeNode>
+                  {/* Planning Section with clickable number to toggle details */}
+                  <TreeNode label={
+                    <div className="flex flex-col items-center">
+                      <Box person={nodes.planningSection} />
+                      <button
+                        onClick={() => setShowPlanningDetails(!showPlanningDetails)}
+                        className="mt-4 w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 text-white font-bold text-sm shadow-md cursor-pointer hover:bg-orange-600 transition-colors"
+                        title="Click to expand/collapse Planning Section details"
+                      >
+                        {nodes.planningSection.bottomNumber}
+                      </button>
+                    </div>
+                  }>
+                    {/* Conditionally render children of Planning Section */}
+                    {showPlanningDetails && (
+                      <>
+                        <TreeNode label={<Box person={nodes.resourceUnit} />} />
+                        <TreeNode label={<Box person={nodes.situationUnit} />} />
+                        <TreeNode label={<Box person={nodes.documentationUnit} />} />
+                        <TreeNode label={<Box person={nodes.demobilizationUnit} />} />
+                      </>
+                    )}
+                  </TreeNode>
+
+                  {/* Logistics Section with clickable number to toggle details */}
+                  <TreeNode label={
+                    <div className="flex flex-col items-center">
+                      <Box person={nodes.logisticsSection} />
+                      <button
+                        onClick={() => setShowLogisticsDetails(!showLogisticsDetails)}
+                        className="mt-4 w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 text-white font-bold text-sm shadow-md cursor-pointer hover:bg-orange-600 transition-colors"
+                        title="Click to expand/collapse Logistics Section details"
+                      >
+                        {nodes.logisticsSection.bottomNumber}
+                      </button>
+                    </div>
+                  }>
+                    {/* Conditionally render children of Logistics Section */}
+                    {showLogisticsDetails && (
+                      <>
+                        <TreeNode label={<Box person={nodes.serviceBranch} />}>
+                          <TreeNode label={<Box person={nodes.communicationUnit} />} />
+                          <TreeNode label={<Box person={nodes.medicalUnit} />} />
+                          <TreeNode label={<Box person={nodes.foodUnit} />} />
+                        </TreeNode>
+                        <TreeNode label={<Box person={nodes.supportBranch} />}>
+                          <TreeNode label={<Box person={nodes.resourceProvisioningUnit} />} />
+                          <TreeNode label={<Box person={nodes.facilitiesUnit} />} />
+                          <TreeNode label={<Box person={nodes.groundSupportUnit} />} />
+                        </TreeNode>
+                        <TreeNode label={<Box person={nodes.financeBranch} />}>
+                          <TreeNode label={<Box person={nodes.timeUnit} />} />
+                          <TreeNode label={<Box person={nodes.compensationClaimUnit} />} />
+                          <TreeNode label={<Box person={nodes.procurementUnit} />} />
+                          <TreeNode label={<Box person={nodes.costUnit} />} />
+                        </TreeNode>
+                      </>
+                    )}
+                  </TreeNode>
+                </>
+              )
+
+              }
+
             </Tree>
           </div>
         </div>
