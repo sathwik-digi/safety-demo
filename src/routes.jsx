@@ -20,6 +20,7 @@ import DashboardPage from "./components/irt/dashboard/DashboardPage";
 import AddIncident from "./components/irt/dashboard/AddIncident";
 import ViewIncident from "./components/irt/dashboard/viewIncident";
 import ViewIncidentTaskDetails from "./components/irt/dashboard/ViewIncidentTaskDetails";
+import IncidentTree from "./components/irt/dashboard/IncidentTree";
  
 export const routers = createBrowserRouter([
       {
@@ -73,6 +74,10 @@ export const routers = createBrowserRouter([
             {
                 path: "viewincidenttaskdetails",
                 element: <ViewIncidentTaskDetails />,
+            },
+            {
+                path: "incident-tree",
+                element: <IncidentTree />,
             },
         ]
     },
