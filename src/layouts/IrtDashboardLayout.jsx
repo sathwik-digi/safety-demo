@@ -28,7 +28,7 @@ function IrtDashboardLayout() {
 
   const menuItems = [
     { icon: DashboardIcon, label: "Dashboard", path: "/irt/dashboard" },
-    { icon: DashboardIcon, label: "IRT Tree" },
+    { icon: DashboardIcon, label: "IRT Tree", path: "/irt/incident-tree" },
     { icon: InventoryManagementIcon, label: "Status" },
     { icon: DocumentManagementIcon, label: "Messages" },
     { icon: LMSIcon, label: "Location" },
