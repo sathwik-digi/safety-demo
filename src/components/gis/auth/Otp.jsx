@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import backgroundImage from '../../assets/Images/LoginBackground.png';
+import backgroundImage from '../../../assets/Images/LoginBackground.png';
+import mobileBackgroundImage from '../../../assets/Images/mobile-auth-background.png';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -15,16 +16,23 @@ function OtpScreen() {
   };
 
   return (
-    <div className="flex h-screen w-full font-['Segoe_UI',_sans-serif]">
-      <div
-        className="flex-1 bg-cover bg-center bg-no-repeat md:shrink-0"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      ></div>
-
-      <div className="w-[550px] flex flex-col justify-start pt-50 items-end pr-[140px] bg-white relative">
-        <div className="absolute top-[150px] right-[130px] text-2xl cursor-pointer text-gray-800">×</div>
+    <div className="flex flex-col md:flex-row h-screen w-full font-['Segoe_UI',_sans-serif]">
+         {/* Left Side Background */}
+         <div className="">
+           <img
+             src={backgroundImage}
+             className="hidden md:block w-[80vw] h-screen object-cover"
+             alt="Desktop background"
+           />
+           <img
+             src={mobileBackgroundImage}
+             className="block md:hidden w-[100vw] h-[50vw]"
+             alt="Mobile background"
+           />
+         </div>
+   
+      <div className="w-[500px] flex flex-col justify-start pt-10 items-end pr-[140px] bg-white relative">
+        {/* <div className="absolute top-[150px] right-[130px] text-2xl cursor-pointer text-gray-800">×</div> */}
 
         <div className="w-full max-w-[350px]">
           <h2 className="text-2xl mb-5 text-gray-900">Sign in</h2>

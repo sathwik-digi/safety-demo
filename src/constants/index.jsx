@@ -296,3 +296,296 @@ export const factories = [
       status: "Rejected",
     },
   ];
+
+export const irtDashboardData =[
+          { label: "Total No incidents", value: 52 },
+          { label: "Total Task", value: 22 },
+          { label: "Completed Task", value: 52 },
+          { label: "InProgress Task", value: 8 },
+          { label: "Pending Task", value: 12 },
+          { label: "Active Events", value: 5 },
+          { label: "Active Incident", value: 13 },
+        ]
+
+export const irtTreeHierarchy = {
+  id: "role1",
+  role: "Incident Commander",
+  roleType: null,
+  parentRoleId: null,
+  colorCode: "#4B0082",
+  children: [
+    {
+      id: "role1_1",
+      role: "Information & Media Officer",
+      roleType: "parent",
+      parentRoleId: "role1",
+      colorCode: "#4B0082",
+      children: []
+    },
+    {
+      id: "role1_2",
+      role: "Safety Officer",
+      roleType: "parent",
+      parentRoleId: "role1",
+      colorCode: "#4B0082",
+      children: []
+    },
+    {
+      id: "role1_3",
+      role: "Deputy",
+      roleType: "parent",
+      parentRoleId: "role1",
+      colorCode: "#4B0082",
+      children: []
+    },
+    {
+      id: "role1_4",
+      role: "Liaison Officer",
+      roleType: "parent",
+      parentRoleId: "role1",
+      colorCode: "#4B0082",
+      children: []
+    },
+    {
+      id: "role1_5",
+      role: "Operation Section",
+      roleType: "parent",
+      parentRoleId: "role1",
+      colorCode: "#4B0082",
+      children: [
+        {
+          id: "role1_5_1",
+          role: "Staging Area",
+          roleType: "parent",
+          parentRoleId: "role1_5",
+          colorCode: "#4B0082",
+          children: []
+        },
+        {
+          id: "role1_5_2",
+          role: "Response Branch",
+          roleType: "parent",
+          parentRoleId: "role1_5",
+          colorCode: "#4B0082",
+          children: [
+            {
+              id: "role1_5_2_1",
+              role: "Division (Geographical)",
+              roleType: "parent",
+              parentRoleId: "role1_5_2",
+              colorCode: "#4B0082",
+              children: [
+                {
+                  id: "role1_5_2_1_1",
+                  role: "Group (Functional) (Single Resource Task Force/Strike Team)",
+                  roleType: "parent",
+                  parentRoleId: "role1_5_2_1",
+                  colorCode: "#4B0082",
+                  children: []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: "role1_5_3",
+          role: "Transportation Branch",
+          roleType: "parent",
+          parentRoleId: "role1_5",
+          colorCode: "#4B0082",
+          children: [
+            {
+              id: "role1_5_3_1",
+              role: "Road",
+              roleType: "parent",
+              parentRoleId: "role1_5_3",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_5_3_2",
+              role: "Rail",
+              roleType: "parent",
+              parentRoleId: "role1_5_3",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_5_3_3",
+              role: "Water",
+              roleType: "parent",
+              parentRoleId: "role1_5_3",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_5_3_4",
+              role: "Air",
+              roleType: "parent",
+              parentRoleId: "role1_5_3",
+              colorCode: "#4B0082",
+              children: []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "role1_6",
+      role: "Planning Section",
+      roleType: "parent",
+      parentRoleId: "role1",
+      colorCode: "#4B0082",
+      children: [
+        {
+          id: "role1_6_1",
+          role: "Resource Unit",
+          roleType: "parent",
+          parentRoleId: "role1_6",
+          colorCode: "#4B0082",
+          children: []
+        },
+        {
+          id: "role1_6_2",
+          role: "Situation Unit",
+          roleType: "parent",
+          parentRoleId: "role1_6",
+          colorCode: "#4B0082",
+          children: []
+        },
+        {
+          id: "role1_6_3",
+          role: "Documentation Unit",
+          roleType: "parent",
+          parentRoleId: "role1_6",
+          colorCode: "#4B0082",
+          children: []
+        },
+        {
+          id: "role1_6_4",
+          role: "Demobilization Unit",
+          roleType: "parent",
+          parentRoleId: "role1_6",
+          colorCode: "#4B0082",
+          children: []
+        }
+      ]
+    },
+    {
+      id: "role1_7",
+      role: "Logistics Section",
+      roleType: "parent",
+      parentRoleId: "role1",
+      colorCode: "#4B0082",
+      children: [
+        {
+          id: "role1_7_1",
+          role: "Service Branch",
+          roleType: "parent",
+          parentRoleId: "role1_7",
+          colorCode: "#4B0082",
+          children: [
+            {
+              id: "role1_7_1_1",
+              role: "Communication Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_1",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_7_1_2",
+              role: "Medical Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_1",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_7_1_3",
+              role: "Food Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_1",
+              colorCode: "#4B0082",
+              children: []
+            }
+          ]
+        },
+        {
+          id: "role1_7_2",
+          role: "Support Branch",
+          roleType: "parent",
+          parentRoleId: "role1_7",
+          colorCode: "#4B0082",
+          children: [
+            {
+              id: "role1_7_2_1",
+              role: "Resource Pro Visioning Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_2",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_7_2_2",
+              role: "Facilities Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_2",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_7_2_3",
+              role: "Ground Support Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_2",
+              colorCode: "#4B0082",
+              children: []
+            }
+          ]
+        },
+        {
+          id: "role1_7_3",
+          role: "Finance Branch",
+          roleType: "parent",
+          parentRoleId: "role1_7",
+          colorCode: "#4B0082",
+          children: [
+            {
+              id: "role1_7_3_1",
+              role: "Time Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_3",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_7_3_2",
+              role: "Compensation / Claim Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_3",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_7_3_3",
+              role: "Procurement Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_3",
+              colorCode: "#4B0082",
+              children: []
+            },
+            {
+              id: "role1_7_3_4",
+              role: "Cost Unit",
+              roleType: "parent",
+              parentRoleId: "role1_7_3",
+              colorCode: "#4B0082",
+              children: []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};        

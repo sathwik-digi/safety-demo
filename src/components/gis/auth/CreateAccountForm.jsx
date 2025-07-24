@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import backgroundImage from "../../assets/Images/LoginBackground.png";
-import RecaptchaImage from '../../assets/Icons/Recaptcha.png';
+import backgroundImage from "../../../assets/Images/LoginBackground.png";
+import mobileBackgroundImage from '../../../assets/Images/mobile-auth-background.png';
+import RecaptchaImage from '../../../assets/Icons/Recaptcha.png';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -8,62 +9,68 @@ import { Link, useNavigate } from "react-router-dom";
 
 function CreateAccountForm() {
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const [formData,setFormData]=useState({
-    userName:"",
-    email:"",
-    password:""
+  const [formData, setFormData] = useState({
+    userName: "",
+    email: "",
+    password: ""
   })
 
-  const handleChange=(e)=>{
-    const {id,value}=e.target
-    setFormData((prev)=>({...prev,[id]:value}));
+  const handleChange = (e) => {
+    const { id, value } = e.target
+    setFormData((prev) => ({ ...prev, [id]: value }));
 
-    if(value.trim()!==""){
+    if (value.trim() !== "") {
       setErrors((prev) => ({ ...prev, [id]: "" }));
     }
   }
-  const [errors,setErrors]=useState({
-    userName:"",
-    email:"",
-    password:""
+  const [errors, setErrors] = useState({
+    userName: "",
+    email: "",
+    password: ""
   })
 
-  const handleClick=(e)=>{
+  const handleClick = (e) => {
     e.preventDefault();
-    let isValid=true;
-    const newErrors={email:"",userName:"",password:""}
-    if(!formData.userName.trim()){
-      newErrors.userName="Please enter user name";
-      isValid=false;
+    let isValid = true;
+    const newErrors = { email: "", userName: "", password: "" }
+    if (!formData.userName.trim()) {
+      newErrors.userName = "Please enter user name";
+      isValid = false;
     }
-    if(!formData.email.trim()){
-      newErrors.email="Please enter email address";
-      isValid =false;
+    if (!formData.email.trim()) {
+      newErrors.email = "Please enter email address";
+      isValid = false;
     }
-    if(!formData.password.trim()){
-      newErrors.password="Please enter password";
-      isValid=false;
+    if (!formData.password.trim()) {
+      newErrors.password = "Please enter password";
+      isValid = false;
     }
     setErrors(newErrors);
 
-    if(isValid){
+    if (isValid) {
       navigate("/auth/login");
     }
   }
   return (
-    <div className="flex h-screen w-full font-['Segoe_UI',_sans-serif]">
-      {/* Left Side Image */}
-      <div
-        className="flex-1 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      />
+    <div className="flex flex-col md:flex-row h-screen w-full font-['Segoe_UI',_sans-serif]">
+      {/* Left Side Background */}
+      <div className="">
+        <img
+          src={backgroundImage}
+          className="hidden md:block w-[80vw] h-screen object-cover"
+          alt="Desktop background"
+        />
+        <img
+          src={mobileBackgroundImage}
+          className="block md:hidden w-[100vw] h-[50vw]"
+          alt="Mobile background"
+        />
+      </div>
 
       {/* Right Side Form */}
-      <div className="w-[550px] flex flex-col justify-start pt-[50px] items-end pr-[140px] bg-white relative">
+      <div className="w-[500px] flex flex-col justify-start pt-[50px] items-end pr-[140px] bg-white relative">
         {/* Close Button */}
         <div className="absolute top-[30px] right-[60px] text-2xl cursor-pointer text-gray-800">
           ×
@@ -97,7 +104,7 @@ function CreateAccountForm() {
           {/* Password */}
           <div className="grid gap-3">
             <Label htmlFor="password">Create new Password</Label>
-            <Input id="password" type="password" placeholder="New password" value ={formData.password} onChange={handleChange} />
+            <Input id="password" type="password" placeholder="New password" value={formData.password} onChange={handleChange} />
             {errors.password && <p className={"text-red-500 text-sm"}>{errors.password}</p>}
           </div>
 
