@@ -6,9 +6,13 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "sonner"
+const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 
 function LoginForm() {
   const navigate = useNavigate();
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -22,6 +26,13 @@ function LoginForm() {
     phoneNumber: ""
   });
 
+  const newErrors = {
+    email: "",
+    password: "",
+    phoneNumber: ""
+  };
+
+
   const [isAdminMode, setIsAdminMode] = useState(false);
 
   const handleChange = (e) => {
@@ -32,16 +43,11 @@ function LoginForm() {
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     let isValid = true;
 
-    const newErrors = {
-      email: "",
-      password: "",
-      phoneNumber: ""
-    };
-
+    
     if (!isAdminMode) {
       if (!formData.email.trim()) {
         newErrors.email = "Email is required";
@@ -62,9 +68,47 @@ function LoginForm() {
 
     if (isValid) {
       if (isAdminMode) {
-        navigate("/auth/Otp");
+        const mobileNumber=formData.phoneNumber
+        console.log(mobileNumber,"Mbile number")
+       
+       const res = await axios.post(`${REACT_APP_API}/v1/auth/getOtp?mobileNumber=${mobileNumber}`);
+        console.log(res,"Res")
+        const response =res.data;
+        console.log(response,"response")
+        if(response.success){
+          navigate("/auth/Otp", {
+            state: { mobileNumber },
+          });
+          
+        }
+        else{
+          toast.error('Please enter a valid mobile number', {
+            style: {
+              backgroundColor: '#ff4d4f',
+              color: '#fff',
+            },
+          });
+        }
       } else {
-        navigate("/dashboard");
+        const res = await axios.post(`${REACT_APP_API}/v1/auth/login`, {
+          email: formData.email,
+          password: formData.password,
+          mobileNumber: "",
+          otp: ""
+        });
+        const response = res.data;
+
+        if (response.success) {
+          navigate("/gis/dashboard");
+        }
+        else {
+          toast.error('Please check your mail and password', {
+            style: {
+              backgroundColor: '#ff4d4f',
+              color: '#fff',
+            },
+          });
+        }
       }
     }
   };
@@ -127,7 +171,11 @@ function LoginForm() {
                   placeholder="Enter phone number"
                   value={formData.phoneNumber}
                   onChange={handleChange}
+                  maxLength={10}
+                  pattern="\d{10}"
+                  required
                 />
+
                 {errors.phoneNumber && <p className="text-red-500 text-sm">{errors.phoneNumber}</p>}
               </div>
 
