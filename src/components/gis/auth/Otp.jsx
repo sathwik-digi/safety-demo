@@ -4,17 +4,48 @@ import mobileBackgroundImage from '../../../assets/Images/mobile-auth-background
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import { toast } from "sonner"
+const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 
 function OtpScreen() {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
 
-  const handleSignIn = () => {
-    // You can validate OTP here if needed
-    navigate("/dashboard");
-  };
+  const location = useLocation();
+  const mobileNumber = location.state?.mobileNumber;
 
+  console.log(mobileNumber,"Mobile number")
+
+  const handleSignIn = async () => {
+   
+    console.log("Befor API call")
+    try {
+      const res = await axios.post(`${REACT_APP_API}/v1/auth/login`, {
+        email: "",
+        password: "",
+        mobileNumber: mobileNumber,
+        otp: otp
+      });
+
+      const response = res.data;
+      if (response?.success) {
+        navigate("/gis/dashboard");
+      } else {
+        toast.error(response.errorMessage, {
+          style: {
+            backgroundColor: "#ff4d4f",
+            color: "#fff",
+          },
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+      console.error(error);
+    }
+  };
+  
   return (
     <div className="flex flex-col md:flex-row h-screen w-full font-['Segoe_UI',_sans-serif]">
          {/* Left Side Background */}
