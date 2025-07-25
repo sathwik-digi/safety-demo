@@ -71,11 +71,11 @@ function GisDashboardLayout() {
               </SheetContent>
             </Sheet>
           )}
-          <img
+          {/* <img
             src={IRTSiteLogo}
             alt="IRT Site Logo"
             className="h-[50px] object-contain"
-          />
+          /> */}
         </div>
         <Header />
         <Outlet />

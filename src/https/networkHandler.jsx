@@ -1,8 +1,8 @@
 import axios from 'axios';
-import {accessToken} from "../constants"
-import { getCookie } from '.';
+// import {accessToken} from "../constants"
+// import { getCookie } from '.';
 
-const {REACT_APP_API} = process.env;
+const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 const apiClient = axios.create({
     baseURL:  REACT_APP_API,
     timeout: 10000,
@@ -11,17 +11,17 @@ const apiClient = axios.create({
 
 const apiCall = async (method, path, body = null) => {
     try {
-        const token = getCookie(accessToken)
-        const headers = {
-            Token: `Bearer ${token}`
-        }
-        if (!headers.Token) {
-            throw new Error("Authorization token is missing!");
-        }
+        // const token = getCookie(accessToken)
+        // const headers = {
+        //     Token: `Bearer ${token}`
+        // }
+        // if (!headers.Token) {
+        //     throw new Error("Authorization token is missing!");
+        // }
         const config = {
             method,
             url: path,
-            headers,
+            // headers,
             ...(body ? { data: body } : {}),
         };
         
