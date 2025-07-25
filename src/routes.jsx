@@ -21,6 +21,8 @@ import AddIncident from "./components/irt/dashboard/AddIncident";
 import ViewIncident from "./components/irt/dashboard/viewIncident";
 import ViewIncidentTaskDetails from "./components/irt/dashboard/ViewIncidentTaskDetails";
 import IncidentTree from "./components/irt/dashboard/IncidentTree";
+import EditRole from "./components/gis/dashboard/EditRole";
+import RolePermissions from "./components/gis/dashboard/RolePermissions";
  
 export const routers = createBrowserRouter([
       {
@@ -52,6 +54,14 @@ export const routers = createBrowserRouter([
             {
                 path: "role-base-access",
                 element: <RoleBaseAccess />,
+            },
+            {
+                path: "edit-role",
+                element: <EditRole />,
+            },
+            {
+                path: "role-permissions",
+                element: <RolePermissions />,
             }
         ]
     },
