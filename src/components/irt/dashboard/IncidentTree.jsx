@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { irtTreeHierarchy } from "../../../constants";
+// import { irtTreeHierarchy } from "../../../constants";
 import { Tree, TreeNode } from "react-organizational-chart";
+import { networkHandler } from "../../../https/networkHandler";
 
 function IncidentTree() {
   const [activeTab, setActiveTab] = useState("response");
   const [expandedNodes, setExpandedNodes] = useState({});
+  const [data, setData] = useState({});
 
   const countChildren = (node) => node.children?.length || 0;
 
@@ -16,6 +18,17 @@ function IncidentTree() {
       [nodeId]: !prev[nodeId],
     }));
   };
+
+  useEffect(()=>{ 
+    const getData= async()=>{
+      const res = await networkHandler.get('/v1/irt/getTree');
+      setData(res.irtRole)
+      console.log(res.irtRole,"this is the data....");
+    }
+    getData()
+  },[])
+
+  
 
   const RenderNode = ({ node }) => {
     const isExpanded = expandedNodes[node.id];
@@ -159,9 +172,12 @@ function IncidentTree() {
       {/* Tree View */}
       {activeTab === "response" && (
         <div style={{ overflowX: "auto" }}>
-          <Tree lineWidth={"2px"} lineColor={"#C5C4C2"} lineBorderRadius={"10px"}>
-            <RenderNode node={irtTreeHierarchy} />
+          { Object.keys(data).length>0 && 
+          (<Tree lineWidth={"2px"} lineColor={"#C5C4C2"} lineBorderRadius={"10px"}>
+            <RenderNode node={data} />
           </Tree>
+          )}
+          
         </div>
       )}
     </div>
