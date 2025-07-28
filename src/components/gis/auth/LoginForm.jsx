@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner"
+import { setCookie } from "../../../https";
+import accessToken from "../../../constants"
+
 const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 
 function LoginForm() {
@@ -99,6 +102,7 @@ function LoginForm() {
         const response = res.data;
 
         if (response.success) {
+          setCookie(accessToken,response?.token,1)
           navigate("/gis/dashboard");
         }
         else {
