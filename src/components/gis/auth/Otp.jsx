@@ -61,9 +61,7 @@ function OtpScreen() {
              alt="Mobile background"
            />
          </div>
-   
-      <div className="w-[500px] flex flex-col justify-start pt-10 items-end pr-[140px] bg-white relative">
-        {/* <div className="absolute top-[150px] right-[130px] text-2xl cursor-pointer text-gray-800">×</div> */}
+         <div className="w-[500px] flex flex-col justify-start pt-10 items-end pr-[140px] bg-white relative mt-4 md:mt-10 lg:mt-30">
 
         <div className="w-full max-w-[350px]">
           <h2 className="text-2xl mb-5 text-gray-900">Sign in</h2>
