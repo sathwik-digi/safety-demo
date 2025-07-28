@@ -18,60 +18,105 @@ function IncidentTree() {
   };
 
   const RenderNode = ({ node }) => {
-  const isExpanded = expandedNodes[node.id];
-  return (
-    <TreeNode
-      label={
-        <div className="flex flex-col items-center">
-          {/* Parent Role Box */}
-          <div className={`px-4 py-2 rounded-md text-white font-bold text-center shadow-md`}
-            style={{ backgroundColor: node.colorCode || "#333" }}>
-            {node.role}
-          </div>
+    const isExpanded = expandedNodes[node.id];
 
-          {/* Line between Role and Badge/Button */}
-          {countChildren(node) > 0 && (
-            <div className="w-[2px] h-4 bg-[#C5C4C2]" />
-          )}
+    return (
+      <TreeNode
+        label={
+          <div className="flex flex-col items-center text-[8px]">
+            {/* Card */}
+            <div
+              className="relative px-4 py-3 rounded-xl text-white font-bold text-center shadow-md flex items-center gap-3 min-w-[220px] max-w-[260px]"
+              style={{ backgroundColor: node.colorCode || "#333" }}
+            >
+              {/* Circle */}
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[13px] font-bold text-[#FED36A]">
+                {node.role
+                  ?.split(" ")
+                  .map((word) => word[0])
+                  .join("")
+                  .toUpperCase()}
+              </div>
 
-          {/* Count Badge or Hide Button */}
-          {countChildren(node) > 0 && (
-            <div className="">
-              {isExpanded ? (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleExpand(node.id);
-                  }}
-                  className="bg-white border-2 border-[#D0CECE] rounded-full px-3 py-1 text-[#FED36A] font-semibold cursor-pointer">
-                  Hide
-                </button>
-              ) : (
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleExpand(node.id);
-                  }}
-                  className="bg-white border-2 border-[#D0CECE] rounded-full w-8 h-8 leading-[30px] text-center text-[#FED36A] font-semibold text-[16px] cursor-pointer">
-                  {countChildren(node)}
+              {/* Name and Role */}
+              <div className="flex-1 text-left">
+                <div className="text-[12px] font-semibold leading-tight mb-[2px]">
+                  {node.name || "Name of the person"}
                 </div>
-              )}
+                <div className="text-[10px] font-normal leading-tight">
+                  {node.role || "Role"}
+                </div>
+
+                {/* Progress Bar */}
+                {typeof node.filled === "number" &&
+                  typeof node.total === "number" && (
+                    <div className="mt-1">
+                      <div className="w-full h-1 bg-gray-200 rounded-full">
+                        <div
+                          className="h-1 bg-green-500 rounded-full"
+                          style={{
+                            width: `${(node.filled / node.total) * 100}%`,
+                          }}
+                        />
+                      </div>
+                      <div className="text-[8px] text-white mt-1">
+                        {node.filled}/{node.total}
+                      </div>
+                    </div>
+                  )}
+              </div>
+
+              {/* Three Dots */}
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 text-white text-lg cursor-pointer leading-none">
+                &#8943;
+              </div>
             </div>
-          )}
-        </div>
-      }
-    >
-      {isExpanded &&
-        node.children.map((child) => (
-          <RenderNode key={child.id} node={child} />
-        ))}
-    </TreeNode>
-  );
-};
+
+            {/* Vertical line */}
+            {countChildren(node) > 0 && (
+              <div className="w-[2px] h-4 bg-[#C5C4C2]" />
+            )}
+
+            {/* Expand/Collapse */}
+            {countChildren(node) > 0 && (
+              <div className="">
+                {isExpanded ? (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleExpand(node.id);
+                    }}
+                    className="bg-white border-2 border-[#D0CECE] rounded-full px-3 py-1 text-[#FED36A] font-semibold text-[8px] cursor-pointer"
+                  >
+                    Hide
+                  </button>
+                ) : (
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleExpand(node.id);
+                    }}
+                    className="bg-white border-2 border-[#D0CECE] rounded-full w-8 h-8 flex items-center justify-center text-[#FED36A] font-semibold text-[8px] cursor-pointer"
+                  >
+                    {countChildren(node)}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        }
+      >
+        {isExpanded &&
+          node.children.map((child) => (
+            <RenderNode key={child.id} node={child} />
+          ))}
+      </TreeNode>
+    );
+  };
 
   return (
     <div className="p-6">
-      {/* Header and Search Bar Section */}
+      {/* Header and Search */}
       <div className="flex justify-between items-center mb-8">
         <div>
           <h2 className="text-[36px] font-bold">Incident Response Teams</h2>
@@ -86,36 +131,35 @@ function IncidentTree() {
         </div>
       </div>
 
-      {/* Tab Navigation Section */}
+      {/* Tabs */}
       <div className="flex justify-center gap-2 mb-10">
         <button
           onClick={() => setActiveTab("response")}
-          className={`px-6 py-2 rounded-md border transition-all text-[16px] ${activeTab === "response"
-            ? "font-semibold text-[#FED36A] border-yellow-400 shadow-yellow-200 shadow-md"
-            : "font-normal text-black border-none bg-white shadow-md"
-            }`}
+          className={`px-6 py-2 rounded-md border transition-all text-[16px] ${
+            activeTab === "response"
+              ? "font-semibold text-[#FED36A] border-yellow-400 shadow-yellow-200 shadow-md"
+              : "font-normal text-black border-none bg-white shadow-md"
+          }`}
         >
           Response System
         </button>
         <div className="w-px h-10 bg-[#D0CECE]"></div>
         <button
           onClick={() => setActiveTab("table")}
-          className={`px-6 py-2 rounded-md border transition-all text-[16px] ${activeTab === "table"
-            ? "font-semibold text-[#FED36A] border-yellow-400 shadow-yellow-200 shadow-md"
-            : "font-normal text-black border-none bg-white shadow-md"
-            }`}
+          className={`px-6 py-2 rounded-md border transition-all text-[16px] ${
+            activeTab === "table"
+              ? "font-semibold text-[#FED36A] border-yellow-400 shadow-yellow-200 shadow-md"
+              : "font-normal text-black border-none bg-white shadow-md"
+          }`}
         >
           Table System
         </button>
       </div>
 
-      {/* Tree View Section */}
+      {/* Tree View */}
       {activeTab === "response" && (
         <div style={{ overflowX: "auto" }}>
-          <Tree
-            lineWidth={"2px"}
-            lineColor={"#333"}
-            lineBorderRadius={"10px"}>
+          <Tree lineWidth={"2px"} lineColor={"#C5C4C2"} lineBorderRadius={"10px"}>
             <RenderNode node={irtTreeHierarchy} />
           </Tree>
         </div>
