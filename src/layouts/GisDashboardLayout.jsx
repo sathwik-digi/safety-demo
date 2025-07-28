@@ -60,7 +60,7 @@ function GisDashboardLayout() {
 
       {/* Header and Content */}
       <div className={!isMobile ? "ml-[18%] w-[82%]" : "w-full"}>
-        <div className="w-full flex items-center justify-between p-4 border-b bg-white">
+        <div className="w-full flex items-center justify-between p-4 sm:p-0 border-b bg-white">
           {isMobile && (
             <Sheet>
               <SheetTrigger className="mr-4">
@@ -71,11 +71,6 @@ function GisDashboardLayout() {
               </SheetContent>
             </Sheet>
           )}
-          {/* <img
-            src={IRTSiteLogo}
-            alt="IRT Site Logo"
-            className="h-[50px] object-contain"
-          /> */}
         </div>
         <Header />
         <Outlet />

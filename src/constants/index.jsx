@@ -6,6 +6,8 @@ import Kaleesuwari from "../assets/Images/ksw_logo.png";
 import Coromandel from "../assets/Images/CIL-logo.png";
 
 
+export const accessToken = "authToken";
+
 export const factories = [
     {
       name: "One subsea",

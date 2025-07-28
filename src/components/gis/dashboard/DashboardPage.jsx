@@ -61,6 +61,7 @@ const options = [
 const optionsForColours = [
   { value: "green", label: "Green" },
   { value: "red", label: "Red" },
+  { value: "black", label: "Black" },
 ];
 
 const DashboardPage = () => {
@@ -113,7 +114,7 @@ const DashboardPage = () => {
     setIsDrawing(false);
   };
 
-  // Handle drawing start
+  // Handle drawing start 
   const handleDrawStart = () => {
     setIsDrawing(true);
   };
@@ -133,12 +134,12 @@ const DashboardPage = () => {
     <div className="px-6">
       <div>
         <p className="text-[16px] text-[#666666] font-semibold mb-2 pt-10">Factory or Industry Name</p>
-        <Input className="border-[#cccccc] w-[40vw]" type="text" placeholder="Enter name here" />
+        <Input className="border-[#cccccc] w-[85vw] sm:w-[40vw]" type="text" placeholder="Enter name here" />
       </div>
 
       <div className="flex relative items-center justify-between mt-10">
-        <img src={locationIcon} className="w-[1vw] h-[1.5vw] absolute top-[0.7vw] left-3" />
-        <Input className="border-[#cccccc] w-[30vw] pl-8 placeholder:text-[#9aa6ac]" type="text" placeholder="Search Location" />
+        <img src={locationIcon} className="w-4 h-6 absolute top-2 left-3" />
+        <Input className="border-[#cccccc] w-[65vw] sm:w-[30vw] pl-8 placeholder:text-[#9aa6ac]" type="text" placeholder="Search Location" />
         <Dialog>
           <form>
             <DialogTrigger asChild>
@@ -181,11 +182,16 @@ const DashboardPage = () => {
         </Dialog>
       </div>
 
-      <MapContainer center={[17.385, 78.4867]} zoom={15} style={{ height: "480px", width: "100%" }} className="my-5 z-0">
+      <MapContainer center={[17.385, 78.4867]} zoom={15} style={{ height: "480px", width: "100%" }} className="my-5 z-0"> 
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; OpenStreetMap contributors'
         />
+
+        {/* <TileLayer
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          attribution='Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, etc.'
+        /> */}
 
         <FeatureGroup>
           <EditControl
