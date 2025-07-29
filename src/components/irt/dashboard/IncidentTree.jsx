@@ -22,17 +22,13 @@ function IncidentTree() {
   useEffect(()=>{ 
     const getData= async()=>{
       const res = await networkHandler.get('/v1/irt/getTree');
-      setData(res.irtRole)
-      console.log(res.irtRole,"this is the data....");
+      setData(res.irtRole);
     }
     getData()
   },[])
 
-  
-
   const RenderNode = ({ node }) => {
     const isExpanded = expandedNodes[node.id];
-
     return (
       <TreeNode
         label={
