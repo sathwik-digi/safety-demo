@@ -3,10 +3,10 @@ import axios from 'axios';
 // import { getCookie } from '.';
 
 const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
-const apiClient = axios.create({
-    baseURL:  REACT_APP_API,
-    timeout: 10000,
-});
+// const apiClient = axios.create({
+//     baseURL:  REACT_APP_API,
+//     timeout: 10000,
+// });
 
 const apiCall = async (method, path, body = null) => {
     try {
@@ -19,12 +19,12 @@ const apiCall = async (method, path, body = null) => {
         // }
         const config = {
             method,
-            url: path,
+            url: `${REACT_APP_API}${path}`,
             // headers,
             ...(body ? { data: body } : {}),
         };
         
-        const response = await apiClient(config);
+        const response = await axios(config);
         return response.data;
     } catch (error) {
        console.log(error)
