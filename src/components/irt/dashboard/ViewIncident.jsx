@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import locationIcon from "../../../assets/Icons/google_maps-icon.png";
 import { Progress } from "@/components/ui/progress";
 import DashboardPage from "./DashboardPage";
+import { networkHandler } from "../../../https/networkHandler"
 
 const teams = [
   {
@@ -60,6 +61,14 @@ function ViewIncident() {
       red: "text-red-500 border-red-400 hover:bg-red-100",
     }[color];
   };
+
+  useEffect(()=>{ 
+      const getAllIncidents = async()=>{
+        const res = await networkHandler.get('8081/v1/incident/getAllIncidents');
+        console.log("getAllIncidents response",res);
+      }
+      getAllIncidents()
+    },[])
 
   return (
     <div className="space-y-6 text-[#1F2937]">
