@@ -8,7 +8,6 @@ const apiClient = axios.create({
     timeout: 10000,
 });
 
-
 const apiCall = async (method, path, body = null) => {
     try {
         // const token = getCookie(accessToken)

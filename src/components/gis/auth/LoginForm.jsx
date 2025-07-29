@@ -74,7 +74,7 @@ function LoginForm() {
         const mobileNumber=formData.phoneNumber
         console.log(mobileNumber,"Mbile number")
        
-       const res = await axios.post(`${REACT_APP_API}/v1/auth/getOtp?mobileNumber=${mobileNumber}`);
+       const res = await axios.post(`${REACT_APP_API}8083/v1/auth/getOtp?mobileNumber=${mobileNumber}`);
         console.log(res,"Res")
         const response =res.data;
         console.log(response,"response")
@@ -93,7 +93,7 @@ function LoginForm() {
           });
         }
       } else {
-        const res = await axios.post(`${REACT_APP_API}/v1/auth/login`, {
+        const res = await axios.post(`${REACT_APP_API}8083/v1/auth/login`, {
           email: formData.email,
           password: formData.password,
           mobileNumber: "",
