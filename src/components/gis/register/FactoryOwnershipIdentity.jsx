@@ -86,7 +86,6 @@ export default function FactoryOwnershipIdentity() {
                     </div>
                 )}
 
-
                 {/* Name */}
                 <div>
                     <label className="text-[#666666] block mb-1">Name of the Factory</label>
