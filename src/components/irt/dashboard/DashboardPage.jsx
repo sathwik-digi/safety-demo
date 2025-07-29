@@ -15,12 +15,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function DashboardPage() {
+function DashboardPage({ formData, setFormData, errors, setErrors }) {
   const navigate = useNavigate();
   const location = useLocation();
   const isDashboard = location.pathname === "/irt/dashboard";
   const isViewIncident = location.pathname === "/irt/viewincident";
   const isViewIncidentTaskDetails = location.pathname === "/irt/viewincidenttaskdetails";
+
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    setErrors(prev => ({ ...prev, [field]: "" }));
+  };
 
   return (
     <div className="space-y-6">
@@ -58,47 +63,47 @@ function DashboardPage() {
 
             {/* Dropdown Filters */}
             {!isDashboard && (
-            <div className="flex flex-col sm:flex-row gap-[16px] md:gap-[30px] md:pl-[50px] w-full md:w-auto">
-              {/* District */}
-              <Select>
-                <SelectTrigger className="w-full sm:w-[120px] border-gray-300 rounded-lg">
-                  <SelectValue placeholder="District" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="east">East</SelectItem>
-                  <SelectItem value="west">West</SelectItem>
-                  <SelectItem value="north">North</SelectItem>
-                  <SelectItem value="south">South</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="flex flex-col sm:flex-row gap-[16px] md:gap-[30px] md:pl-[50px] w-full md:w-auto">
+                {/* District */}
+                <Select>
+                  <SelectTrigger className="w-full sm:w-[120px] border-gray-300 rounded-lg">
+                    <SelectValue placeholder="District" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="east">East</SelectItem>
+                    <SelectItem value="west">West</SelectItem>
+                    <SelectItem value="north">North</SelectItem>
+                    <SelectItem value="south">South</SelectItem>
+                  </SelectContent>
+                </Select>
 
-              {/* Position */}
-              <Select>
-                <SelectTrigger className="w-full sm:w-[120px] border-gray-300 rounded-lg">
-                  <SelectValue placeholder="Position" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="manager">Manager</SelectItem>
-                  <SelectItem value="engineer">Engineer</SelectItem>
-                  <SelectItem value="inspector">Inspector</SelectItem>
-                </SelectContent>
-              </Select>
+                {/* Position */}
+                <Select>
+                  <SelectTrigger className="w-full sm:w-[120px] border-gray-300 rounded-lg">
+                    <SelectValue placeholder="Position" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="manager">Manager</SelectItem>
+                    <SelectItem value="engineer">Engineer</SelectItem>
+                    <SelectItem value="inspector">Inspector</SelectItem>
+                  </SelectContent>
+                </Select>
 
-              {/* Department */}
-              <Select>
-                <SelectTrigger className="w-full sm:w-[130px] border-gray-300 rounded-lg">
-                  <SelectValue placeholder="Department" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="safety">Safety</SelectItem>
-                  <SelectItem value="operations">Operations</SelectItem>
-                  <SelectItem value="hr">HR</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+                {/* Department */}
+                <Select>
+                  <SelectTrigger className="w-full sm:w-[130px] border-gray-300 rounded-lg">
+                    <SelectValue placeholder="Department" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="safety">Safety</SelectItem>
+                    <SelectItem value="operations">Operations</SelectItem>
+                    <SelectItem value="hr">HR</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             )}
           </div>
-          
+
 
           {/* Right Section - Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
@@ -115,71 +120,89 @@ function DashboardPage() {
         </div>
       </div>
 
-      {/* Incident Name, Date, IRT */}
+      {/* Incident Name, Date */}
       {!(isDashboard || isViewIncident || isViewIncidentTaskDetails) && (
-      <div className="px-4 md:px-6 py-4 flex flex-col md:flex-row items-center gap-[70px] ">
-        {/* Incident Name */}
-        <div className="w-full md:w-[50%] pl-6">
-          <label className="mb-3 block">Incident Name</label>
-          <Input
-            type="text"
-            placeholder="Type"
-            className="border border-gray-300 rounded-lg px-4 py-6"
-          />
-        </div>
+        <div className="px-4 md:px-6 py-4 flex flex-col md:flex-row items-center gap-[70px]">
+          {/* Incident Name */}
+          <div className="w-full md:w-[50%] pl-6">
+            <label className="mb-3 block">Incident Name</label>
+            <Input
+              type="text"
+              placeholder="Type"
+              value={formData["Incident Name"] || ""}
+              onChange={(e) => handleInputChange("Incident Name", e.target.value)}
+              className={`border rounded-lg px-4 py-6 ${errors["Incident Name"] ? "border-red-500" : "border-gray-300"
+                }`}
+            />
+            {errors["Incident Name"] && (
+              <p className="text-red-500 text-sm mt-1">{errors["Incident Name"]}</p>
+            )}
+          </div>
 
-        {/* Date */}
-        <div className="w-full md:w-[20%]">
-          <label className="mb-3 block">Date</label>
-          {/* <span>From</span><span>To</span> */}
-          <Input
-            type="date"
-            className="border border-gray-300 rounded-lg px-4 py-2 text-muted-foreground"
-          />
+          {/* From + To Date */}
+          <div className="w-full md:w-[20%]">
+            <label className="mb-3 block">Date</label>
+            <div className="flex items-center gap-4">
+              {["From Date", "To Date"].map(label => (
+                <div key={label} className="flex flex-col w-full">
+                  <span>{label === "From Date" ? "From" : "To"}</span>
+                  <Input
+                    type="date"
+                    value={formData[label] || ""}
+                    onChange={(e) => handleInputChange(label, e.target.value)}
+                    className={`border rounded-lg px-4 py-2 text-muted-foreground ${errors[label] ? "border-red-500" : "border-gray-300"
+                      }`}
+                  />
+                  {errors[label] && (
+                    <p className="text-red-500 text-sm mt-1">{errors[label]}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
       )}
 
       {/* IRT Button - Separate Row */}
       {!(isDashboard || isViewIncident || isViewIncidentTaskDetails) && (
-      <div className="px-4 md:px-6 py-4 flex justify-center border-b">
-        <Button className="bg-yellow-400 text-white hover:bg-yellow-500 rounded-lg px-6 py-2 font-medium">
-          IRT
-        </Button>
-      </div>
+        <div className="px-4 md:px-6 py-4 flex justify-center border-b">
+          <Button className="bg-yellow-400 text-white hover:bg-yellow-500 rounded-lg px-6 py-2 font-medium">
+            IRT
+          </Button>
+        </div>
       )}
 
       {/* Location Input + Map + Footer */}
       {!(isViewIncident || isViewIncidentTaskDetails) && (
-      <div className="px-4 md:px-6 pb-8 space-y-4 mr-[40px] ml-[40px]">
-        {/* Location Input */}
-        <div className="relative w-full md:w-[40%]">
-          <Input
-            type="text"
-            placeholder="Search Location"
-            className="pl-10 border border-gray-300 rounded-lg"
-          />
-          <img
-            src={locationIcon}
-            alt="Location"
-            className="absolute left-3 top-2.5 w-3.5 h-5"
-          />
-        </div>
+        <div className="px-4 md:px-6 pb-8 space-y-4 mr-[40px] ml-[40px]">
+          {/* Location Input */}
+          <div className="relative w-full md:w-[40%]">
+            <Input
+              type="text"
+              placeholder="Search Location"
+              className="pl-10 border border-gray-300 rounded-lg"
+            />
+            <img
+              src={locationIcon}
+              alt="Location"
+              className="absolute left-3 top-2.5 w-3.5 h-5"
+            />
+          </div>
 
-        {/* Map Section */}
-        <div className="w-full border rounded-lg overflow-hidden">
-          <img
-            src={incidentMap}
-            alt="Map"
-            className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover"
-          />
-        </div>
+          {/* Map Section */}
+          <div className="w-full border rounded-lg overflow-hidden">
+            <img
+              src={incidentMap}
+              alt="Map"
+              className="w-full h-[250px] sm:h-[350px] md:h-[400px] object-cover"
+            />
+          </div>
 
-        {/* Footer Text */}
-        <div className="text-sm text-gray-600">
-          Flood Crises, Bengaluru, 22:30 pm / 10-5-2025
+          {/* Footer Text */}
+          <div className="text-sm text-gray-600">
+            Flood Crises, Bengaluru, 22:30 pm / 10-5-2025
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
