@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
 import incidentMap from "../../../assets/Images/layout-approval.png";
 import locationIcon from "../../../assets/Icons/google_maps-icon.png";
 import { irtDashboardData } from "../../../constants";
 import searchIcon from "../../../assets/Icons/search-icon.png";
+import plusIcon from "../../../assets/Icons/plus-icon.png";
 import {
   Select,
   SelectContent,
@@ -36,8 +36,8 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
             key={index}
             className="border rounded-xl shadow-md p-4 text-center"
           >
-            <p className="text-gray-500 text-sm">{item.label}</p>
-            <p className="text-2xl font-semibold text-black">{item.value}</p>
+            <p className=" font-medium text-[12px] text-[#000000] text-sm">{item.label}</p>
+            <p className="text-[24px] font-medium text-black">{item.value}</p>
           </div>
         ))}
       </div>
@@ -51,7 +51,7 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
             <div className="relative w-full md:w-[60%]">
               <Input
                 type="text"
-                placeholder="Search any Incident or Location"
+                placeholder="Search"
                 className="pl-10 border border-gray-300 rounded-lg"
               />
               <img
@@ -111,10 +111,10 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
               className="bg-yellow-400 text-white hover:bg-yellow-500 w-full sm:w-auto"
               onClick={() => navigate("/irt/addincident")}
             >
-              <PlusCircle className="w-4 h-4 mr-2" /> Add Incident
+              <img src={plusIcon} alt="plus" className="w-3 h-3 mr-1" /> Add Incident
             </Button>
             <Button className="bg-yellow-400 text-white hover:bg-yellow-500 w-full sm:w-auto">
-              <PlusCircle className="w-4 h-4 mr-2" /> Add Task
+              <img src={plusIcon} alt="plus" className="w-3 h-3 mr-1" /> Add Task
             </Button>
           </div>
         </div>
@@ -125,7 +125,7 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
         <div className="px-4 md:px-6 py-4 flex flex-col md:flex-row items-center gap-[70px]">
           {/* Incident Name */}
           <div className="w-full md:w-[50%] pl-6">
-            <label className="mb-3 block">Incident Name</label>
+            <label className="mb-3 block font-semibold text-[20px] text-[#666666]">Incident Name</label>
             <Input
               type="text"
               placeholder="Type"
@@ -141,7 +141,7 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
 
           {/* From + To Date */}
           <div className="w-full md:w-[20%]">
-            <label className="mb-3 block">Date</label>
+            <label className="mb-3 block font-normal text-[20px] text-[#31373D]">Date</label>
             <div className="flex items-center gap-4">
               {["From Date", "To Date"].map(label => (
                 <div key={label} className="flex flex-col w-full">
@@ -172,6 +172,10 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
         </div>
       )}
 
+      {!(isDashboard || isViewIncident || isViewIncidentTaskDetails) && (
+        <div className="px-4 md:px-6 text-[#666666] font-semibold text-[20px]">Map Sketch</div>
+      )}
+
       {/* Location Input + Map + Footer */}
       {!(isViewIncident || isViewIncidentTaskDetails) && (
         <div className="px-4 md:px-6 pb-8 space-y-4 mr-[40px] ml-[40px]">
@@ -199,9 +203,11 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
           </div>
 
           {/* Footer Text */}
+          {isDashboard && (
           <div className="text-sm text-gray-600">
             Flood Crises, Bengaluru, 22:30 pm / 10-5-2025
           </div>
+          )}
         </div>
       )}
     </div>
