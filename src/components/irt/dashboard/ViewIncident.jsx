@@ -1,48 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import locationIcon from "../../../assets/Icons/google_maps-icon.png";
 import { Progress } from "@/components/ui/progress";
 import DashboardPage from "./DashboardPage";
+// import {teams} from "../../../constants"
 import { networkHandler } from "../../../https/networkHandler"
-
-const teams = [
-  {
-    name: "Team Alpha",
-    location: "Kakinada, Andhra Pradesh",
-    inCharge: "Sanjay Kumar",
-    members: "010",
-    progress: 10,
-    color: "green",
-  },
-  {
-    name: "Team Delta",
-    location: "Kakinada, Andhra Pradesh",
-    inCharge: "Saikumar",
-    members: "08",
-    progress: 7,
-    color: "orange",
-  },
-  {
-    name: "Team Gama",
-    location: "Kakinada, Andhra Pradesh",
-    inCharge: "Venkatesh",
-    members: "05",
-    progress: 2,
-    color: "amber",
-  },
-  {
-    name: "Team Theta",
-    location: "Kakinada, Andhra Pradesh",
-    inCharge: "Prakash",
-    members: "03",
-    progress: 1,
-    color: "red",
-  },
-];
 
 function ViewIncident() {
   const navigate = useNavigate();
+  const [incidents, setIncidents] = useState([]);
 
   const getBorderColor = (color) => {
     return {
@@ -62,54 +29,59 @@ function ViewIncident() {
     }[color];
   };
 
-  useEffect(()=>{ 
-      const getAllIncidents = async()=>{
+  useEffect(() => {
+    const getAllIncidents = async () => {
+      try {
         const res = await networkHandler.get('8081/v1/incident/getAllIncidents');
-        console.log("getAllIncidents response",res);
+        console.log("getAllIncidents response", res);
+        if (res?.length) {
+          setIncidents(res);
+        }
+      } catch (error) {
+        console.error("Error fetching incidents:", error);
       }
-      getAllIncidents()
-    },[])
+    };
+    getAllIncidents();
+  }, []);
 
   return (
     <div className="space-y-6 text-[#1F2937]">
       <DashboardPage />
 
       <div className="px-4 sm:px-6 md:px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {teams.map((team, index) => (
+        {incidents.map((incident, index) => (
           <div
             key={index}
-            className={`border rounded-xl p-4 shadow-sm bg-white ${getBorderColor(team.color)}`}
+            className={`border rounded-xl p-4 shadow-sm bg-white border-green-500`}
           >
             {/* Team Title */}
-            <h2 className="font-semibold text-lg mb-1">{team.name}</h2>
+            <h2 className="font-semibold text-lg mb-1">{incident.name}</h2>
 
             {/* Location */}
             <div className="flex items-center text-sm text-gray-500 mb-2">
               <img src={locationIcon} alt="Location" className="w-4 h-4 mr-1" />
-              {team.location}
+               {incident.location}
             </div>
 
             {/* In-Charge */}
-            <p className="text-gray-700 font-medium">{team.inCharge}</p>
+            <p className="text-gray-700 font-medium">Sanjay Kumar</p>
             <p className="text-gray-400 text-sm">In charge</p>
 
             {/* Members */}
             <p className="text-gray-400 text-sm mt-2">No. of Members</p>
-            <p className="text-black font-semibold">{team.members}</p>
+            <p className="text-black font-semibold">08</p>
 
             {/* Progress */}
             <div className="my-3">
-              <Progress value={(team.progress / 10) * 100} />
+              <Progress value={(7 / 10) * 100} />
               <p className="text-xs text-right text-gray-500 mt-1">
-                0{team.progress}/10
+                7/10
               </p>
             </div>
 
             {/* View Task Button */}
             <Button
-              className={`w-full py-2 rounded-md mt-2 border text-sm font-medium bg-white ${getButtonColor(
-                team.color
-              )}`}
+              className={`w-full py-2 rounded-md mt-2 border text-sm font-medium bg-white text-[#DEAD31] border-[#DEAD31] hover:bg-[#FFF8E1]`}
               onClick={() => navigate("/irt/viewincidenttaskdetails")}
             >
               View Tasks

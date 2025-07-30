@@ -309,3 +309,38 @@ export const irtDashboardData =[
           { label: "Active Incident", value: 13 },
         ]
 
+export const teams = [
+  {
+    name: "Team Alpha",
+    location: "Kakinada, Andhra Pradesh",
+    inCharge: "Sanjay Kumar",
+    members: "010",
+    progress: 10,
+    color: "green",
+  },
+  {
+    name: "Team Delta",
+    location: "Kakinada, Andhra Pradesh",
+    inCharge: "Saikumar",
+    members: "08",
+    progress: 7,
+    color: "orange",
+  },
+  {
+    name: "Team Gama",
+    location: "Kakinada, Andhra Pradesh",
+    inCharge: "Venkatesh",
+    members: "05",
+    progress: 2,
+    color: "amber",
+  },
+  {
+    name: "Team Theta",
+    location: "Kakinada, Andhra Pradesh",
+    inCharge: "Prakash",
+    members: "03",
+    progress: 1,
+    color: "red",
+  },
+];       
+

@@ -117,7 +117,7 @@ const handleCreateIncident = async () => {
     medialCamp: formData["Medical Camp"],
     heliBase: formData["Heli Base"],
     heliPad: formData["Heli Pad"],
-    location: "Downtown District",
+    location: "Andhra Pradesh",
     locationLink: "https://maps.example.com/location/123",
     searchLocation: "Downtown",
     inCharge: "USR001",
@@ -127,7 +127,7 @@ const handleCreateIncident = async () => {
   };
 
   try {
-    const result = await networkHandler.post("/v1/incident/addIncident", payload);
+    const result = await networkHandler.post("8081/v1/incident/addIncident", payload);
     console.log("Incident created successfully", result);
     navigate("/irt/viewincident");
   } catch (err) {
