@@ -23,6 +23,9 @@ import ViewIncidentTaskDetails from "./components/irt/dashboard/ViewIncidentTask
 import IncidentTree from "./components/irt/dashboard/IncidentTree";
 import EditRole from "./components/gis/dashboard/EditRole";
 import RolePermissions from "./components/gis/dashboard/RolePermissions";
+import VolunteerRegistrationForm  from "./components/gis/register/VolunteerRegistrationForm";
+import VolunteerRegistrationSuccess from "./components/gis/register/VolunteerRegistrationSuccess";
+import DynamicForm from "./components/DynamicForm";
  
 export const routers = createBrowserRouter([
       {
@@ -62,7 +65,8 @@ export const routers = createBrowserRouter([
             {
                 path: "role-permissions",
                 element: <RolePermissions />,
-            }
+            },
+           
         ]
     },
     {
@@ -89,6 +93,10 @@ export const routers = createBrowserRouter([
                 path: "incident-tree",
                 element: <IncidentTree />,
             },
+            {
+                path:"formCreation",
+                element:<DynamicForm/>
+            }
         ]
     },
     {
@@ -119,6 +127,14 @@ export const routers = createBrowserRouter([
                 path: "Otp",
                 element: <Otp/>,
             },
+            {
+                path:"Volunteer-Registration",
+                element:<VolunteerRegistrationForm/>
+            },
+            {
+                path:"volunteerRegistrationSuccess",
+                element:<VolunteerRegistrationSuccess/>
+            }
         ],
     },
 ]);
