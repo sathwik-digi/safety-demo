@@ -14,10 +14,13 @@ import LogOutIcon from "../assets/Icons/log-out.png";
 import UnionIcon from "../assets/Icons/Union.png";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { AlignLeft } from "lucide-react";
+import { useSelector } from "react-redux";
+
 
 function GisDashboardLayout() {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const sidebarDataForUser = useSelector((state)=>state.acl.sidebarDataForUser);
 
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -35,12 +38,24 @@ function GisDashboardLayout() {
         />
       </div>
       <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/gis/dashboard")}> <img src={DashboardIcon} alt="Dashboard icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Dashboard</p> </div>
-      <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/gis/role-base-access")}> <img src={DashboardIcon} alt="Dashboard icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Sub Admin</p> </div>
-      <div className="flex items-center gap-3 cursor-pointer"> <img src={InventoryManagementIcon} alt="Inventory icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Inventory Management</p> </div>
-      <div className="flex items-center gap-3 cursor-pointer"> <img src={DocumentManagementIcon} alt="Document icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Document Management</p> </div>
-      <div className="flex items-center gap-3 cursor-pointer"> <img src={LMSIcon} alt="LMS icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">LMS</p> </div>
-      <div className="flex items-center gap-3 cursor-pointer"> <img src={BlogIcon} alt="Blog icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Blog</p> </div>
-      <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/gis/factorylist")}> <img src={FactoryIcon} alt="Factory icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Factory List</p> </div>
+      {sidebarDataForUser.includes("Sub Admin") && (
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/gis/role-base-access")}> <img src={DashboardIcon} alt="Dashboard icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Sub Admin</p> </div>
+      )}
+      {sidebarDataForUser.includes("Inventory Management") && (
+        <div className="flex items-center gap-3 cursor-pointer"> <img src={InventoryManagementIcon} alt="Inventory icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Inventory Management</p> </div>
+      )}
+      {sidebarDataForUser.includes("Document Management") && (
+         <div className="flex items-center gap-3 cursor-pointer"> <img src={DocumentManagementIcon} alt="Document icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Document Management</p> </div>
+      )}
+      {sidebarDataForUser.includes("LMS") && (
+        <div className="flex items-center gap-3 cursor-pointer"> <img src={LMSIcon} alt="LMS icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">LMS</p> </div>
+      )}
+      {sidebarDataForUser.includes("Blog") && (
+       <div className="flex items-center gap-3 cursor-pointer"> <img src={BlogIcon} alt="Blog icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Blog</p> </div>
+      )}
+      {sidebarDataForUser.includes("Factory List") && (
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/gis/factorylist")}> <img src={FactoryIcon} alt="Factory icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Factory List</p></div>
+      )}
       <div className="pt-[50px] pb-[80px]"> <p className="text-[10px] font-medium text-[#757575] tracking-wide uppercase mb-2">Settings</p>
         <div className="flex items-center justify-between cursor-pointer"> <div className="flex items-center gap-3"> <img src={settings} alt="Settings icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Settings</p> </div> <img src={UnionIcon} alt="Chevron icon" className="w-[9.33px] h-[5.33px]" style={{ color: "#757575" }} /> </div>
       </div>

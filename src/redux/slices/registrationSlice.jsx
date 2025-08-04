@@ -1,20 +1,24 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
- data:[]
+ ownershipIdentityData:{},
+ factoryOwnershipIdentityData:{}
 };
 
 const registrationSlice = createSlice({
   name: 'registration',
   initialState,
   reducers: {
-    saveRegistrationData: (state,action) => {
-        state.data = [...action.payload,...state.data];
+    saveOwnershipIdentityData: (state,action) => {
+        state.ownershipIdentityData = action.payload;
+    },
+    saveFactoryOwnershipIdentityData: (state,action) => {
+        state.factoryOwnershipIdentityData = action.payload;
     }
 },
  
 });
 
-export const { saveRegistrationData } = registrationSlice.actions;
+export const { saveOwnershipIdentityData, saveFactoryOwnershipIdentityData  } = registrationSlice.actions;
 
 export default registrationSlice.reducer;
