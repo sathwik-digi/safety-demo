@@ -1,12 +1,77 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import approveIcon from "../../../assets/Icons/approve-icon.png";
 import resubmitIcon from "../../../assets/Icons/resubmit-icon.png";
 import declineIcon from "../../../assets/Icons/decline-icon.png";
+import { networkHandler } from "../../../https/networkHandler";
 
-function FactoryOwnershipIdentityForm({ onBack, status }) {
+function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
+  const [formValues, setFormValues] = useState({
+    name: "",
+    businessEmail: "",
+    contactNumber: "",
+    businessContactNumber: "",
+    licensesNumber: "",
+    businessPanNumber: "",
+    gstNumber: "",
+    factoryAddress: "",
+    state: "",
+    district: "",
+    pincode: "",
+    city: "",
+  });
+
+  useEffect(() => {
+    if (factoryData && factoryData.length > 0) {
+      const factory = factoryData[0];
+      setFormValues({
+        name: "Sanjay Kuma",
+        businessEmail: factory.email || "sanjay@email.com",
+        contactNumber: factory.contactNumber || "9999999999",
+        businessContactNumber: "9999999000",
+        licensesNumber: "1234 5678 9012",
+        businessPanNumber: factory.panNumber || "DUMMYPAN123",
+        gstNumber: "37AAACP1206G1ZW",
+        factoryAddress: factory.factoryAddress || "Dummy Address",
+        state: factory.state || "Dummy State",
+        district: factory.district || "Dummy District",
+        pincode: factory.pincode || "000000",
+        city: factory.city || "Dummy City",
+      });
+    }
+  }, [factoryData]);
+
+  const handleChange = (e) => {
+    setFormValues((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+
+  const handleApproval = async () => {
+    if (!factoryData || factoryData.length === 0) {
+      alert("Factory data not available");
+      return;
+    }
+
+    const payload = {
+      factoryId: factoryData[0]?.id,
+      approvalStatus: "APPROVED"
+    };
+
+    try {
+      const response = await networkHandler.post("8082/v1/users/factory/approval", payload);
+      console.log("Approval response:", response);
+    } catch (error) {
+      console.error("Error in approval:", error);
+    }
+  };
+
+
+
   return (
     <div className="mx-4 sm:ml-10 mt-10 max-w-6xl">
       {/* Factory Ownership Identity Form */}
@@ -20,84 +85,84 @@ function FactoryOwnershipIdentityForm({ onBack, status }) {
             <label className="block font-semibold text-[#666666] mb-2">
               Name of the person
             </label>
-            <Input type="text" className="w-full" />
+            <Input type="text" value={formValues.name} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               Business Email ID
             </label>
-            <Input type="email" className="w-full" />
+            <Input type="email" value={formValues.businessEmail} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               Contact number
             </label>
-            <Input type="tel" className="w-full" />
+            <Input type="tel" value={formValues.contactNumber} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               Business Contact Number
             </label>
-            <Input type="tel" className="w-full" />
+            <Input type="tel" value={formValues.businessContactNumber} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               Licenses Number
             </label>
-            <Input type="text" className="w-full" />
+            <Input type="text" value={formValues.licensesNumber} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               Business PAN Number
             </label>
-            <Input type="text" className="w-full" />
+            <Input type="text" value={formValues.businessPanNumber} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               GST Number
             </label>
-            <Input type="text" className="w-full" />
+            <Input type="text" value={formValues.gstNumber} onChange={handleChange} className="w-full" />
           </div>
 
           <div className="sm:col-span-2">
             <label className="block font-semibold text-[#666666] mb-2">
               Address of Factory Premises
             </label>
-            <Input type="text" className="w-full" />
+            <Input type="text" value={formValues.factoryAddress} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               State
             </label>
-            <Input type="text" className="w-full" />
+            <Input type="text" value={formValues.state} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               District
             </label>
-            <Input type="text" className="w-full" />
+            <Input type="text" value={formValues.district} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               Pin Code
             </label>
-            <Input type="text" className="w-full" />
+            <Input type="text" value={formValues.pincode} onChange={handleChange} className="w-full" />
           </div>
 
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
               City
             </label>
-            <Input type="text" className="w-full" />
+            <Input type="text" value={formValues.city} onChange={handleChange} className="w-full" />
           </div>
         </form>
 
@@ -127,6 +192,7 @@ function FactoryOwnershipIdentityForm({ onBack, status }) {
             <Button
               type="button"
               className="bg-[#12B76A] hover:bg-green-600 text-white px-6 py-2 rounded-md flex items-center justify-center gap-2"
+              onClick={handleApproval}
             >
               <img src={approveIcon} alt="Approve Icon" className="w-5 h-5" /> Approve
             </Button>
