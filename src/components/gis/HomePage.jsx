@@ -2,17 +2,11 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HomeBgImage from "../../assets/Images/Home-page-bg.jpg";
 import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
-import { saveRegistrationData } from "../../redux/slices/registrationSlice";
 import { toast } from "sonner"
 
 function HomePage() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(saveRegistrationData([{ name: "siva", age: 30 }]))
-  }, [])
   return (
     <div className="h-screen w-screen bg-cover bg-center" style={{ backgroundImage: `url(${HomeBgImage})` }}>
       <div className="grid grid-cols-2 justify-items-center gap-40 absolute top-120 left-[7vw]">
@@ -39,7 +33,7 @@ function HomePage() {
               // toast.message('Event has been created', {
               //   description: 'Monday, January 3rd at 6:00pm',
               // })
-              // toast.warning('Event start time cannot be earlier than 8am')
+              // toast.success('Event start time cannot be earlier than 8am')
             // }
           >
             Show Toast

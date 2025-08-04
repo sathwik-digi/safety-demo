@@ -4,35 +4,57 @@ import { z } from "zod";
 import { Input } from "@/components/ui/input";
 // import {Input} from "../../reuable-components/input";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { saveOwnershipIdentityData } from "../../../redux/slices/registrationSlice";
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),
     email: z.string().email({ message: "Invalid email address." }),
     contactNumber: z.string().min(10, { message: "Enter a valid number." }),
     alternativeContactNumber: z.string().min(10, { message: "Enter a valid number." }),
-    aadhaarNumber: z.string().min(12, { message: "Enter a valid Aadhaar number." }),
+    aadhaarNumber: z.string().min(12, { message: "Enter 12 digit valid Aadhaar number." }),
     panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, { message: "Enter a valid Indian PAN (e.g., ABCDE1234F)." }),
     permanentAddress: z.string().min(2, { message: "Permanent Address must be at least 2 characters." }),
     state: z.string().min(2, { message: "State must be at least 2 characters." }),
     district: z.string().min(2, { message: "District must be at least 2 characters." }),
-    pinCode: z.string().min(6, { message: "PinCode must be at least 2 characters." }),
+    pinCode: z.string().min(6, { message: "PinCode must be 6 characters." }),
     city: z.string().min(2, { message: "City must be at least 2 characters." }),
 });
 
-export default function OwnershipIdentity() {
+export default function OwnershipIdentity({setCount}) {
+    const dispatch = useDispatch();
+
+    const ownershipIdentityData = useSelector((state)=> state.registration.ownershipIdentityData);
+
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            name: "", email: "", contactNumber: "", alternativeContactNumber: "",
-            aadhaarNumber: "", panNumber: "", permanentAddress: "",
-            state: "", district: "", pinCode: "", city: ""
+            name: ownershipIdentityData.name || "", 
+            email: ownershipIdentityData.email || "", 
+            contactNumber: ownershipIdentityData.contactNumber || "", 
+            alternativeContactNumber: ownershipIdentityData.alternativeContactNumber || "",
+            aadhaarNumber: ownershipIdentityData.aadhaarNumber || "", 
+            panNumber: ownershipIdentityData.panNumber || "", 
+            permanentAddress: ownershipIdentityData.permanentAddress || "",
+            state: ownershipIdentityData.state || "", 
+            district: ownershipIdentityData.district || "", 
+            pinCode: ownershipIdentityData.pinCode || "", 
+            city: ownershipIdentityData.city || ""
         },
     });
-    const onSubmit = (data) => {
-        console.log("Submitted values:", data);
-    };
 
+    const onSubmit = (data) => {
+        setCount(1);
+        const payload = {
+            name: data.name,
+            email: data.email,
+            contactNumber: data.contactNumber,
+            alternativeContactNumber: data.alternativeContactNumber,
+            aadhaarNumber: data.aadhaarNumber,
+        };
+        dispatch(saveOwnershipIdentityData(payload))
+        
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-6xl mx-auto p-6 space-y-8">

@@ -10,12 +10,14 @@ import axios from "axios";
 import { toast } from "sonner"
 import { setCookie } from "../../../https";
 import {accessToken} from "../../../constants";
+import { useDispatch } from "react-redux";
+import { saveAclData } from "../../../redux/slices/aclSlice";
 
 const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 
 function LoginForm() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -101,6 +103,8 @@ function LoginForm() {
 
         if (response.success) {
           setCookie(accessToken,response?.token,1)
+          const ress = await axios.get(`${REACT_APP_API}8087/v1/acl/get-user-role-premissions-and-function-by-user-id/${response?.userId}`);
+          dispatch(saveAclData(ress?.data));
           navigate("/gis/dashboard");
         }
         else {
