@@ -15,14 +15,12 @@ import L from "leaflet";
 import Select from "react-select";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
-import { IconChartHistogram } from '@tabler/icons-react';
-// import { IconButton } from "@mui/material";
 import firstBookMark from "../../../assets/Icons/bookmarks/3043608.png"
 import secondBookMark from "../../../assets/Icons/bookmarks/3436914.png";
 import thirdBookMark from "../../../assets/Icons/bookmarks/42681-cyclone-icon.png";
 import fourthBookMark from "../../../assets/Icons/bookmarks/8725358.png";
 import fifthBookMark from "../../../assets/Icons/bookmarks/4973825.png";
-import { networkHandler } from "../../../https/NetworkHandler";
+import {networkHandler} from "../../../https/networkHandler"
 import { Button } from "@/components/ui/button";
 import SaveIcon from "../../../assets/Icons/save-icon.png";
 import locationIcon from "../../../assets/Icons/google_maps-icon.png";
