@@ -1,5 +1,5 @@
 import { useState } from "react";
-import OwnershipIdentity from "./OwnerShipIdentity";
+import OwnershipIdentity from "./OwnershipIdentity";
 import FactoryOwnershipIdentity from "./FactoryOwnershipIdentity";
 
 export default function RegistrationForm() {
