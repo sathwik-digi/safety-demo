@@ -18,7 +18,7 @@ import FactoryDetails from "./components/gis/dashboard/FactoryDetails";
 import RoleBaseAccess from "./components/gis/dashboard/RoleBaseAccess";
 import DashboardPage from "./components/irt/dashboard/DashboardPage";
 import AddIncident from "./components/irt/dashboard/AddIncident";
-import ViewIncident from "./components/irt/dashboard/viewIncident";
+import ViewIncident from "./components/irt/dashboard/ViewIncident";
 import ViewIncidentTaskDetails from "./components/irt/dashboard/ViewIncidentTaskDetails";
 import IncidentTree from "./components/irt/dashboard/IncidentTree";
 import EditRole from "./components/gis/dashboard/EditRole";
