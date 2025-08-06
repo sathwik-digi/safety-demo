@@ -21,7 +21,8 @@ function IncidentTree() {
 
   useEffect(()=>{ 
     const getData= async()=>{
-      const res = await networkHandler.get('8081/v1/irt/getTree');
+      const res = await networkHandler.get('/irt/getTree');
+      console.log(res,"Response")
       setData(res.irtRole);
     }
     getData()
@@ -50,7 +51,7 @@ function IncidentTree() {
               {/* Name and Role */}
               <div className="flex-1 text-left">
                 <div className="text-[12px] font-semibold leading-tight mb-[2px]">
-                  {node.name || "Name of the person"}
+                  {node.id || "Name of the person"}
                 </div>
                 <div className="text-[10px] font-normal leading-tight">
                   {node.role || "Role"}

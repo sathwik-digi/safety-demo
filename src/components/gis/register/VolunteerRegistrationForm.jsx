@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Controller } from "react-hook-form";
+import { toast } from "sonner";
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
+import { networkHandler } from "../../../https/networkHandler";
 
 const VolunteerRegistrationForm = () => {
 
@@ -39,10 +41,47 @@ const VolunteerRegistrationForm = () => {
   });
 
 
-  const handleRegister = (data) => {
-    navigate("/auth/volunteerRegistrationSuccess")
-  }
-
+  const handleRegister = async (data) => {
+    const payload = {
+      name: data.name,
+      email: data.email,
+      contactNumber: data.phoneNumber,
+      city: data.city,
+      state: data.state,
+      permanentAddress: data.address,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+      dob: data.dob
+    };
+  
+    console.log(payload, "Payload before API");
+  
+    try {
+      const result = await networkHandler.post("8082/v1/users/volunteerReg", payload);
+      console.log(result, "API Response");
+  
+      if (result?.success) {
+        navigate("/auth/volunteerRegistrationSuccess");
+      } else {
+        toast.error(result?.errorMessage || "Registration failed. Please try again.", {
+          style: {
+            backgroundColor: "#ff4d4f",
+            color: "#fff",
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error, "Error in API");
+  
+      toast.error(error?.response?.data?.errorMessage || "Something went wrong. Please try again.", {
+        style: {
+          backgroundColor: "#ff4d4f",
+          color: "#fff",
+        },
+      });
+    }
+  };
+  
   return (
     <div className="p-6 max-w-1xl mx-auto space-y-6">
       <p className="text-sm text-muted-foreground">
@@ -99,8 +138,8 @@ const VolunteerRegistrationForm = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="AP">AP</SelectItem>
-                      <SelectItem value="TS">TS</SelectItem>
+                      <SelectItem value="Andhra Pradesh">Andhra Pradesh</SelectItem>
+                      <SelectItem value="Telangana">Telangana</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
