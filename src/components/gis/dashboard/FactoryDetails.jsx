@@ -12,7 +12,6 @@ function FactoryDetails() {
   const location = useLocation();
   const status = location.state;
   const [step, setStep] = useState(1);
-  console.log(status, "this is the props data....")
 
   const [dynamicFactoryDetails, setDynamicFactoryDetails] = useState(null);
 
@@ -24,7 +23,6 @@ function FactoryDetails() {
     const factoriesList = async () => {
       try {
         const res = await networkHandler.get(`8082/v1/users/getFactoryByID/${status.id}`);
-        console.log("factorydetails response", res);
         setDynamicFactoryDetails(res || []);
       } catch (error) {
         console.error("Error fetching factoriesList:", error);

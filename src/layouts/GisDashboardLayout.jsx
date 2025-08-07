@@ -31,7 +31,6 @@ function GisDashboardLayout() {
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const sidebarDataForUser = useSelector((state)=>state.acl.sidebarDataForUser);
-  console.log(sidebarDataForUser,"this is the acl data in the layout page.....");
   
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);

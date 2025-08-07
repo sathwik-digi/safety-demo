@@ -74,9 +74,7 @@ function LoginForm() {
     if (isValid) {
       if (isAdminMode) {
         const mobileNumber=formData.phoneNumber
-       console.log("Befor admin api call")
-       const res = await axios.post(`${REACT_APP_API}8083/v1/auth/getOtp?mobileNumber=${mobileNumber}`);
-        console.log(res,"Res")
+        const res = await axios.post(`${REACT_APP_API}8083/v1/auth/getOtp?mobileNumber=${mobileNumber}`);
         const response =res.data;
         if(response.success){
           navigate("/auth/Otp", {
