@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HomeBgImage from "../../assets/Images/Home-page-bg.jpg";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner"
+// import { toast } from "sonner"
 
 function HomePage() {
   const navigate = useNavigate();
@@ -20,8 +20,8 @@ function HomePage() {
         <div className="flex flex-col gap-4 ">
           <Button className="bg-white w-70 rounded-[20px]" onClick={() => navigate('/auth/login')}>Login</Button>
           <Button className="bg-white w-70 rounded-[20px]" onClick={() => navigate('/auth/register')}>Register</Button>
-          <Button
-            variant="outline"
+          {/* <Button
+            // variant="outline"
             // onClick={() =>
               // toast("Event has been created", {
               //   description: "Sunday, December 03, 2023 at 9:00 AM",
@@ -37,7 +37,7 @@ function HomePage() {
             // }
           >
             Show Toast
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

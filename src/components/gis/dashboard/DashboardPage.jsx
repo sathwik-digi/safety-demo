@@ -180,7 +180,7 @@ const DashboardPage = () => {
         </Dialog>
       </div>
 
-      <MapContainer center={[17.385, 78.4867]} zoom={15} style={{ height: "480px", width: "100%" }} className="my-5 z-0"> 
+      <MapContainer center={[16.2232, 80.2381]} zoom={7} style={{ height: "480px", width: "100%" }} className="my-5 z-0"> 
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; OpenStreetMap contributors'

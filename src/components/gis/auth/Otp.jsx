@@ -21,7 +21,6 @@ function OtpScreen() {
   const handleSignIn = async () => {
    
     try {
-      console.log("Before API call")
       const res = await axios.post(`${REACT_APP_API}8083/v1/auth/login`, {
         email: "",
         password: "",
@@ -29,10 +28,8 @@ function OtpScreen() {
         otp: otp
       });
 
-      console.log(res,"Res")
       const response = res.data;
       if (response?.success) {
-        console.log(response,"Response")
         setCookie(accessToken, response?.token,1);
         navigate("/gis/dashboard");
       } else {

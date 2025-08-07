@@ -33,7 +33,6 @@ function ViewIncident() {
     const getAllIncidents = async () => {
       try {
         const res = await networkHandler.get('8081/v1/incident/getAllIncidents');
-        console.log("getAllIncidents response", res);
         if (res?.length) {
           setIncidents(res);
         }

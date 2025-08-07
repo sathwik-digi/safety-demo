@@ -18,8 +18,8 @@ function OwnershipIdentityForm({ onNext, factoryData }) {
   });
 
   useEffect(() => {
-    if (factoryData && factoryData.length > 0) {
-      const factory = factoryData[0];
+    if (factoryData) {
+      const factory = factoryData;
       setFormValues({
         name: "Sanjay Kuma",
         email: factory.email || "sanjay@email.com",
@@ -35,13 +35,6 @@ function OwnershipIdentityForm({ onNext, factoryData }) {
       });
     }
   }, [factoryData]);
-
-   const handleChange = (e) => {
-    setFormValues((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
 
   return (
     <div className="px-4 py-8 max-w-6xl mx-auto">
@@ -59,77 +52,77 @@ function OwnershipIdentityForm({ onNext, factoryData }) {
           <label className="block font-semibold text-[#666666] mb-2">
             Name of the person
           </label>
-          <Input type="text" value={formValues.name} onChange={handleChange} className="w-full" />
+          <Input type="text" value={formValues.name} className="w-full" />
         </div>
 
         <div>
           <label className="block font-semibold text-[#666666] mb-2">
             Email ID
           </label>
-          <Input type="email" value={formValues.email} onChange={handleChange} className="w-full" />
+          <Input type="email" value={formValues.email} className="w-full" />
         </div>
 
         <div>
           <label className="block font-semibold text-[#666666] mb-2">
             Contact number
           </label>
-          <Input type="tel" value={formValues.contactNumber} onChange={handleChange} className="w-full" />
+          <Input type="tel" value={formValues.contactNumber} className="w-full" />
         </div>
 
         <div>
           <label className="block font-semibold text-[#666666] mb-2">
             Alternative Contact Number
           </label>
-          <Input type="tel" value={formValues.alternativeContactNumber} onChange={handleChange} className="w-full" />
+          <Input type="tel" value={formValues.alternativeContactNumber} className="w-full" />
         </div>
 
         <div>
           <label className="block font-semibold text-[#666666] mb-2">
             Aadhaar Number
           </label>
-          <Input type="text" value={formValues.aadhaarNumber} onChange={handleChange} className="w-full" />
+          <Input type="text" value={formValues.aadhaarNumber} className="w-full" />
         </div>
 
         <div>
           <label className="block font-semibold text-[#666666] mb-2">
             PAN Number
           </label>
-          <Input type="text" value={formValues.panNumber} onChange={handleChange} className="w-full" />
+          <Input type="text" value={formValues.panNumber} className="w-full" />
         </div>
 
         <div className="md:col-span-2">
           <label className="block font-semibold text-[#666666] mb-2">
             Permanent Address
           </label>
-          <Input type="text" value={formValues.factoryAddress} onChange={handleChange} className="w-full" />
+          <Input type="text" value={formValues.factoryAddress} className="w-full" />
         </div>
 
         <div>
           <label className="block font-semibold text-[#666666] mb-2">
             State
           </label>
-          <Input type="text" value={formValues.state} onChange={handleChange} className="w-full" />
+          <Input type="text" value={formValues.state} className="w-full" />
         </div>
 
         <div>
           <label className="block font-semibold text-[#666666] mb-2">
             District
           </label>
-          <Input type="text" value={formValues.district} onChange={handleChange} className="w-full" />
+          <Input type="text" value={formValues.district} className="w-full" />
         </div>
 
         <div>
           <label className="block font-semibold text-[#666666] mb-2">
             Pin Code
           </label>
-          <Input type="text" value={formValues.pincode} onChange={handleChange} className="w-full" />
+          <Input type="text" value={formValues.pincode} className="w-full" />
         </div>
 
         <div>
           <label className="block font-semibold text-[#666666] mb-2">
             City
           </label>
-          <Input type="text" value={formValues.city} onChange={handleChange} className="w-full" />
+          <Input type="text" value={formValues.city} className="w-full" />
         </div>
       </form>
 

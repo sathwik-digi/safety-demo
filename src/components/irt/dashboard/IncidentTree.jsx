@@ -22,7 +22,6 @@ function IncidentTree() {
   useEffect(()=>{ 
     const getData= async()=>{
       const res = await networkHandler.get('/irt/getTree');
-      console.log(res,"Response")
       setData(res.irtRole);
     }
     getData()

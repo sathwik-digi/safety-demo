@@ -128,7 +128,6 @@ const handleCreateIncident = async () => {
 
   try {
     const result = await networkHandler.post("8081/v1/incident/addIncident", payload);
-    console.log("Incident created successfully", result);
     navigate("/irt/viewincident");
   } catch (err) {
     console.error("Error creating incident", err);

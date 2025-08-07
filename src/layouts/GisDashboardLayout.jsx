@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Header from "../components/gis/Header";
 import IRTSiteLogo from "../assets/Images/irt-logo.png";
 import DashboardIcon from "../assets/Icons/dashboard-icon.png";
@@ -15,18 +15,33 @@ import UnionIcon from "../assets/Icons/Union.png";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { AlignLeft } from "lucide-react";
 import { useSelector } from "react-redux";
+import {clearCookie, getCookie} from "../https";
+import { accessToken } from "../constants";
 
 
 function GisDashboardLayout() {
   const navigate = useNavigate();
+  const token = getCookie(accessToken);
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+  else if(siteName==="irt"){
+    return <Navigate to="/irt/dashboard" replace />
+  }
+
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const sidebarDataForUser = useSelector((state)=>state.acl.sidebarDataForUser);
-
+  
   React.useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const logoutHandler=()=>{
+    clearCookie();
+    navigate("/auth/login");
+  }
 
   const SidebarContent = () => (
     <div className="p-5 flex flex-col gap-5 bg-white">
@@ -60,7 +75,7 @@ function GisDashboardLayout() {
         <div className="flex items-center justify-between cursor-pointer"> <div className="flex items-center gap-3"> <img src={settings} alt="Settings icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Settings</p> </div> <img src={UnionIcon} alt="Chevron icon" className="w-[9.33px] h-[5.33px]" style={{ color: "#757575" }} /> </div>
       </div>
       <div className="flex items-center gap-3 cursor-pointer"> <img src={HelpIcon} alt="Help icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Help</p> </div>
-      <div className="flex items-center gap-3 cursor-pointer"> <img src={LogOutIcon} alt="Logout icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#D55F5A]">Logout Account</p> </div>
+      <div className="flex items-center gap-3 cursor-pointer" onClick={logoutHandler}> <img src={LogOutIcon} alt="Logout icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#D55F5A]">Logout Account</p> </div>
     </div>
   );
 

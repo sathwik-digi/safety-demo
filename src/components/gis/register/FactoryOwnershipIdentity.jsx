@@ -39,8 +39,6 @@ export default function FactoryOwnershipIdentity({ setCount }) {
     const factoryOwnershipIdentityData = useSelector((state)=>state.registration.factoryOwnershipIdentityData);
     const ownershipIdentityData = useSelector((state)=>state.registration.ownershipIdentityData);
 
-    console.log("this is the form2 data",factoryOwnershipIdentityData);
-
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -49,7 +47,6 @@ export default function FactoryOwnershipIdentity({ setCount }) {
             setSelectedImage(imageUrl);
             setImageFile(file);
         }
-        console.log(event, "this is the file...")
     }
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(formSchema),
@@ -92,7 +89,6 @@ export default function FactoryOwnershipIdentity({ setCount }) {
         }
         dispatch(saveFactoryOwnershipIdentityData(payload))
        
-        console.log("final registration data", {...ownershipIdentityData,factoryIdentication:payload});
         const registrationResponse = await networkHandler.post('8082/v1/users/factoryRegistration',{...ownershipIdentityData,factoryIdentication:payload});
         if(registrationResponse?.success){
             toast.success(registrationResponse?.successMessage);

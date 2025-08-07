@@ -50,7 +50,6 @@ function FactoryList() {
     const factoriesList = async () => {
       try {
         const res = await networkHandler.get("8082/v1/users/getAllFactories");
-        console.log("getAllFactories response", res);
         setDynamicFactories(res || []);
       } catch (error) {
         console.error("Error fetching factoriesList:", error);
