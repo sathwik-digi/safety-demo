@@ -11,7 +11,7 @@ const aclSlice = createSlice({
   reducers: {
     saveAclData: (state,action) => {
         state.aclData = action.payload;
-        state.sidebarDataForUser = Object.keys(action.payload.pageFunction)
+        state.sidebarDataForUser = Object.keys(action.payload.pageFunction);
     }
 },
  

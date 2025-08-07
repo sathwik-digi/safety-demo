@@ -1,5 +1,5 @@
-import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Header from "../components/gis/Header";
 import IRTSiteLogo from "../assets/Images/irt-logo.png";
 import DashboardIcon from "../assets/Icons/dashboard-icon.png";
@@ -22,20 +22,46 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { clearCookie, getCookie } from "../https"
+import { accessToken } from "../constants";
+import RenderSvgIcon from "../lib/RenderSvgIcon";
 
 function IrtDashboardLayout() {
+
+  const token = getCookie(accessToken);
+  const siteName = getCookie("siteName");
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+  else if (siteName === "gis") {
+    return <Navigate to="/gis/dashboard" replace />
+  }
+
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState(0);
 
   const menuItems = [
     { icon: DashboardIcon, label: "Dashboard", path: "/irt/dashboard" },
     { icon: DashboardIcon, label: "IRT Tree", path: "/irt/incident-tree" },
     { icon: InventoryManagementIcon, label: "Status" },
     { icon: DocumentManagementIcon, label: "Messages" },
-    { icon: LMSIcon, label: "Location" },
+    { icon: LMSIcon, label: "Location", path: "/irt/location" },
     { icon: BlogIcon, label: "Member's" },
     { icon: FactoryIcon, label: "View Task" },
-    { icon: FactoryIcon, label: "View Incident" },
+    { icon: FactoryIcon, label: "View Incident", path: "/irt/viewincident" },
   ];
+
+  const logoutHandler = () => {
+    clearCookie();
+    navigate("/auth/login");
+  }
+
+  const handleClick = (item, index) => {
+    if (item.path) {
+      navigate(item.path)
+    }
+    setActiveTab(index);
+  }
 
   return (
     <div className="flex min-h-screen">
@@ -52,9 +78,9 @@ function IrtDashboardLayout() {
           <div
             key={index}
             className="flex items-center gap-3 cursor-pointer"
-            onClick={() => item.path && navigate(item.path)}
+            onClick={() => handleClick(item, index)}
           >
-            <img src={item.icon} alt={`${item.label} icon`} className="w-5 h-5" />
+            <RenderSvgIcon index={index} activeTab={activeTab} />
             <p className="text-[14px] font-medium text-[#344054]">{item.label}</p>
           </div>
         ))}
@@ -82,7 +108,7 @@ function IrtDashboardLayout() {
           <p className="text-[14px] font-medium text-[#344054]">Help</p>
         </div>
 
-        <div className="flex items-center gap-3 cursor-pointer">
+        <div className="flex items-center gap-3 cursor-pointer" onClick={logoutHandler}>
           <img src={LogOutIcon} alt="Logout icon" className="w-5 h-5" />
           <p className="text-[14px] font-medium text-[#D55F5A]">Logout Account</p>
         </div>
@@ -109,7 +135,7 @@ function IrtDashboardLayout() {
                         className="flex items-center gap-3 cursor-pointer"
                         onClick={() => item.path && navigate(item.path)}
                       >
-                        <img src={item.icon} alt={item.label} className="w-5 h-5" />
+                        <RenderSvgIcon index={index} activeTab={activeTab} />
                         <p className="text-[14px] font-medium text-[#344054]">{item.label}</p>
                       </div>
                     </SheetClose>
@@ -122,7 +148,7 @@ function IrtDashboardLayout() {
                     <img src={HelpIcon} alt="Help icon" className="w-5 h-5" />
                     <p className="text-[14px] font-medium text-[#344054]">Help</p>
                   </div>
-                  <div className="flex items-center gap-3 cursor-pointer">
+                  <div className="flex items-center gap-3 cursor-pointer" onClick={logoutHandler}>
                     <img src={LogOutIcon} alt="Logout icon" className="w-5 h-5" />
                     <p className="text-[14px] font-medium text-[#D55F5A]">Logout Account</p>
                   </div>

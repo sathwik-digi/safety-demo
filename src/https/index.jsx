@@ -32,5 +32,6 @@ export const getCookie = (name) => {
 export const clearCookie=()=>{
 	document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "siteName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 

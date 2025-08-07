@@ -102,10 +102,12 @@ function LoginForm() {
         const response = res.data;
 
         if (response.success) {
-          setCookie(accessToken,response?.token,1)
+          setCookie(accessToken,response?.token,1);
+          setCookie("userId",response?.userId,1);
           const ress = await axios.get(`${REACT_APP_API}8087/v1/acl/get-user-role-premissions-and-function-by-user-id/${response?.userId}`);
+          setCookie("siteName",ress?.data?.siteName,1);
           dispatch(saveAclData(ress?.data));
-          navigate("/gis/dashboard");
+          navigate(`/${ress?.data?.siteName}/dashboard`);
         }
         else {
           toast.error('Please check your mail and password', {

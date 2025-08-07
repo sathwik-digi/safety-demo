@@ -26,6 +26,7 @@ import RolePermissions from "./components/gis/dashboard/RolePermissions";
 import VolunteerRegistrationForm  from "./components/gis/register/VolunteerRegistrationForm";
 import VolunteerRegistrationSuccess from "./components/gis/register/VolunteerRegistrationSuccess";
 import DynamicForm from "./components/DynamicForm";
+import LocationPage from "./components/irt/dashboard/LocationPage";
  
 export const routers = createBrowserRouter([
       {
@@ -96,7 +97,12 @@ export const routers = createBrowserRouter([
             {
                 path:"formCreation",
                 element:<DynamicForm/>
-            }
+            },
+            {
+                path:"location",
+                element:<LocationPage />
+            },
+
         ]
     },
     {
