@@ -22,6 +22,7 @@ import { accessToken } from "../constants";
 function GisDashboardLayout() {
   const navigate = useNavigate();
   const token = getCookie(accessToken);
+  const siteName = getCookie("siteName");
   if (!token) {
     return <Navigate to="/" replace />;
   }
