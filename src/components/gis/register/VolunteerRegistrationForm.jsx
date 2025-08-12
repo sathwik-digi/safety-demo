@@ -57,7 +57,7 @@ const VolunteerRegistrationForm = () => {
     console.log(payload, "Payload before API");
   
     try {
-      const result = await networkHandler.post("8082/v1/users/volunteerReg", payload);
+      const result = await networkHandler.post("user","/users/volunteerReg", payload);
       console.log(result, "API Response");
   
       if (result?.success) {

@@ -32,7 +32,7 @@ function ViewIncident() {
   useEffect(() => {
     const getAllIncidents = async () => {
       try {
-        const res = await networkHandler.get('8081/v1/incident/getAllIncidents');
+        const res = await networkHandler.get('irt','/incident/getAllIncidents');
         if (res?.length) {
           setIncidents(res);
         }

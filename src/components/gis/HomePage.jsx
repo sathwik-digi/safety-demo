@@ -19,7 +19,7 @@ function HomePage() {
         </h2>
         <div className="flex flex-col gap-4 ">
           <Button className="bg-white w-70 rounded-[20px]" onClick={() => navigate('/auth/login')}>Login</Button>
-          <Button className="bg-white w-70 rounded-[20px]" onClick={() => navigate('/auth/register')}>Register</Button>
+          <Button className="bg-white w-70 rounded-[20px]" onClick={() => navigate('/auth/register')}>Industry Registration</Button>
           {/* <Button
             // variant="outline"
             // onClick={() =>

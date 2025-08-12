@@ -74,7 +74,7 @@ function LoginForm() {
     if (isValid) {
       if (isAdminMode) {
         const mobileNumber=formData.phoneNumber
-        const res = await axios.post(`${REACT_APP_API}8083/v1/auth/getOtp?mobileNumber=${mobileNumber}`);
+        const res = await axios.post(`https://sm-authentication-${REACT_APP_API}/auth/getOtp?mobileNumber=${mobileNumber}`);
         const response =res.data;
         if(response.success){
           navigate("/auth/Otp", {
@@ -91,7 +91,7 @@ function LoginForm() {
           });
         }
       } else {
-        const res = await axios.post(`${REACT_APP_API}8083/v1/auth/login`, {
+        const res = await axios.post(`https://sm-authentication-${REACT_APP_API}/auth/login`, {
           email: formData.email,
           password: formData.password,
           mobileNumber: "",
@@ -102,7 +102,7 @@ function LoginForm() {
         if (response?.success) {
           setCookie(accessToken,response?.token,1);
           setCookie("userId",response?.userId,1);
-          const ress = await axios.get(`${REACT_APP_API}8087/v1/acl/get-user-role-premissions-and-function-by-user-id/${response?.userId}`);
+          const ress = await axios.get(`https://sm-acl-${REACT_APP_API}/acl/get-user-role-premissions-and-function-by-user-id/${response?.userId}`);
           setCookie("siteName",ress?.data?.siteName,1);
           dispatch(saveAclData(ress?.data));
           navigate(`/${ress?.data?.siteName}/dashboard`);
