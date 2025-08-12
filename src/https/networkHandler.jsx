@@ -8,7 +8,7 @@ const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 //     timeout: 10000,
 // });
 
-const apiCall = async (method, path, body = null) => {
+const apiCall = async (method, microService, path, body = null) => {
     try {
         // const token = getCookie(accessToken)
         // const headers = {
@@ -19,7 +19,7 @@ const apiCall = async (method, path, body = null) => {
         // }
         const config = {
             method,
-            url: `${REACT_APP_API}${path}`,
+            url: `https://sm-${microService}-${REACT_APP_API}${path}`,
             // headers,
             ...(body ? { data: body } : {}),
         };
@@ -32,8 +32,8 @@ const apiCall = async (method, path, body = null) => {
 };
 
 export const networkHandler = {
-    get: (path) => apiCall('get', path),
-    post: (path, body) => apiCall('post', path, body),
-    put: (path, body) => apiCall('put', path, body),
-    del: (path, body) => apiCall('del', path, body),
+    get: (microService, path ) => apiCall('get', microService, path),
+    post: (microService, path, body) => apiCall('post', microService, path, body),
+    put: (microService, path, body) => apiCall('put', microService, path, body),
+    del: (microService, path, body) => apiCall('del', microService, path, body),
 };

@@ -75,7 +75,7 @@ const DashboardPage = () => {
 
   const getShapes = async () => {
     try {
-      const res = await networkHandler.get('/getShapes');
+      const res = await networkHandler.get("acl",'/getShapes');
       setPolygonData(res.polygons)
     } catch (error) {
       console.log("error getting coordinates", error)
@@ -118,7 +118,7 @@ const DashboardPage = () => {
   };
 
   const handlePostCoordinates = async () => {
-    const res = await networkHandler.post(`/saveShapes`, {
+    const res = await networkHandler.post("acl",`/saveShapes`, {
       "industryId": 1,
       "userId": userId,
       "polygons": coordinates

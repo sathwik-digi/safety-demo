@@ -57,7 +57,7 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
     };
 
     try {
-      const response = await networkHandler.post("8082/v1/users/factory/approval", payload);
+      const response = await networkHandler.post("user","/users/factory/approval", payload);
       toast.success("This industry is approved");
     } catch (error) {
       console.error("Error in approval:", error);

@@ -89,7 +89,7 @@ export default function FactoryOwnershipIdentity({ setCount }) {
         }
         dispatch(saveFactoryOwnershipIdentityData(payload))
        
-        const registrationResponse = await networkHandler.post('8082/v1/users/factoryRegistration',{...ownershipIdentityData,factoryIdentication:payload});
+        const registrationResponse = await networkHandler.post("user",'/users/factoryRegistration',{...ownershipIdentityData,factoryIdentication:payload});
         if(registrationResponse?.success){
             toast.success(registrationResponse?.successMessage);
             navigate('/auth/registration-success');

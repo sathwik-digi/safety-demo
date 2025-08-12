@@ -9,10 +9,13 @@ import axios from "axios";
 import { toast } from "sonner"
 import { setCookie } from "../../../https";
 import { accessToken } from "../../../constants";
+import { useDispatch } from "react-redux";
+import { saveAclData } from "../../../redux/slices/aclSlice";
 const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 
 function OtpScreen() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
 
   const location = useLocation();
@@ -21,7 +24,7 @@ function OtpScreen() {
   const handleSignIn = async () => {
    
     try {
-      const res = await axios.post(`${REACT_APP_API}8083/v1/auth/login`, {
+      const res = await axios.post(`https://sm-authentication-${REACT_APP_API}/auth/login`, {
         email: "",
         password: "",
         mobileNumber: mobileNumber,
@@ -30,8 +33,12 @@ function OtpScreen() {
 
       const response = res.data;
       if (response?.success) {
-        setCookie(accessToken, response?.token,1);
-        navigate("/gis/dashboard");
+        setCookie(accessToken,response?.token,1);
+        setCookie("userId",response?.userId,1);
+        const ress = await axios.get(`https://sm-acl-${REACT_APP_API}/acl/get-user-role-premissions-and-function-by-user-id/${response?.userId}`);
+        setCookie("siteName",ress?.data?.siteName,1);
+        dispatch(saveAclData(ress?.data));
+        navigate(`/${ress?.data?.siteName}/dashboard`);
       } else {
         toast.error(response.errorMessage, {
           style: {
