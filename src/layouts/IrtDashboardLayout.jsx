@@ -24,7 +24,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { clearCookie, getCookie } from "../https"
 import { accessToken } from "../constants";
-import RenderSvgIcon from "../lib/RenderSvgIcon";
+import RenderIrtSvgIcon from "../lib/RenderIrtSvgIcon";
 
 function IrtDashboardLayout() {
 
@@ -80,7 +80,7 @@ function IrtDashboardLayout() {
             className="flex items-center gap-3 cursor-pointer"
             onClick={() => handleClick(item, index)}
           >
-            <RenderSvgIcon index={index} activeTab={activeTab} />
+            <RenderIrtSvgIcon index={index} activeTab={activeTab} />
             <p className="text-[14px] font-medium text-[#344054]">{item.label}</p>
           </div>
         ))}
@@ -135,7 +135,7 @@ function IrtDashboardLayout() {
                         className="flex items-center gap-3 cursor-pointer"
                         onClick={() => item.path && navigate(item.path)}
                       >
-                        <RenderSvgIcon index={index} activeTab={activeTab} />
+                        <RenderIrtSvgIcon index={index} activeTab={activeTab} />
                         <p className="text-[14px] font-medium text-[#344054]">{item.label}</p>
                       </div>
                     </SheetClose>

@@ -99,7 +99,7 @@ function LoginForm() {
         });
         const response = res.data;
 
-        if (response.success) {
+        if (response?.success) {
           setCookie(accessToken,response?.token,1);
           setCookie("userId",response?.userId,1);
           const ress = await axios.get(`${REACT_APP_API}8087/v1/acl/get-user-role-premissions-and-function-by-user-id/${response?.userId}`);
