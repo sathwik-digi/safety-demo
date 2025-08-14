@@ -2,12 +2,6 @@ import React, { useState } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Header from "../components/gis/Header";
 import IRTSiteLogo from "../assets/Images/irt-logo.png";
-import DashboardIcon from "../assets/Icons/dashboard-icon.png";
-import InventoryManagementIcon from "../assets/Icons/inventorymanagement-icon.png";
-import DocumentManagementIcon from "../assets/Icons/documentmanagement-icon.png";
-import LMSIcon from "../assets/Icons/lms-icon.png";
-import BlogIcon from "../assets/Icons/blog.png";
-import FactoryIcon from "../assets/Icons/blog.png";
 import settings from "../assets/Icons/settings.png";
 import HelpIcon from "../assets/Icons/help-circle.png";
 import LogOutIcon from "../assets/Icons/log-out.png";
@@ -41,14 +35,14 @@ function IrtDashboardLayout() {
   const [activeTab, setActiveTab] = useState(0);
 
   const menuItems = [
-    { icon: DashboardIcon, label: "Dashboard", path: "/irt/dashboard" },
-    { icon: DashboardIcon, label: "IRT Tree", path: "/irt/incident-tree" },
-    { icon: InventoryManagementIcon, label: "Status" },
-    { icon: DocumentManagementIcon, label: "Messages" },
-    { icon: LMSIcon, label: "Location", path: "/irt/location" },
-    { icon: BlogIcon, label: "Member's" },
-    { icon: FactoryIcon, label: "View Task" },
-    { icon: FactoryIcon, label: "View Incident", path: "/irt/viewincident" },
+    { label: "Dashboard", path: "/irt/dashboard" },
+    { label: "IRT Tree", path: "/irt/incident-tree" },
+    { label: "Status" },
+    { label: "Messages" },
+    { label: "Location", path: "/irt/location" },
+    { label: "Member's" },
+    { label: "View Task" },
+    { label: "View Incident", path: "/irt/viewincident" },
   ];
 
   const logoutHandler = () => {
