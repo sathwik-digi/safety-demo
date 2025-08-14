@@ -1,14 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-// import { irtTreeHierarchy } from "../../../constants";
 import { Tree, TreeNode } from "react-organizational-chart";
 import { networkHandler } from "../../../https/networkHandler";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 function IncidentTree() {
   const [activeTab, setActiveTab] = useState("response");
   const [expandedNodes, setExpandedNodes] = useState({});
   const [data, setData] = useState({});
+  const [showAddVolunteerDialog, setShowAddVolunteerDialog] = useState(false);
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [personName, setNameofThePerson] = useState("")
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [selectedPersonId, setSelectedPersonId] = useState(null);
+  const [selectedPersonColourCode,setSelectedPersonColourCode]=useState(null)
+
+
 
   const countChildren = (node) => node.children?.length || 0;
 
@@ -23,12 +49,51 @@ function IncidentTree() {
     const getData= async()=>{
       const res = await networkHandler.get('irt','/irt/getTree');
       setData(res.irtRole);
+    };
+    getData();
+  }, []);
+
+
+  const volunteerPayload = {
+    firstName: name,
+    role: role,
+    phoneNo: phone,
+    email: email,
+    status: "Active",
+    personType: "Volunteer",
+    parentRoleId: selectedPersonId,
+    colorCode: selectedPersonColourCode,
+    fromDate: fromDate,
+    toDate: toDate
+  };
+
+
+  const handleAddVolunteer = async() => {
+    console.log(volunteerPayload, "volunteerPayload")
+    const response = await networkHandler.post("/person/addVolunteer",volunteerPayload);
+    console.log(response,"Response")
+    if(response){
+      setShowAddVolunteerDialog(false);
     }
-    getData()
-  },[])
+    else{
+      setShowAddVolunteerDialog(false);
+      toast.error(response?.errorMessage)
+    }
+    setShowAddVolunteerDialog(false);
+    setName("");
+    setRole("");
+    setPhone("");
+    setEmail("");
+    setSelectedPersonId("");
+    setSelectedPersonColourCode("");
+    setFromDate("");
+    setToDate("");
+  };
+
 
   const RenderNode = ({ node }) => {
     const isExpanded = expandedNodes[node.id];
+
     return (
       <TreeNode
         label={
@@ -50,7 +115,7 @@ function IncidentTree() {
               {/* Name and Role */}
               <div className="flex-1 text-left">
                 <div className="text-[12px] font-semibold leading-tight mb-[2px]">
-                  {node.id || "Name of the person"}
+                  {node.name || "Name of the person"}
                 </div>
                 <div className="text-[10px] font-normal leading-tight">
                   {node.role || "Role"}
@@ -77,18 +142,41 @@ function IncidentTree() {
 
               {/* Three Dots */}
               <div className="absolute right-2 top-1/2 -translate-y-1/2 text-white text-lg cursor-pointer leading-none">
-                &#8943;
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className="focus:outline-none">&#8943;</div>
+                  </DropdownMenuTrigger>
+
+                  <DropdownMenuContent>
+                    <DropdownMenuItem onClick={() => console.log("Assign clicked")}>
+                      AssignTask
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => console.log("Task clicked")}>
+                      Add Task
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => console.log("Add person clicked")}>
+                      Add Person
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => {
+                        setSelectedPersonId(node.id);
+                        setSelectedPersonColourCode(node.colorCode) 
+                        setShowAddVolunteerDialog(true);
+                         }} >
+                      Add Volunteer
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>Add Child</DropdownMenuItem>
+                    <DropdownMenuItem>Close</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
 
             {/* Vertical line */}
-            {countChildren(node) > 0 && (
-              <div className="w-[2px] h-4 bg-[#C5C4C2]" />
-            )}
+            {countChildren(node) > 0 && <div className="w-[2px] h-4 bg-[#C5C4C2]" />}
 
             {/* Expand/Collapse */}
             {countChildren(node) > 0 && (
-              <div className="">
+              <div>
                 {isExpanded ? (
                   <button
                     onClick={(e) => {
@@ -116,7 +204,7 @@ function IncidentTree() {
         }
       >
         {isExpanded &&
-          node.children.map((child) => (
+          node.children?.map((child) => (
             <RenderNode key={child.id} node={child} />
           ))}
       </TreeNode>
@@ -144,22 +232,20 @@ function IncidentTree() {
       <div className="flex justify-center gap-2 mb-10">
         <button
           onClick={() => setActiveTab("response")}
-          className={`px-6 py-2 rounded-md border transition-all text-[16px] ${
-            activeTab === "response"
-              ? "font-semibold text-[#FED36A] border-yellow-400 shadow-yellow-200 shadow-md"
-              : "font-normal text-black border-none bg-white shadow-md"
-          }`}
+          className={`px-6 py-2 rounded-md border transition-all text-[16px] ${activeTab === "response"
+            ? "font-semibold text-[#FED36A] border-yellow-400 shadow-yellow-200 shadow-md"
+            : "font-normal text-black border-none bg-white shadow-md"
+            }`}
         >
           Response System
         </button>
         <div className="w-px h-10 bg-[#D0CECE]"></div>
         <button
           onClick={() => setActiveTab("table")}
-          className={`px-6 py-2 rounded-md border transition-all text-[16px] ${
-            activeTab === "table"
-              ? "font-semibold text-[#FED36A] border-yellow-400 shadow-yellow-200 shadow-md"
-              : "font-normal text-black border-none bg-white shadow-md"
-          }`}
+          className={`px-6 py-2 rounded-md border transition-all text-[16px] ${activeTab === "table"
+            ? "font-semibold text-[#FED36A] border-yellow-400 shadow-yellow-200 shadow-md"
+            : "font-normal text-black border-none bg-white shadow-md"
+            }`}
         >
           Table System
         </button>
@@ -168,14 +254,120 @@ function IncidentTree() {
       {/* Tree View */}
       {activeTab === "response" && (
         <div style={{ overflowX: "auto" }}>
-          { Object.keys(data).length>0 && 
-          (<Tree lineWidth={"2px"} lineColor={"#C5C4C2"} lineBorderRadius={"10px"}>
-            <RenderNode node={data} />
-          </Tree>
+          {Object.keys(data).length > 0 && (
+            <Tree
+              lineWidth={"2px"}
+              lineColor={"#C5C4C2"}
+              lineBorderRadius={"10px"}
+            >
+              <RenderNode node={data} />
+            </Tree>
           )}
-          
         </div>
       )}
+
+      {/* Global Add Volunteer Dialog */}
+      <Dialog open={showAddVolunteerDialog} onOpenChange={setShowAddVolunteerDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Add a Volunteer</DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4 mt-4">
+            <div>
+              <label className="text-sm mb-1 block">Name of the Person</label>
+              <Input
+                placeholder="Name of the Person"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="text-sm mb-1 block">Role</label>
+              <Input
+                placeholder="Name of the Role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              />
+            </div>
+
+
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <label className="text-sm mb-1 block">Phone Number</label>
+                <Input
+                  placeholder="+91"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div className="flex-1">
+                <label className="text-sm mb-1 block">Mail Id</label>
+                <Input
+                  placeholder="@gmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <label className="text-sm">Date</label>
+                <button
+                  type="button"
+                  className="text-xs text-[#FED36A] underline hover:text-yellow-500"
+                  onClick={() => {
+                    setFromDate("");
+                    setToDate("");
+                  }}
+                >
+                  Reset
+                </button>
+              </div>
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <label className="text-xs block mb-1">From</label>
+                  <input
+                    type="date"
+                    value={fromDate}
+                    onChange={(e) => setFromDate(e.target.value)}
+                    className="w-full border rounded-md p-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#FED36A]"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label className="text-xs block mb-1">To</label>
+                  <input
+                    type="date"
+                    value={toDate}
+                    onChange={(e) => setToDate(e.target.value)}
+                    className="w-full border rounded-md p-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#FED36A]"
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <DialogFooter className="mt-6 flex justify-between">
+            <Button
+              variant="outline"
+              className="border-[#FED36A] text-[#FED36A] hover:bg-yellow-50"
+              onClick={() => setShowAddVolunteerDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="bg-[#FED36A] text-black hover:bg-yellow-400"
+              onClick={handleAddVolunteer}
+            >
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 }

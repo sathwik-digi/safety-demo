@@ -35,5 +35,5 @@ export const networkHandler = {
     get: (microService, path ) => apiCall('get', microService, path),
     post: (microService, path, body) => apiCall('post', microService, path, body),
     put: (microService, path, body) => apiCall('put', microService, path, body),
-    del: (microService, path, body) => apiCall('del', microService, path, body),
+    del: (microService, path, body) => apiCall('delete', microService, path, body),
 };

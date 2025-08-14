@@ -43,6 +43,7 @@ function IrtDashboardLayout() {
     { label: "Member's" },
     { label: "View Task" },
     { label: "View Incident", path: "/irt/viewincident" },
+    { label: "Forms", path:"/irt/forms"}
   ];
 
   const logoutHandler = () => {
