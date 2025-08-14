@@ -5,27 +5,19 @@ import onesubseaLogo from "../../../assets/Images/onesubsea_logo.png";
 
 function FactoryList() {
   const [filterType, setFilterType] = useState("District");
-  const [statusFilter, setStatusFilter] = useState("All Factory's / Industries");
+  const [selectedStatus, setSelectedStatus] = useState("waiting");
   const [dynamicFactories, setDynamicFactories] = useState([]);
+  // const [filteredData, setFilteredData] = useState([]);
 
   const navigate = useNavigate();
 
-  const statusOptions = [
-    "All Factory's / Industries",
-    "Pending Application",
-    "Resubmitted Application",
-    "Approved Application",
-    "Layout Approval",
-    "Rejected Application",
-  ];
-
   const statusMap = {
-    "All Factory's / Industries": "Accepted",
-    "Pending Application": "Waiting",
+    "All Factory's / Industries": "approved",
+    "Pending Application": "waiting",
     "Resubmitted Application": "Resubmitted",
-    "Approved Application": "Pending",
-    "Layout Approval": "Verify",
-    "Rejected Application": "Rejected",
+    "Approved Application": "pending_gis",
+    "Layout Approval": "verify",
+    "Rejected Application": "rejected",
   };
 
   const getStatusColor = (status) => {
@@ -49,7 +41,7 @@ function FactoryList() {
   useEffect(() => {
     const factoriesList = async () => {
       try {
-        const res = await networkHandler.get("user","/users/getAllFactories");
+        const res = await networkHandler.get("user", "/users/getAllFactories");
         setDynamicFactories(res || []);
       } catch (error) {
         console.error("Error fetching factoriesList:", error);
@@ -58,7 +50,6 @@ function FactoryList() {
     factoriesList();
   }, []);
 
-  const selectedStatus = statusMap[statusFilter];
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -76,13 +67,11 @@ function FactoryList() {
 
       {/* Status Filter Tabs */}
       <div className="flex flex-wrap gap-3 mb-6">
-        {statusOptions.map((status, idx) => (
+        {Object.keys(statusMap).map((status, idx) => (
           <button
             key={idx}
-            onClick={() => setStatusFilter(status)}
-            className={`px-5 py-2 rounded-full shadow text-[12px] font-medium ${
-              statusFilter === status ? "bg-[#fed36a] text-white" : "bg-white text-black"
-            }`}
+            onClick={() => setSelectedStatus(statusMap[status])}
+            className={`px-5 py-2 rounded-full shadow text-[12px] font-medium ${selectedStatus === statusMap[status] ? "bg-[#fed36a] text-white" : "bg-white text-black"}`}
           >
             {status}
           </button>
@@ -90,41 +79,43 @@ function FactoryList() {
       </div>
 
       {/* Factory List */}
-      {dynamicFactories.map((factory) => (
+      {dynamicFactories.length > 0 && dynamicFactories.filter(factory => selectedStatus === factory.status).length > 0 ? (dynamicFactories.filter(factory => selectedStatus === factory.status).map((factory) => (
         <div
-          key={factory.id}
-          className="flex flex-col sm:flex-row gap-4 sm:gap-5 border-b border-gray-300 py-6 cursor-pointer"
-          onClick={() => navigate("/gis/factory-details", { state: factory })}
-        >
-          <img
-            src={onesubseaLogo}
-            alt={factory.name}
-            className="w-20 h-20 object-contain self-center sm:self-start"
-          />
-          <div className="flex-1 text-center sm:text-left">
-            <h2 className="text-[24px] sm:text-[32px] font-bold text-gray-900">
-              {factory.name}
-            </h2>
-            <p className="text-[14px] font-normal text-[#565959] mb-1">
-              Production, Manufacturing & Processing Technology
-            </p>
-            <p className="text-[14px] font-normal text-[#18191A]">{factory.factoryAddress}</p>
-            <a
-              href="https://www.onesubsea.slb.com/"
-              className="text-[14px] font-normal text-[#565959] underline block"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              https://www.onesubsea.slb.com/
-            </a>
-            <p className={`text-[14px] font-medium mt-1 ${getStatusColor(selectedStatus)}`}>
-              • {selectedStatus}
-            </p>
-          </div>
+        key={factory.id}
+        className="flex flex-col sm:flex-row gap-4 sm:gap-5 border-b border-gray-300 py-6 cursor-pointer"
+        onClick={() => navigate("/gis/factory-details", { state: factory })}
+      >
+        <img
+          src={onesubseaLogo}
+          alt={factory.name}
+          className="w-20 h-20 object-contain self-center sm:self-start"
+        />
+        <div className="flex-1 text-center sm:text-left">
+          <h2 className="text-[24px] sm:text-[32px] font-bold text-gray-900">
+            {factory.name}
+          </h2>
+          <p className="text-[14px] font-normal text-[#565959] mb-1">
+            Production, Manufacturing & Processing Technology
+          </p>
+          <p className="text-[14px] font-normal text-[#18191A]">{factory.factoryAddress}</p>
+          <a
+            href="https://www.onesubsea.slb.com/"
+            className="text-[14px] font-normal text-[#565959] underline block"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://www.onesubsea.slb.com/
+          </a>
+          <p className={`text-[14px] font-medium mt-1 ${getStatusColor(selectedStatus)}`}>
+            • {selectedStatus}
+          </p>
         </div>
-      ))}
+      </div>)))
+        : (<div className="flex justify-center font-medium">No items to display</div>)
+      }
     </div>
-  );
+  )
 }
+
 
 export default FactoryList;

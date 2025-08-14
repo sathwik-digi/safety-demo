@@ -52,7 +52,7 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
     }
 
     const payload = {
-      factoryId: factoryData.id,
+      factoryId: factoryData?.factoryIdentication?.factoryId,
       approvalStatus: message
     };
 
@@ -186,7 +186,7 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
             <Button
               type="button"
               className="bg-[#12B76A] hover:bg-green-600 text-white px-6 py-2 rounded-md flex items-center justify-center gap-2"
-              onClick={()=> handleApproval("APPROVED")}
+              onClick={()=> handleApproval("approved")}
             >
               <img src={approveIcon} alt="Approve Icon" className="w-5 h-5" /> Approve
             </Button>
@@ -194,7 +194,7 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
             <Button
               type="button"
               className="bg-[#FEC84B] hover:bg-yellow-500 text-white px-6 py-2 rounded-md flex items-center justify-center gap-2"
-              onClick={()=> handleApproval("APPROVED")}
+              onClick={()=> handleApproval("resubmission")}
             >
               <img src={resubmitIcon} alt="Resubmit Icon" className="w-5 h-5" /> Resubmit
             </Button>
@@ -202,7 +202,7 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
             <Button
               type="button"
               className="bg-[#F04438] hover:bg-red-600 text-white px-6 py-2 rounded-md flex items-center justify-center gap-2"
-              onClick={()=> handleApproval("APPROVED")}
+              onClick={()=> handleApproval("rejected")}
             >
               <img src={declineIcon} alt="Decline Icon" className="w-5 h-5" /> Decline
             </Button>

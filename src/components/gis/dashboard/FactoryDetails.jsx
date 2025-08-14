@@ -22,7 +22,7 @@ function FactoryDetails() {
   useEffect(() => {
     const factoriesList = async () => {
       try {
-        const res = await networkHandler.get("user",`/users/getFactoryByID/${status.id}`);
+        const res = await networkHandler.get("user",`/users/getFactoryByID/${status?.factoryIdentication?.factoryId}`);
         setDynamicFactoryDetails(res || []);
       } catch (error) {
         console.error("Error fetching factoriesList:", error);
