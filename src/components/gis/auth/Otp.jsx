@@ -87,7 +87,7 @@ function OtpScreen() {
           <Button
             type="submit"
             onClick={handleSignIn}
-            className="bg-[#FFD36A] text-white p-6 w-full rounded-full font-bold text-base mt-5 hover:bg-[#e6c859]"
+            className="bg-[#FFD36A] text-white p-4 w-full rounded-full font-bold text-base mt-5 hover:bg-[#e6c859]"
           >
             Sign in
           </Button>
