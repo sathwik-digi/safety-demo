@@ -2,12 +2,6 @@ import React, { useState } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Header from "../components/gis/Header";
 import IRTSiteLogo from "../assets/Images/irt-logo.png";
-import DashboardIcon from "../assets/Icons/dashboard-icon.png";
-import InventoryManagementIcon from "../assets/Icons/inventorymanagement-icon.png";
-import DocumentManagementIcon from "../assets/Icons/documentmanagement-icon.png";
-import LMSIcon from "../assets/Icons/lms-icon.png";
-import BlogIcon from "../assets/Icons/blog.png";
-import FactoryIcon from "../assets/Icons/blog.png";
 import settings from "../assets/Icons/settings.png";
 import HelpIcon from "../assets/Icons/help-circle.png";
 import LogOutIcon from "../assets/Icons/log-out.png";
@@ -17,12 +11,15 @@ import { AlignLeft } from "lucide-react";
 import { useSelector } from "react-redux";
 import {clearCookie, getCookie} from "../https";
 import { accessToken } from "../constants";
+import RenderGisSvgIcon from "../lib/RenderGisSvgIcon";
 
 
 function GisDashboardLayout() {
   const navigate = useNavigate();
   const token = getCookie(accessToken);
   const siteName = getCookie("siteName");
+  const [activeTab, setActiveTab] = useState(0);
+
   if (!token) {
     return <Navigate to="/" replace />;
   }
@@ -44,6 +41,15 @@ function GisDashboardLayout() {
     navigate("/auth/login");
   }
 
+  const handleClick = (path, index) => {
+    if (path) {
+      navigate(path)
+    }
+    setActiveTab(index);
+  }
+
+  
+
   const SidebarContent = () => (
     <div className="p-5 flex flex-col gap-5 bg-white">
       <div className="flex justify-center items-center mb-4">
@@ -53,24 +59,27 @@ function GisDashboardLayout() {
           className="w-[177px] h-[64px] object-contain"
         />
       </div>
-      <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/gis/dashboard")}> <img src={DashboardIcon} alt="Dashboard icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Dashboard</p> </div>
+      <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/dashboard", 0)}> <RenderGisSvgIcon index={0} activeTab={activeTab} /> <p className="text-[14px] font-medium text-[#344054]">Dashboard</p> </div>
       {sidebarDataForUser.includes("Sub Admin") && (
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/gis/role-base-access")}> <img src={DashboardIcon} alt="Dashboard icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Sub Admin</p> </div>
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 1)}> <RenderGisSvgIcon index={1} activeTab={activeTab} /> <p className="text-[14px] font-medium text-[#344054]">Sub Admin</p> </div>
       )}
       {sidebarDataForUser.includes("Inventory Management") && (
-        <div className="flex items-center gap-3 cursor-pointer"> <img src={InventoryManagementIcon} alt="Inventory icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Inventory Management</p> </div>
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 2)}> <RenderGisSvgIcon index={2} activeTab={activeTab} /> <p className="text-[14px] font-medium text-[#344054]">Inventory Management</p> </div>
       )}
       {sidebarDataForUser.includes("Document Management") && (
-         <div className="flex items-center gap-3 cursor-pointer"> <img src={DocumentManagementIcon} alt="Document icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Document Management</p> </div>
+         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 3)}> <RenderGisSvgIcon index={3} activeTab={activeTab} /> <p className="text-[14px] font-medium text-[#344054]">Document Management</p> </div>
       )}
       {sidebarDataForUser.includes("LMS") && (
-        <div className="flex items-center gap-3 cursor-pointer"> <img src={LMSIcon} alt="LMS icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">LMS</p> </div>
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 4)}> <RenderGisSvgIcon index={4} activeTab={activeTab} /> <p className="text-[14px] font-medium text-[#344054]">LMS</p> </div>
       )}
       {sidebarDataForUser.includes("Blog") && (
-       <div className="flex items-center gap-3 cursor-pointer"> <img src={BlogIcon} alt="Blog icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Blog</p> </div>
+       <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 5)}> <RenderGisSvgIcon index={5} activeTab={activeTab} /> <p className="text-[14px] font-medium text-[#344054]">Blog</p> </div>
       )}
       {sidebarDataForUser.includes("Factory List") && (
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/gis/factorylist")}> <img src={FactoryIcon} alt="Factory icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Factory List</p></div>
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/factorylist", 6)}> <RenderGisSvgIcon index={6} activeTab={activeTab} /> <p className="text-[14px] font-medium text-[#344054]">Factory List</p></div>
+      )}
+      {sidebarDataForUser.includes("Forms") && (
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 7)}> <RenderGisSvgIcon index={7} activeTab={activeTab} /> <p className="text-[14px] font-medium text-[#344054]">Form's</p></div>
       )}
       <div className="pt-[50px] pb-[80px]"> <p className="text-[10px] font-medium text-[#757575] tracking-wide uppercase mb-2">Settings</p>
         <div className="flex items-center justify-between cursor-pointer"> <div className="flex items-center gap-3"> <img src={settings} alt="Settings icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Settings</p> </div> <img src={UnionIcon} alt="Chevron icon" className="w-[9.33px] h-[5.33px]" style={{ color: "#757575" }} /> </div>

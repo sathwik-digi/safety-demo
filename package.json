@@ -42,6 +42,7 @@
     "react-hook-form": "^7.60.0",
     "react-leaflet": "^4.2.1",
     "react-leaflet-draw": "^0.20.6",
+    "react-loader-spinner": "^6.1.6",
     "react-organizational-chart": "^2.2.1",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.3",

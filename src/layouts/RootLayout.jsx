@@ -1,12 +1,19 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Header from "../components/gis/Header";
-import Footer from "../components/gis/Footer";
+import { accessToken } from "../constants";
+import { getCookie } from "../https";
+
 
 function RootLayout() {
+  const token = getCookie(accessToken);
+  const siteName = getCookie("siteName");
+  if (token) {
+    return <Navigate to={`/${siteName}/dashboard`} replace />;
+  }
   return (
     <div>
-      <Header />
+      <Header home="home" />
       <Outlet />
     </div>
   );

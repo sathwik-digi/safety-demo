@@ -49,7 +49,7 @@ function FactoryList() {
   useEffect(() => {
     const factoriesList = async () => {
       try {
-        const res = await networkHandler.get("irt","/users/getAllFactories");
+        const res = await networkHandler.get("user","/users/getAllFactories");
         setDynamicFactories(res || []);
       } catch (error) {
         console.error("Error fetching factoriesList:", error);
