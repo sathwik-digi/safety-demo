@@ -27,6 +27,10 @@ import VolunteerRegistrationForm  from "./components/gis/register/VolunteerRegis
 import VolunteerRegistrationSuccess from "./components/gis/register/VolunteerRegistrationSuccess";
 import DynamicForm from "./components/DynamicForm";
 import LocationPage from "./components/irt/dashboard/LocationPage";
+import Forms from "./components/Forms";
+import UserForms from "./components/UserForms";
+import FormDetails from './components/FormDetails';
+import UserAnswers from './components/UserAnswers';
  
 export const routers = createBrowserRouter([
       {
@@ -103,6 +107,22 @@ export const routers = createBrowserRouter([
                 element:<LocationPage />
             },
 
+            {
+                path:"forms",
+                element:<Forms/>
+            },
+            {
+                path:"userForms",
+                element:<UserForms/>
+            },
+            {
+                path:"formDetails",
+                element:<FormDetails/>
+            },
+            {
+                path:"userAnswers",
+                element:<UserAnswers/>
+            }
         ]
     },
     {
