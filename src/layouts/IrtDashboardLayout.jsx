@@ -24,12 +24,12 @@ function IrtDashboardLayout() {
 
   const token = getCookie(accessToken);
   const siteName = getCookie("siteName");
-  // if (!token) {
-  //   return <Navigate to="/" replace />;
-  // }
-  // else if (siteName === "gis") {
-  //   return <Navigate to="/gis/dashboard" replace />
-  // }
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+  else if (siteName === "gis") {
+    return <Navigate to="/gis/dashboard" replace />
+  }
 
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
