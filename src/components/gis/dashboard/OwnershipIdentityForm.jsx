@@ -21,11 +21,11 @@ function OwnershipIdentityForm({ onNext, factoryData }) {
     if (factoryData) {
       const factory = factoryData;
       setFormValues({
-        name: "Sanjay Kuma",
+        name: factory.name || "Sanjay Kuma",
         email: factory.email || "sanjay@email.com",
         contactNumber: factory.contactNumber || "9999999999",
         alternativeContactNumber: "9999999098", 
-        aadhaarNumber: "1234 5678 9012", 
+        aadhaarNumber: factory.aadhaarNumber || "1234 5678 9012", 
         panNumber: factory.panNumber || "DUMMYPAN123",
         factoryAddress: factory.factoryAddress || "Dummy Address",
         state: factory.state || "Dummy State",

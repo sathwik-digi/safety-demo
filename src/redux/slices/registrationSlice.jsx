@@ -14,11 +14,15 @@ const registrationSlice = createSlice({
     },
     saveFactoryOwnershipIdentityData: (state,action) => {
         state.factoryOwnershipIdentityData = action.payload;
+    },
+    clearData:(state)=>{
+        state.ownershipIdentityData = {},
+        state.factoryOwnershipIdentityData = {}
     }
 },
  
 });
 
-export const { saveOwnershipIdentityData, saveFactoryOwnershipIdentityData  } = registrationSlice.actions;
+export const { saveOwnershipIdentityData, saveFactoryOwnershipIdentityData, clearData  } = registrationSlice.actions;
 
 export default registrationSlice.reducer;

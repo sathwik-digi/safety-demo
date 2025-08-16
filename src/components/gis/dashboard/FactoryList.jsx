@@ -22,16 +22,16 @@ function FactoryList() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "Accepted":
+      case "approved":
         return "text-green-600";
-      case "Rejected":
+      case "rejected":
         return "text-red-600";
-      case "Waiting":
+      case "waiting":
       case "Pending":
         return "text-yellow-600";
-      case "Resubmitted":
+      case "resubmitted":
         return "text-blue-600";
-      case "Verify":
+      case "verify":
         return "text-purple-600";
       default:
         return "text-gray-500";
@@ -92,19 +92,21 @@ function FactoryList() {
         />
         <div className="flex-1 text-center sm:text-left">
           <h2 className="text-[24px] sm:text-[32px] font-bold text-gray-900">
-            {factory.name}
+            {factory.factoryIdentication.name}
           </h2>
           <p className="text-[14px] font-normal text-[#565959] mb-1">
             Production, Manufacturing & Processing Technology
           </p>
-          <p className="text-[14px] font-normal text-[#18191A]">{factory.factoryAddress}</p>
+          <p className="text-[14px] font-normal text-[#18191A]">
+          {`${factory.factoryIdentication.factoryPremises}, ${factory.factoryIdentication.city}, ${factory.factoryIdentication.district}, ${factory.factoryIdentication.state}, ${factory.factoryIdentication.pincode}`}
+          </p>
           <a
             href="https://www.onesubsea.slb.com/"
             className="text-[14px] font-normal text-[#565959] underline block"
             target="_blank"
             rel="noopener noreferrer"
           >
-            https://www.onesubsea.slb.com/
+            {factory.factoryIdentication.websiteLink || "https://www.onesubsea.slb.com"}
           </a>
           <p className={`text-[14px] font-medium mt-1 ${getStatusColor(selectedStatus)}`}>
             • {selectedStatus}

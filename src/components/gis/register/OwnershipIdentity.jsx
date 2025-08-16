@@ -58,6 +58,7 @@ export default function OwnershipIdentity({setCount}) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-6xl mx-auto p-6 space-y-8">
+            <p className="w-[50vw] font-semibold">Andhra Pradesh Industrial Infrastructure Corporation Ltd. (APIIC) was incorporated on 26th September, 1973 with Authorised Capital of Rs.20.00 crores and paid up capital of Rs.16.33 crores. APIIC is a wholly owned Undertaking of Government of Andhra Pradesh.</p>
             <p className="font-semibold text-[27px] md:text-[36px]">Ownership Identity</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Name */}
@@ -77,60 +78,54 @@ export default function OwnershipIdentity({setCount}) {
                 {/* Contact Number */}
                 <div>
                     <label className="text-[#666666] block mb-1">Contact Number</label>
-                    <Input className="border-[#cccccc]" type="text" placeholder="+91" register={register} name="contactNumber" />
+                    <Input maxLength={10} className="border-[#cccccc]" type="text" placeholder="+91" register={register} name="contactNumber" />
                     {errors.contactNumber && <p className="text-red-500 text-sm mt-1">{errors.contactNumber.message}</p>}
                 </div>
 
                 {/* Alternative Contact */}
                 <div>
                     <label className="text-[#666666] block mb-1">Alternative Contact Number</label>
-                    <Input className="border-[#cccccc]" type="text" placeholder="+91" register={register} name="alternativeContactNumber" />
+                    <Input maxLength={10} className="border-[#cccccc]" type="text" placeholder="+91" register={register} name="alternativeContactNumber" />
                     {errors.alternativeContactNumber && <p className="text-red-500 text-sm mt-1">{errors.alternativeContactNumber.message}</p>}
                 </div>
 
                 {/* Aadhaar */}
                 <div>
                     <label className="text-[#666666] block mb-1">Aadhaar Number</label>
-                    <Input className="border-[#cccccc]" type="text" placeholder="0000 0000 0000 0000" register={register} name="aadhaarNumber" />
+                    <Input maxLength={12} className="border-[#cccccc]" type="text" placeholder="0000 0000 0000 0000" register={register} name="aadhaarNumber" />
                     {errors.aadhaarNumber && <p className="text-red-500 text-sm mt-1">{errors.aadhaarNumber.message}</p>}
                 </div>
 
-                {/* PAN */}
                 <div>
                     <label className="text-[#666666] block mb-1">PAN Number</label>
                     <Input className="border-[#cccccc]" type="text" placeholder="*********" register={register} name="panNumber" />
                     {errors.panNumber && <p className="text-red-500 text-sm mt-1">{errors.panNumber.message}</p>}
                 </div>
 
-                {/* Address (full-width) */}
                 <div className="md:col-span-2">
                     <label className="text-[#666666] block mb-1">Permanent Address</label>
                     <Input className="border-[#cccccc]" type="text" placeholder="Type your Address" register={register} name="permanentAddress" />
                     {errors.permanentAddress && <p className="text-red-500 text-sm mt-1">{errors.permanentAddress.message}</p>}
                 </div>
 
-                {/* State */}
                 <div>
                     <label className="text-[#666666] block mb-1">State</label>
                     <Input className="border-[#cccccc]" type="text" placeholder="Select the option" register={register} name="state" />
                     {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state.message}</p>}
                 </div>
 
-                {/* District */}
                 <div>
                     <label className="text-[#666666] block mb-1">District</label>
                     <Input className="border-[#cccccc]" type="text" placeholder="Select the option" register={register} name="district" />
                     {errors.district && <p className="text-red-500 text-sm mt-1">{errors.district.message}</p>}
                 </div>
 
-                {/* Pin Code */}
                 <div>
                     <label className="text-[#666666] block mb-1">Pin Code</label>
                     <Input className="border-[#cccccc]" type="text" placeholder="Select the option" register={register} name="pinCode" />
                     {errors.pinCode && <p className="text-red-500 text-sm mt-1">{errors.pinCode.message}</p>}
                 </div>
 
-                {/* City */}
                 <div>
                     <label className="text-[#666666] block mb-1">City</label>
                     <Input className="border-[#cccccc]" type="text" placeholder="Select the option" register={register} name="city" />
