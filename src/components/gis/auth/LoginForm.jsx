@@ -13,12 +13,15 @@ import { accessToken } from "../../../constants";
 import { useDispatch } from "react-redux";
 import { saveAclData } from "../../../redux/slices/aclSlice";
 import LoadingComponent from "../../../lib/LoadingComponent";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [passwordInputType, setPasswordInputType] = useState("password")
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -124,6 +127,15 @@ function LoginForm() {
     }
   };
 
+  const handleInputPassswordType=()=>{
+    if(passwordInputType==="password"){
+      setPasswordInputType("text")
+    }
+    else{
+      setPasswordInputType("password")
+    }
+  }
+
   return (
     <>
       {loading && <LoadingComponent />}
@@ -218,13 +230,19 @@ function LoginForm() {
 
                 <div className="grid gap-2">
                   <Label htmlFor="password">Your password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                  />
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      type={passwordInputType}
+                      placeholder="Password"
+                      value={formData.password}
+                      onChange={handleChange}
+                    />
+                    <div className="absolute top-2 right-3 " onClick={handleInputPassswordType}>
+                      {passwordInputType==="text" && ( <FaEye size={18} />)}
+                      {passwordInputType==="password" && ( <FaEyeSlash size={18} />)}
+                    </div>
+                  </div>
                   {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
                 </div>
 

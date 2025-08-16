@@ -154,7 +154,7 @@ const VolunteerRegistrationForm = () => {
           {/*DOB*/}
           <div>
             <label className="text-sm block mb-1">Date of Birthday</label>
-            <Input type="date" register={register} name="dob" className="text-sm h-9" />
+            <Input type="date" max={new Date().toISOString().split("T")[0]} register={register} name="dob" className="text-sm h-9" />
             {errors.dob && <p className="text-red-500 text-xs mt-1">{errors.dob.message}</p>}
           </div>
         </div>

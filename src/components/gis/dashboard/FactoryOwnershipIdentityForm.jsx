@@ -28,18 +28,18 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
     if (factoryData) {
       const factory = factoryData;
       setFormValues({
-        name: "Sanjay Kuma",
-        businessEmail: factory.email || "sanjay@email.com",
-        contactNumber: factory.contactNumber || "9999999999",
+        name: factory.factoryIdentication.name || "not mentioned",
+        businessEmail: factory.factoryIdentication.email || "sanjay@email.com",
+        contactNumber: factory.factoryIdentication.contactNumber || "9999999999",
         businessContactNumber: "9999999000",
-        licensesNumber: "1234 5678 9012",
-        businessPanNumber: factory.panNumber || "DUMMYPAN123",
-        gstNumber: "37AAACP1206G1ZW",
-        factoryAddress: factory.factoryAddress || "Dummy Address",
-        state: factory.state || "Dummy State",
-        district: factory.district || "Dummy District",
-        pincode: factory.pincode || "000000",
-        city: factory.city || "Dummy City",
+        licensesNumber: factory.factoryIdentication.licenseNumber || "1234 5678 9012",
+        businessPanNumber: factory.factoryIdentication.panNumber || "DUMMYPAN123",
+        gstNumber: factory.factoryIdentication.gstNumber ||  "37AAACP1206G1ZW",
+        factoryAddress: factory.factoryIdentication.factoryPremises || "Dummy Address",
+        state: factory.factoryIdentication.state || "Dummy State",
+        district: factory.factoryIdentication.district || "Dummy District",
+        pincode: factory.factoryIdentication.pincode || "000000",
+        city: factory.factoryIdentication.city || "Dummy City",
       });
     }
   }, [factoryData]);
@@ -77,7 +77,7 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
         <form className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-x-20">
           <div>
             <label className="block font-semibold text-[#666666] mb-2">
-              Name of the person
+              Name of the factory
             </label>
             <Input type="text" value={formValues.name} className="w-full" />
           </div>

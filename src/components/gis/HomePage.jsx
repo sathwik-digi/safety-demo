@@ -8,19 +8,42 @@ function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen w-screen bg-cover bg-center" style={{ backgroundImage: `url(${HomeBgImage})` }}>
-      <div className="grid grid-cols-2 justify-items-center gap-40 absolute top-120 left-[7vw]">
-        <h2 className="text-white w-140">
+    <div
+      className="h-screen w-screen bg-cover bg-center flex justify-center items-center"
+      style={{ backgroundImage: `url(${HomeBgImage})` }}
+    >
+      <div className="flex flex-row gap-60 md:100 xl:gap-140 md:mt-40">
+        <h2 className="text-white max-w-[35rem]">
           Andhra Pradesh Industrial Infrastructure Corporation Ltd.
           (APIIC) was incorporated on 26th September, 1973 with
           Authorised Capital of Rs.20.00 crores and paid up capital
           of Rs.16.33 crores. APIIC is a wholly owned Undertaking of
           Government of Andhra Pradesh.
         </h2>
-        <div className="flex flex-col gap-4 ">
-          <Button className="bg-white w-70 rounded-[20px]" onClick={() => navigate('/auth/login')}>Login</Button>
-          <Button className="bg-white w-70 rounded-[20px]" onClick={() => navigate('/auth/register')}>Industry Registration</Button>
-          {/* <Button
+        <div className="flex flex-col gap-4">
+          <Button
+            className="bg-white w-70 rounded-[20px]"
+            onClick={() => navigate('/auth/login')}
+          >
+            Login
+          </Button>
+          <Button
+            className="bg-white w-70 rounded-[20px]"
+            onClick={() => navigate('/auth/register')}
+          >
+            Industry Registration
+          </Button>
+        </div>
+      </div>
+    </div>
+
+  );
+}
+
+export default HomePage;
+
+
+{/* <Button
             // variant="outline"
             // onClick={() =>
               // toast("Event has been created", {
@@ -38,10 +61,3 @@ function HomePage() {
           >
             Show Toast
           </Button> */}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default HomePage;

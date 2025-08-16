@@ -45,13 +45,13 @@ function FactoryDetails() {
           </div>
 
           <div className="flex-1">
-            <h2 className="text-[28px] md:text-[36px] font-bold text-[#000000]">{dynamicFactoryDetails.name}</h2>
+            <h2 className="text-[28px] md:text-[36px] font-bold text-[#000000]">{dynamicFactoryDetails.factoryIdentication.name}</h2>
             <p className="text-[16px] md:text-[20px] font-semibold text-[#000000] mb-1">
               Production, Manufacturing & Processing Technology
             </p>
             <p className="text-[14px] font-normal text-[#18191A] mb-1 flex items-center gap-1">
-              <img src={locationIcon} alt="Location Icon" className="w-4 h-4" />
-              {dynamicFactoryDetails.factoryAddress}
+              <img src={locationIcon} alt="Location Icon" className="w-4 h-6" />
+              {`${dynamicFactoryDetails.factoryIdentication.factoryPremises}, ${dynamicFactoryDetails.factoryIdentication.city}, ${dynamicFactoryDetails.factoryIdentication.district}, ${dynamicFactoryDetails.factoryIdentication.state}, ${dynamicFactoryDetails.factoryIdentication.pincode}`}
             </p>
             <a
               href="https://www.onesubsea.slb.com/"
@@ -59,7 +59,7 @@ function FactoryDetails() {
               rel="noopener noreferrer"
               className="text-[14px] font-normal text-[#565959] underline"
             >
-              https://www.onesubsea.slb.com/
+              {dynamicFactoryDetails.factoryIdentication.websiteLink || "https://www.onesubsea.slb.com"}
             </a>
 
             <div className="flex flex-col sm:flex-row flex-wrap gap-4 border-t border-black mt-3 pt-2 text-sm text-gray-800">
