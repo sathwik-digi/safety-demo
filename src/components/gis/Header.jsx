@@ -14,7 +14,7 @@ function Header({ home = "" }) {
         <img src={notification} className="h-8 w-8" />
       </div>
       {home && (
-        <div className="mb-8 flex gap-5 justify-end mr-20">
+        <div className="mb-8 flex gap-5 justify-center md:justify-end md:mr-20">
           <Button className="bg-white shadow-xl/20" onClick={()=>navigate('/auth/volunteer-login')} >Volunteer Login</Button>
           <div className="border-r-[1.5px] border-[#bcbcbc]"></div>
           <Button className="bg-white shadow-xl/20" onClick={()=>navigate('/auth/volunteer-registration')} >Volunteer Registration</Button>

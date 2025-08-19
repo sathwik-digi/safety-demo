@@ -58,7 +58,7 @@ export default function OwnershipIdentity({setCount}) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-6xl mx-auto p-6 space-y-8">
-            <p className="w-[50vw] font-semibold">Andhra Pradesh Industrial Infrastructure Corporation Ltd. (APIIC) was incorporated on 26th September, 1973 with Authorised Capital of Rs.20.00 crores and paid up capital of Rs.16.33 crores. APIIC is a wholly owned Undertaking of Government of Andhra Pradesh.</p>
+            <p className="md:w-[50vw] text-sm  md:text-lg font-semibold">Andhra Pradesh Industrial Infrastructure Corporation Ltd. (APIIC) was incorporated on 26th September, 1973 with Authorised Capital of Rs.20.00 crores and paid up capital of Rs.16.33 crores. APIIC is a wholly owned Undertaking of Government of Andhra Pradesh.</p>
             <p className="font-semibold text-[27px] md:text-[36px]">Ownership Identity</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Name */}

@@ -8,42 +8,26 @@ import { Button } from "@/components/ui/button";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner"
-import { setCookie } from "../../../https";
-import { accessToken } from "../../../constants";
-import { useDispatch } from "react-redux";
-import { saveAclData } from "../../../redux/slices/aclSlice";
 import LoadingComponent from "../../../lib/LoadingComponent";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
 
 const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 
 function LoginForm() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [passwordInputType, setPasswordInputType] = useState("password")
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
     phoneNumber: ""
   });
 
   const [errors, setErrors] = useState({
-    email: "",
-    password: "",
     phoneNumber: ""
   });
 
   const newErrors = {
-    email: "",
-    password: "",
     phoneNumber: ""
   };
 
-
-  const [isAdminMode, setIsAdminMode] = useState(false);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -57,37 +41,27 @@ function LoginForm() {
     e.preventDefault();
     let isValid = true;
 
-
-    if (!isAdminMode) {
-      if (!formData.email.trim()) {
-        newErrors.email = "Email is required";
-        isValid = false;
-      }
-      if (!formData.password.trim()) {
-        newErrors.password = "Password is required";
-        isValid = false;
-      }
-    } else {
-      if (!formData.phoneNumber.trim()) {
-        newErrors.phoneNumber = "Phone number is required";
-        isValid = false;
-      }
+    if (!formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = "Phone number is required";
+      isValid = false;
     }
 
     setErrors(newErrors);
 
     if (isValid) {
-      if (isAdminMode) {
+        setLoading(true);
         const mobileNumber = formData.phoneNumber
         const res = await axios.post(`https://sm-authentication-${REACT_APP_API}/auth/getOtp?mobileNumber=${mobileNumber}`);
         const response = res.data;
-        if (response.success) {
+        if (response?.success) {
+          setLoading(false);
+          toast.success("OTP sent successfully");
           navigate("/auth/Otp", {
             state: { mobileNumber },
           });
-
         }
         else {
+          setLoading(false);
           toast.error('Please enter a valid mobile number', {
             style: {
               backgroundColor: '#ff4d4f',
@@ -95,46 +69,8 @@ function LoginForm() {
             },
           });
         }
-      } else {
-        setLoading(true);
-        const res = await axios.post(`https://sm-authentication-${REACT_APP_API}/auth/login`, {
-          email: formData.email,
-          password: formData.password,
-          mobileNumber: "",
-          otp: ""
-        });
-        const response = res.data;
-
-        if (response?.success) {
-          setCookie(accessToken, response?.token, 1);
-          setCookie("userId", response?.userId, 1);
-          const ress = await axios.get(`https://sm-acl-${REACT_APP_API}/acl/get-user-role-premissions-and-function-by-user-id/${response?.userId}`);
-          setCookie("siteName", ress?.data?.siteName, 1);
-          dispatch(saveAclData(ress?.data));
-          setLoading(false);
-          navigate(`/${ress?.data?.siteName}/dashboard`);
-        }
-        else {
-          setLoading(false);
-          toast.error('Please check your mail and password', {
-            style: {
-              backgroundColor: '#ff4d4f',
-              color: '#fff',
-            },
-          });
-        }
-      }
     }
   };
-
-  const handleInputPassswordType=()=>{
-    if(passwordInputType==="password"){
-      setPasswordInputType("text")
-    }
-    else{
-      setPasswordInputType("password")
-    }
-  }
 
   return (
     <>
@@ -156,13 +92,6 @@ function LoginForm() {
 
         {/* Right Side Form */}
         <div className="w-full md:w-[550px] flex flex-col justify-start md:pt-42 pt-10 px-4 md:px-16 bg-white relative">
-          {/* Toggle */}
-          <div className="flex ml-50 mb-1">
-            <div className="flex items-center space-x-2">
-              <Switch id="admin-mode" checked={isAdminMode} onCheckedChange={setIsAdminMode} />
-              <Label htmlFor="admin-mode">{isAdminMode ? "Switch to User" : "Switch to Admin"}</Label>
-            </div>
-          </div>
 
           {/* Close Button */}
           {/* <div className="absolute top-[40px] right-[60px] text-2xl cursor-pointer text-gray-800">
@@ -174,19 +103,16 @@ function LoginForm() {
             <div className="text-center">
               <div className="w-8 h-8 bg-gray-300 rounded-full mx-auto mb-3" />
               <h2 className="text-2xl font-semibold text-gray-900">
-                {isAdminMode ? "Admin Login" : "User Login"}
+                Admin Login
               </h2>
-              {!isAdminMode && (
                 <p className="text-sm text-gray-600">
                   Don’t have an account?{" "}
-                  <Link to="/auth/register" className="text-[#FDB43C] hover:underline">
+                  <Link to="#" className="text-[#FDB43C] hover:underline">
                     Sign up
                   </Link>
                 </p>
-              )}
             </div>
 
-            {isAdminMode ? (
               <>
                 <div className="grid gap-2">
                   <Label htmlFor="phoneNumber">Phone number</Label>
@@ -214,53 +140,6 @@ function LoginForm() {
                   Get OTP
                 </Button>
               </>
-            ) : (
-              <>
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Your email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                  {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-                </div>
-
-                <div className="grid gap-2">
-                  <Label htmlFor="password">Your password</Label>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      type={passwordInputType}
-                      placeholder="Password"
-                      value={formData.password}
-                      onChange={handleChange}
-                    />
-                    <div className="absolute top-3 right-3 " onClick={handleInputPassswordType}>
-                      {passwordInputType==="text" && ( <FaEye size={18} />)}
-                      {passwordInputType==="password" && ( <FaEyeSlash size={18} />)}
-                    </div>
-                  </div>
-                  {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-                </div>
-
-                <div className="flex justify-end">
-                  <span className="text-sm text-gray-500 underline cursor-pointer">
-                    Forgot your password?
-                  </span>
-                </div>
-
-                <Button
-                  type="submit"
-                  onClick={handleLogin}
-                  className="bg-[#FFD36A] text-white p-4 w-full rounded-full font-bold text-base hover:bg-[#e6c859]"
-                >
-                  Log in
-                </Button>
-              </>
-            )}
           </div>
         </div>
       </div>
