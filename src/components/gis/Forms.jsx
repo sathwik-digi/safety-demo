@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import ThreeDotsIcon from "../assets/Icons/three-dots-icon.png";
-import RenameIcon from "../assets/Icons/RenameForm.png";
-import DeleteIcon from "../assets/Icons/delete-role-icon.png";
-import sharedToIcon from "../assets/Icons/SharedTo-Icon.png";
+import ThreeDotsIcon from "../../assets/Icons/three-dots-icon.png";
+import RenameIcon from "../../assets/Icons/RenameForm.png";
+import DeleteIcon from "../../assets/Icons/delete-role-icon.png";
+import sharedToIcon from "../../assets/Icons/SharedTo-Icon.png";
 import axios from "axios";
 
-const Forms = () => {
+const GisForms = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("all");
   const [forms, setForms] = useState([]);
@@ -27,8 +27,9 @@ const Forms = () => {
     const fetchForms = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8082/v1/form/get-forms-for-admin-users/user1006"
+          "http://localhost:8082/v1/form/get-forms-for-admin-users/user1005"
         );
+        console.log(response?.data,"Forms")
         setForms(response?.data);
       } catch (error) {
         toast.error(error?.message || "Something went wrong", {
@@ -40,7 +41,7 @@ const Forms = () => {
   }, []);
 
   const handleFormCreation = () => {
-    navigate("/irt/formCreation");
+    navigate("/gis/formCreation");
   };
 
   const filterForms = () => {
@@ -91,7 +92,7 @@ const Forms = () => {
     try {
       const response = await axios.get(`http://localhost:8082/v1/form/get-form/${formId}`);
       if (response?.data) {
-        navigate("/irt/formDetails", { state: response?.data });
+        navigate("/gis/formDetails", { state: response?.data });
 
       }
 
@@ -103,9 +104,8 @@ const Forms = () => {
 
   const handleRowClick = (row) => {
     console.log(row, "Rowdata")
-    navigate("/irt/userAnswers", { state: row });
+    navigate("/gis/userAnswers", { state: row });
   }
-
 
 
   return (
@@ -134,8 +134,8 @@ const Forms = () => {
       {/* Table header */}
       <div className="hidden md:grid grid-cols-5 text-gray-500 text-sm font-bold mb-4">
         <div>Form Name</div>
-        <div>Department</div>
-        <div>Date</div>
+        <div>Industry / District Admin</div>
+        <div>Created Date</div>
         <div>Shared to</div>
         <div></div>
       </div>
@@ -159,7 +159,7 @@ const Forms = () => {
             >
 
               <div className="font-medium">{form.formName}</div>
-              <div className="font-medium">{form.department}</div>
+              <div className="font-medium">{form.factoryName}</div>
               <div className="text-gray-600">{form.createdDate?.split("T")[0]}</div>
 
 
@@ -332,4 +332,4 @@ const Forms = () => {
   );
 };
 
-export default Forms;
+export default GisForms;

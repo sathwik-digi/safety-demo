@@ -32,6 +32,11 @@ import UserForms from "./components/UserForms";
 import FormDetails from './components/FormDetails';
 import UserAnswers from './components/UserAnswers';
 import VolunteerLogin from "./components/gis/auth/VolunteerLogin";
+import GISDynamicForm from './components/gis/DynamicForm';
+import GisForms from './components/gis/Forms';
+import GisFormDetails from "./components/gis/GisFormDetails";
+import GisUserAnswers from "./components/gis/GisUserAnswers";
+import GisDistrictForms from "./components/gis/GisDistrictForms";
  
 export const routers = createBrowserRouter([
       {
@@ -72,6 +77,26 @@ export const routers = createBrowserRouter([
                 path: "role-permissions",
                 element: <RolePermissions />,
             },
+            {
+                path:"formCreation",
+                element:<GISDynamicForm/>
+            },
+            {
+                path:"gisForms",
+                element:<GisForms/>
+            },
+            {
+                path:"formDetails",
+                element:<GisFormDetails/>
+            },
+            {
+                path:"userAnswers",
+                element:<GisUserAnswers/>
+            },
+            {
+                path:"gisDistrictForms",
+                element:<GisDistrictForms/>
+            }
            
         ]
     },
