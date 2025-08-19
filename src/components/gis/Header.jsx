@@ -15,9 +15,9 @@ function Header({ home = "" }) {
       </div>
       {home && (
         <div className="mb-8 flex gap-5 justify-end mr-20">
-          <Button className="bg-white shadow-xl/20">Volunteer Login</Button>
+          <Button className="bg-white shadow-xl/20" onClick={()=>navigate('/auth/volunteer-login')} >Volunteer Login</Button>
           <div className="border-r-[1.5px] border-[#bcbcbc]"></div>
-          <Button className="bg-white shadow-xl/20" onClick={()=>navigate('/auth/Volunteer-Registration')}>Volunteer Registration</Button>
+          <Button className="bg-white shadow-xl/20" onClick={()=>navigate('/auth/volunteer-registration')} >Volunteer Registration</Button>
         </div>
       )
 

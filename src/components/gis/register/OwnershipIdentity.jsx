@@ -98,7 +98,7 @@ export default function OwnershipIdentity({setCount}) {
 
                 <div>
                     <label className="text-[#666666] block mb-1">PAN Number</label>
-                    <Input className="border-[#cccccc]" type="text" placeholder="*********" register={register} name="panNumber" />
+                    <Input maxLength={10} className="border-[#cccccc]" type="text" placeholder="*********" register={register} name="panNumber" />
                     {errors.panNumber && <p className="text-red-500 text-sm mt-1">{errors.panNumber.message}</p>}
                 </div>
 
@@ -122,7 +122,7 @@ export default function OwnershipIdentity({setCount}) {
 
                 <div>
                     <label className="text-[#666666] block mb-1">Pin Code</label>
-                    <Input className="border-[#cccccc]" type="text" placeholder="Select the option" register={register} name="pinCode" />
+                    <Input maxLength={6} className="border-[#cccccc]" type="text" placeholder="Select the option" register={register} name="pinCode" />
                     {errors.pinCode && <p className="text-red-500 text-sm mt-1">{errors.pinCode.message}</p>}
                 </div>
 

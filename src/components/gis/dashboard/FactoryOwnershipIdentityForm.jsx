@@ -58,7 +58,16 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
 
     try {
       const response = await networkHandler.post("user","/users/factory/approval", payload);
-      toast.success("This industry is approved");
+      if(message==="pending_gis"){
+        toast.success("This industry is approved");
+      }
+      else if (message==="rejected"){
+        toast.success("This industry is rejected");
+      }
+      else{
+        toast.success("This industry is resubmitted");
+      }
+      
     } catch (error) {
       console.error("Error in approval:", error);
     }
@@ -171,7 +180,7 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
         </div>
       </div>
 
-      {status !== "Verify" && (
+      {status?.status === "waiting" && (
         <div className="pb-16 mt-10 sm:mx-10">
           <h3 className="text-center text-[#FEC84B] text-xl font-semibold mb-4">
             Comments
@@ -186,7 +195,7 @@ function FactoryOwnershipIdentityForm({ onBack, status, factoryData }) {
             <Button
               type="button"
               className="bg-[#12B76A] hover:bg-green-600 text-white px-6 py-2 rounded-md flex items-center justify-center gap-2"
-              onClick={()=> handleApproval("approved")}
+              onClick={()=> handleApproval("pending_gis")}
             >
               <img src={approveIcon} alt="Approve Icon" className="w-5 h-5" /> Approve
             </Button>

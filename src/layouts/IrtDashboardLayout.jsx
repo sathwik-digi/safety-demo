@@ -19,6 +19,8 @@ import { Button } from "@/components/ui/button";
 import { clearCookie, getCookie } from "../https"
 import { accessToken } from "../constants";
 import RenderIrtSvgIcon from "../lib/RenderIrtSvgIcon";
+import { toast } from "sonner";
+import { yellowButtonColor } from "../lib/theme";
 
 function IrtDashboardLayout() {
 
@@ -48,6 +50,7 @@ function IrtDashboardLayout() {
 
   const logoutHandler = () => {
     clearCookie();
+    toast.success("Logout successful");
     navigate("/auth/login");
   }
 
@@ -76,7 +79,7 @@ function IrtDashboardLayout() {
             onClick={() => handleClick(item, index)}
           >
             <RenderIrtSvgIcon index={index} activeTab={activeTab} />
-            <p className="text-[14px] font-medium text-[#344054]">{item.label}</p>
+            <p className={`text-[14px] font-medium ${activeTab===index ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>{item.label}</p>
           </div>
         ))}
 

@@ -186,7 +186,7 @@ export default function FactoryOwnershipIdentity({ setCount }) {
                     {/* Alternative Contact */}
                     <div>
                         <label className="text-[#666666] block mb-1">Business Contact Number</label>
-                        <Input className="border-[#cccccc]" type="text" placeholder="+91" register={register} name="businessContactNumber" />
+                        <Input  maxLength={10} className="border-[#cccccc]" type="text" placeholder="+91" register={register} name="businessContactNumber" />
                         {errors.businessContactNumber && <p className="text-red-500 text-sm mt-1">{errors.businessContactNumber.message}</p>}
                     </div>
 
@@ -200,7 +200,7 @@ export default function FactoryOwnershipIdentity({ setCount }) {
                     {/* PAN */}
                     <div>
                         <label className="text-[#666666] block mb-1">Business PAN Number</label>
-                        <Input className="border-[#cccccc]" type="text" placeholder="*********" register={register} name="businessPanNumber" />
+                        <Input maxLength={10} className="border-[#cccccc]" type="text" placeholder="*********" register={register} name="businessPanNumber" />
                         {errors.businessPanNumber && <p className="text-red-500 text-sm mt-1">{errors.businessPanNumber.message}</p>}
                     </div>
 
@@ -216,7 +216,7 @@ export default function FactoryOwnershipIdentity({ setCount }) {
                         <label className="text-[#666666] block mb-1">Factory Location Link</label>
                         <Input className="border-[#cccccc] pl-8" type="text" placeholder="Add Factory Location Link" register={register} name="factoryLocationLink" />
                         {errors.factoryLocationLink && <p className="text-red-500 text-sm mt-1">{errors.factoryLocationLink.message}</p>}
-                        <img src={MapsIcon} className="absolute w-3 h-5 top-9 left-3" alt="location-icon" />
+                        <img src={MapsIcon} className="absolute w-3 h-5 top-10 left-3" alt="location-icon" />
                     </div>
 
                     {/* Address (full-width) */}
