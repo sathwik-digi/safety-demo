@@ -83,7 +83,7 @@ function GisDashboardLayout() {
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/factorylist", 6)}> <RenderGisSvgIcon index={6} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===6 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Factory List</p></div>
       )}
       {sidebarDataForUser.includes("Forms") && (
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 7)}> <RenderGisSvgIcon index={7} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===7 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Form's</p></div>
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/dynamicForm", 7)}> <RenderGisSvgIcon index={7} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===7 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Form's</p></div>
       )}
       <div className="pt-[50px] pb-[80px]"> <p className="text-[10px] font-medium text-[#757575] tracking-wide uppercase mb-2">Settings</p>
         <div className="flex items-center justify-between cursor-pointer"> <div className="flex items-center gap-3"> <img src={settings} alt="Settings icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Settings</p> </div> <img src={UnionIcon} alt="Chevron icon" className="w-[9.33px] h-[5.33px]" style={{ color: "#757575" }} /> </div>
