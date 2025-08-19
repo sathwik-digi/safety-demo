@@ -10,8 +10,8 @@ import {
   } from "@/components/ui/table";
   import { Switch } from "@/components/ui/switch";
   import { Button } from "@/components/ui/button";
-  import backArrowIcon from "../../../assets/Icons/back-arrow-icon.png";
-  import ApproveIcon from "../../../assets/Icons/approve-icon.png";
+  import backArrowIcon from "../../../../assets/Icons/back-arrow-icon.png";
+  import ApproveIcon from "../../../../assets/Icons/approve-icon.png";
 
   const accessList = [
     {

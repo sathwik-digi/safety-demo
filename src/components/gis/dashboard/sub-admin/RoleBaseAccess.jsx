@@ -23,12 +23,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import AddIcon from "../../../assets/Icons/add-icon.png";
-import EditRoleIcon from "../../../assets/Icons/edit-role-icon.png";
-import DeleteRoleIcon from "../../../assets/Icons/delete-role-icon.png";
-import PermissionsIcon from "../../../assets/Icons/permissions-icon.png"
-import ApproveIcon from "../../../assets/Icons/approve-icon.png"
-import ThreeDotsIcon from "../../../assets/Icons/three-dots-icon.png"
+import AddIcon from "../../../../assets/Icons/add-icon.png";
+import EditRoleIcon from "../../../../assets/Icons/edit-role-icon.png";
+import DeleteRoleIcon from "../../../../assets/Icons/delete-role-icon.png";
+import PermissionsIcon from "../../../../assets/Icons/permissions-icon.png"
+import ApproveIcon from "../../../../assets/Icons/approve-icon.png"
+import ThreeDotsIcon from "../../../../assets/Icons/three-dots-icon.png"
 import { useNavigate } from "react-router-dom";
 
 export default function RoleBaseAccess() {

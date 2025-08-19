@@ -14,7 +14,7 @@ function FactoryList() {
   const statusMap = {
     "All Factory's / Industries": "approved",
     "Pending Application": "waiting",
-    "Resubmitted Application": "Resubmitted",
+    "Resubmitted Application": "resubmission",
     "Approved Application": "pending_gis",
     "Layout Approval": "verify",
     "Rejected Application": "rejected",
@@ -27,9 +27,10 @@ function FactoryList() {
       case "rejected":
         return "text-red-600";
       case "waiting":
-      case "Pending":
-        return "text-yellow-600";
-      case "resubmitted":
+        return "text-[#FED36A]";
+      case "pending_gis":
+        return "text-[#DB8A19]";
+      case "resubmission":
         return "text-blue-600";
       case "verify":
         return "text-purple-600";
@@ -37,6 +38,10 @@ function FactoryList() {
         return "text-gray-500";
     }
   };
+
+  const capitalLetter=(s)=>{
+    return s[0].toUpperCase()+s.slice(1,s.length);
+  }
 
   useEffect(() => {
     const factoriesList = async () => {
@@ -109,7 +114,7 @@ function FactoryList() {
             {factory.factoryIdentication.websiteLink || "https://www.onesubsea.slb.com"}
           </a>
           <p className={`text-[14px] font-medium mt-1 ${getStatusColor(selectedStatus)}`}>
-            • {selectedStatus}
+            • { capitalLetter(selectedStatus === "pending_gis" ? "pending" : selectedStatus=== "resubmission" ? "resubmitted" : selectedStatus) }
           </p>
         </div>
       </div>)))

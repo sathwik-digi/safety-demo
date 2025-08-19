@@ -15,14 +15,14 @@ import RegistrationSuccess from "./components/gis/register/RegistrationSuccess";
 import FactoryList from "./components/gis/dashboard/FactoryList";
 import Otp from "./pages/Otp";
 import FactoryDetails from "./components/gis/dashboard/FactoryDetails";
-import RoleBaseAccess from "./components/gis/dashboard/RoleBaseAccess";
+import RoleBaseAccess from "./components/gis/dashboard/sub-admin/RoleBaseAccess";
 import DashboardPage from "./components/irt/dashboard/DashboardPage";
 import AddIncident from "./components/irt/dashboard/AddIncident";
 import ViewIncident from "./components/irt/dashboard/ViewIncident";
 import ViewIncidentTaskDetails from "./components/irt/dashboard/ViewIncidentTaskDetails";
 import IncidentTree from "./components/irt/dashboard/IncidentTree";
-import EditRole from "./components/gis/dashboard/EditRole";
-import RolePermissions from "./components/gis/dashboard/RolePermissions";
+import EditRole from "./components/gis/dashboard/sub-admin/EditRole";
+import RolePermissions from "./components/gis/dashboard/sub-admin/RolePermissions";
 import VolunteerRegistrationForm  from "./components/gis/register/VolunteerRegistrationForm";
 import VolunteerRegistrationSuccess from "./components/gis/register/VolunteerRegistrationSuccess";
 import DynamicForm from "./components/DynamicForm";
@@ -31,6 +31,7 @@ import Forms from "./components/Forms";
 import UserForms from "./components/UserForms";
 import FormDetails from './components/FormDetails';
 import UserAnswers from './components/UserAnswers';
+import VolunteerLogin from "./components/gis/auth/VolunteerLogin";
  
 export const routers = createBrowserRouter([
       {
@@ -142,6 +143,10 @@ export const routers = createBrowserRouter([
                 element: <Login />,
             },
             {
+                path: "volunteer-login",
+                element: <VolunteerLogin />,
+            },
+            {
                 path: "register",
                 element: <Register />,
             },
@@ -154,7 +159,7 @@ export const routers = createBrowserRouter([
                 element: <Otp/>,
             },
             {
-                path:"Volunteer-Registration",
+                path:"volunteer-registration",
                 element:<VolunteerRegistrationForm/>
             },
             {

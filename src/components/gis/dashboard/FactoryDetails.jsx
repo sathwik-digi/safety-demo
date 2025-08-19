@@ -79,7 +79,8 @@ function FactoryDetails() {
           </div>
         </div>
       )}
-      {status === "Verify" && <FactoryLayoutApproval />}
+
+      {status?.status === "verify" && <FactoryLayoutApproval />}
       {step === 1 && <OwnershipIdentityForm onNext={goToNextStep} factoryData={dynamicFactoryDetails} />}
       {step === 2 && <FactoryOwnershipIdentityForm onBack={goToPreviousStep} status={status} factoryData={dynamicFactoryDetails} />}
     </div>

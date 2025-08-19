@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {editRoleFormSchema} from "../../../schemas";
+import {editRoleFormSchema} from "../../../../schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import PermissionsIcon from "../../../assets/Icons/permissions-icon.png"
-import ApproveIcon from "../../../assets/Icons/approve-icon.png"
-import SearchNameIcon from "../../../assets/Icons/search-name-icon.png"
+import PermissionsIcon from "../../../../assets/Icons/permissions-icon.png"
+import ApproveIcon from "../../../../assets/Icons/approve-icon.png"
+import SearchNameIcon from "../../../../assets/Icons/search-name-icon.png"
 
 
 function EditRole() {

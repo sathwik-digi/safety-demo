@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import WareHouseAddItems from "./geo-resource-tagging/WareHouseAddItems";
 
 
 // Bookmark icons setup
@@ -235,6 +236,7 @@ const DashboardPage = () => {
 
       <div className="flex items-center justify-between mb-10">
         <p>238P & 240P, Vakalapudi, Kakinada Industrial Area, Kakinada, Andhra Pradesh 533005</p>
+        <WareHouseAddItems />
         <Button className={`${changeButtonColor ? "bg-[#e4c811]" : "bg-[#d3d3d3]"} text-white px-7`} onClick={() => setChangeButtonColor((prev) => !prev)}><img src={SaveIcon} className="w-5 h-5" />Save</Button>
       </div>
     </div>

@@ -238,7 +238,7 @@ function LoginForm() {
                       value={formData.password}
                       onChange={handleChange}
                     />
-                    <div className="absolute top-2 right-3 " onClick={handleInputPassswordType}>
+                    <div className="absolute top-3 right-3 " onClick={handleInputPassswordType}>
                       {passwordInputType==="text" && ( <FaEye size={18} />)}
                       {passwordInputType==="password" && ( <FaEyeSlash size={18} />)}
                     </div>
