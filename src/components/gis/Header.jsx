@@ -9,15 +9,15 @@ function Header({ home = "" }) {
   const navigate = useNavigate();
   return (
     <>
-      <div className={`flex p-2 gap-2 ${home ? "" : "border-b-1 border-gray-200"} items-center flex-row-reverse`}>
+      <div className={`flex p-2 gap-2 mb-2 md:mb-0 ${home ? "" : "border-b-1 border-gray-200"} items-center flex-row-reverse`}>
         <img src={settings} className="h-5 w-5" />
         <img src={notification} className="h-8 w-8" />
       </div>
       {home && (
-        <div className="mb-8 flex gap-5 justify-center md:justify-end md:mr-20">
-          <Button className="bg-white shadow-xl/20" onClick={()=>navigate('/auth/volunteer-login')} >Volunteer Login</Button>
+        <div className="mb-8 flex gap-3 md:gap-5 pl-3 md:justify-end md:mr-20 absolute top-2 md:relative">
+          <Button className="bg-white shadow-xl/10 md:shadow-xl/20 text-[10px] md:text-[15px]" onClick={() => navigate('/auth/volunteer-login')} >Volunteer Login</Button>
           <div className="border-r-[1.5px] border-[#bcbcbc]"></div>
-          <Button className="bg-white shadow-xl/20" onClick={()=>navigate('/auth/volunteer-registration')} >Volunteer Registration</Button>
+          <Button className="bg-white shadow-xl/10 md:shadow-xl/20 text-[10px] md:text-[15px]" onClick={() => navigate('/auth/volunteer-registration')} >Volunteer Registration</Button>
         </div>
       )
 

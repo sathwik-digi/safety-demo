@@ -68,16 +68,16 @@ function GisDashboardLayout() {
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 1)}> <RenderGisSvgIcon index={1} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===1 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Sub Admin</p> </div>
       )}
       {sidebarDataForUser.includes("Inventory Management") && (
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 2)}> <RenderGisSvgIcon index={2} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===2 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Inventory Management</p> </div>
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("", 2)}> <RenderGisSvgIcon index={2} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===2 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Inventory Management</p> </div>
       )}
       {sidebarDataForUser.includes("Document Management") && (
-         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 3)}> <RenderGisSvgIcon index={3} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===3 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Document Management</p> </div>
+         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("", 3)}> <RenderGisSvgIcon index={3} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===3 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Document Management</p> </div>
       )}
       {sidebarDataForUser.includes("LMS") && (
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 4)}> <RenderGisSvgIcon index={4} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===4 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>LMS</p> </div>
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("", 4)}> <RenderGisSvgIcon index={4} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===4 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>LMS</p> </div>
       )}
       {sidebarDataForUser.includes("Blog") && (
-       <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 5)}> <RenderGisSvgIcon index={5} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===5 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Blog</p> </div>
+       <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("", 5)}> <RenderGisSvgIcon index={5} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===5 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Blog</p> </div>
       )}
       {sidebarDataForUser.includes("Factory List") && (
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/factorylist", 6)}> <RenderGisSvgIcon index={6} activeTab={activeTab} /> <p className={`text-[14px] font-medium ${activeTab===6 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Factory List</p></div>

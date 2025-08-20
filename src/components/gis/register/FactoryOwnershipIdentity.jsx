@@ -20,8 +20,8 @@ const formSchema = z.object({
     websiteLink: z.string().min(2, { message: "Input vaild Link" }),
     ownershipPersonName: z.string().min(2, { message: "Name must be at least 2 characters" }),
     businessEmail: z.string().email({ message: "Invalid email address." }),
-    contactNumber: z.string().min(10, { message: "Enter a valid number." }),
-    businessContactNumber: z.string().min(10, { message: "Enter a valid number." }),
+    contactNumber: z.string().min(10, { message: "Enter a valid number." }).regex(/^[6-9]/,{message:"Contact number must start with 6-9"}).regex(/[0-9]{10}/,{message:"Enter only digits"}),
+    businessContactNumber: z.string().min(10, { message: "Enter a valid number." }).regex(/^[6-9]/,{message:"Contact number must start with 6-9"}).regex(/[0-9]{10}/,{message:"Enter only digits"}),
     licenseNumber: z.string().min(2, { message: "Enter a valid number." }),
     businessPanNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, { message: "Enter a valid PAN number (e.g., ABCDE1234F)." }),
     gstNumber: z.string().min(12, { message: "Enter a valid GST number." }),
@@ -42,6 +42,8 @@ export default function FactoryOwnershipIdentity({ setCount }) {
     const factoryOwnershipIdentityData = useSelector((state) => state.registration.factoryOwnershipIdentityData);
     const ownershipIdentityData = useSelector((state) => state.registration.ownershipIdentityData);
     const [loading, setLoading] = useState(false);
+
+    console.log(factoryOwnershipIdentityData,ownershipIdentityData,"kkkiiiii")
 
 
     const handleFileChange = (event) => {
@@ -97,6 +99,7 @@ export default function FactoryOwnershipIdentity({ setCount }) {
         dispatch(saveFactoryOwnershipIdentityData(payload))
 
         const registrationResponse = await networkHandler.post("user", '/users/factoryRegistration', { ...ownershipIdentityData, factoryIdentication: payload });
+        console.log(registrationResponse,"this is the responsadasdasd");
         if (registrationResponse?.success) {
             setLoading(false);
             dispatch(clearData());

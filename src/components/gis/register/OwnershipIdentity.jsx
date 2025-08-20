@@ -10,9 +10,9 @@ import { saveOwnershipIdentityData } from "../../../redux/slices/registrationSli
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),
     email: z.string().email({ message: "Invalid email address." }),
-    contactNumber: z.string().min(10, { message: "Enter a valid number." }),
-    alternativeContactNumber: z.string().min(10, { message: "Enter a valid number." }),
-    aadhaarNumber: z.string().min(12, { message: "Enter 12 digit valid Aadhaar number." }),
+    contactNumber: z.string().min(10, { message: "Enter a valid number." }).regex(/^[6-9]/,{message:"Contact number must start with 6-9"}).regex(/[0-9]{10}/,{message:"Enter only digits"}),
+    alternativeContactNumber: z.string().min(10, { message: "Enter a valid number." }).regex(/^[6-9]/,{message:"Contact number must start with 6-9"}).regex(/[0-9]{10}/,{message:"Enter only digits"}),
+    aadhaarNumber: z.string().min(12, { message: "Enter 12 digit valid Aadhaar number." }).regex(/^[2-9]/,{message:"Aadhar number must start with 2-9"}).regex(/[0-9]{12}/,{message:"Enter only digits"}),
     panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, { message: "Enter a valid Indian PAN (e.g., ABCDE1234F)." }),
     permanentAddress: z.string().min(2, { message: "Permanent Address must be at least 2 characters." }),
     state: z.string().min(2, { message: "State must be at least 2 characters." }),

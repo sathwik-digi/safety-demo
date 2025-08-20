@@ -11,19 +11,23 @@ import { setCookie } from "../../../https";
 import { accessToken } from "../../../constants";
 import { useDispatch } from "react-redux";
 import { saveAclData } from "../../../redux/slices/aclSlice";
+import LoadingComponent from "../../../lib/LoadingComponent";
+
 const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
 
 function OtpScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const mobileNumber = location.state?.mobileNumber;
 
   const handleSignIn = async () => {
-   
+
     try {
+      setLoading(true);
       const res = await axios.post(`https://sm-authentication-${REACT_APP_API}/auth/login`, {
         email: "",
         password: "",
@@ -33,13 +37,16 @@ function OtpScreen() {
 
       const response = res.data;
       if (response?.success) {
-        setCookie(accessToken,response?.token,1);
-        setCookie("userId",response?.userId,1);
+        setCookie(accessToken, response?.token, 1);
+        setCookie("userId", response?.userId, 1);
         const ress = await axios.get(`https://sm-acl-${REACT_APP_API}/acl/get-user-role-premissions-and-function-by-user-id/${response?.userId}`);
-        setCookie("siteName",ress?.data?.siteName,1);
+        setCookie("siteName", ress?.data?.siteName, 1);
         dispatch(saveAclData(ress?.data));
+        setLoading(false);
+        toast.success("Login Successful");
         navigate(`/${ress?.data?.siteName}/dashboard`);
       } else {
+        setLoading(false);
         toast.error(response.errorMessage, {
           style: {
             backgroundColor: "#ff4d4f",
@@ -48,56 +55,61 @@ function OtpScreen() {
         });
       }
     } catch (error) {
+      setLoading(false);
       toast.error("An error occurred. Please try again.");
       console.error(error);
     }
   };
-  
+
   return (
-    <div className="flex flex-col md:flex-row h-screen w-full font-['Segoe_UI',_sans-serif]">
-         {/* Left Side Background */}
-         <div className="">
-           <img
-             src={backgroundImage}
-             className="hidden md:block w-[80vw] h-screen object-cover"
-             alt="Desktop background"
-           />
-           <img
-             src={mobileBackgroundImage}
-             className="block md:hidden w-[100vw] h-[50vw]"
-             alt="Mobile background"
-           />
-         </div>
-         <div className="w-[500px] flex flex-col justify-start pt-10 items-end pr-[140px] bg-white relative mt-4 md:mt-10 lg:mt-30">
+    <>
+      {loading && <LoadingComponent />}
+      <div className="flex flex-col md:flex-row h-screen w-full font-['Segoe_UI',_sans-serif]">
+        {/* Left Side Background */}
+        <div className="">
+          <img
+            src={backgroundImage}
+            className="hidden md:block w-[80vw] h-screen object-cover"
+            alt="Desktop background"
+          />
+          <img
+            src={mobileBackgroundImage}
+            className="block md:hidden w-[100vw] h-[50vw]"
+            alt="Mobile background"
+          />
+        </div>
+        <div className="w-[500px] flex flex-col justify-start pt-10 items-end pr-[140px] bg-white relative mt-4 md:mt-10 lg:mt-30">
 
-        <div className="w-full max-w-[350px]">
-          <h2 className="text-2xl mb-5 text-gray-900">Sign in</h2>
+          <div className="w-full max-w-[350px]">
+            <h2 className="text-2xl mb-5 text-gray-900">Sign in</h2>
 
-          <div className="grid w-full max-w-sm mt-5 items-center gap-3">
-            <Label htmlFor="otp">OTP</Label>
-            <Input
-              type="text"
-              id="otp"
-              placeholder="Enter OTP"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-          </div>
+            <div className="grid w-full max-w-sm mt-5 items-center gap-3">
+              <Label htmlFor="otp">OTP</Label>
+              <Input
+                type="text"
+                id="otp"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+            </div>
 
-          <Button
-            type="submit"
-            onClick={handleSignIn}
-            className="bg-[#FFD36A] text-white p-4 w-full rounded-full font-bold text-base mt-5 hover:bg-[#e6c859]"
-          >
-            Sign in
-          </Button>
+            <Button
+              type="submit"
+              onClick={handleSignIn}
+              className="bg-[#FFD36A] text-white p-4 w-full rounded-full font-bold text-base mt-5 hover:bg-[#e6c859]"
+            >
+              Sign in
+            </Button>
 
-          <div className="flex justify-between items-center mt-4">
-            <span className="text-sm text-gray-500 underline cursor-pointer">Need help?</span>
+            <div className="flex justify-between items-center mt-4">
+              <span className="text-sm text-gray-500 underline cursor-pointer">Need help?</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
+
   );
 }
 
