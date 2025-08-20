@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,19 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
     setFormData(prev => ({ ...prev, [field]: value }));
     setErrors(prev => ({ ...prev, [field]: "" }));
   };
+
+  useEffect(()=>{
+    if(Object.keys(formData).includes("From Date") && Object.keys(formData).includes("To Date")){
+      if(formData["From Date"]> formData["To Date"]){
+        setFormData(prev => {
+          const updated = { ...prev };
+          delete updated["From Date"];
+          delete updated["To Date"];
+          return updated;
+        });
+      }
+    }
+  },[formData])
 
   return (
     <div className="space-y-6">
@@ -143,19 +156,21 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
           <div className="w-full md:w-[20%]">
             <label className="mb-3 block font-normal text-[20px] text-[#31373D]">Date</label>
             <div className="flex items-center gap-4">
-              {["From Date", "To Date"].map(label => (
-                <div key={label} className="flex flex-col w-full">
-                  <span>{label === "From Date" ? "From" : "To"}</span>
-                  <Input
-                    type="date"
-                    value={formData[label] || ""}
-                    onChange={(e) => handleInputChange(label, e.target.value)}
-                    className={`border rounded-lg px-4 py-2 text-muted-foreground ${errors[label] ? "border-red-500" : "border-gray-300"
-                      }`}
-                  />
-                  {errors[label] && (
-                    <p className="text-red-500 text-sm mt-1">{errors[label]}</p>
-                  )}
+                {["From Date", "To Date"].map(label => (
+                  <div key={label} className="flex flex-col w-full">
+                    <span>{label === "From Date" ? "From" : "To"}</span>
+                    <Input
+                      type="date"
+                      value={formData[label] || ""}
+                      onChange={(e) => handleInputChange(label, e.target.value)}
+                      min={label==="To Date" && Object.keys(formData).includes("From Date")? formData["From Date"]:""}
+                      max={new Date().toISOString().split("T")[0]}
+                      className={`border rounded-lg px-4 py-2 text-muted-foreground ${errors[label] ? "border-red-500" : "border-gray-300"
+                        }`}
+                    />
+                    {errors[label] && (
+                      <p className="text-red-500 text-sm mt-1">{errors[label]}</p>
+                    )}
                 </div>
               ))}
             </div>

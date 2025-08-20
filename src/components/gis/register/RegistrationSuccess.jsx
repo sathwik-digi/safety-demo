@@ -41,7 +41,7 @@ const RegistrationSuccess = () => {
 
         <p className="text-red-500 font-medium mt-6 mb-2 text-[20px]">Note :-</p>
         <p className="text-gray-700 text-[20px]">
-          An email containing your customer ID and password has been sent to your e-mail address
+          Before you can login, your account must be manually activated by an administrator.
         </p>
         <p className="text-gray-700 mt-1 text-[20px]">
           You should change your password as soon as you log in for the first time.
