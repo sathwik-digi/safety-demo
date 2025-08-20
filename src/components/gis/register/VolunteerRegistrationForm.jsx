@@ -6,13 +6,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Controller } from "react-hook-form";
 import { toast } from "sonner";
-
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
 import { networkHandler } from "../../../https/networkHandler";
+import { useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const VolunteerRegistrationForm = () => {
 
   const navigate = useNavigate();
+  const [passwordInputTypeone, setPasswordInputTypeone] = useState("password");
+  const [passwordInputTypetwo, setPasswordInputTypetwo] = useState("password");
 
   const formSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -24,6 +28,9 @@ const VolunteerRegistrationForm = () => {
     city: z.string().min(2, { message: "City must be at least 2 characters." }),
     password: z.string().min(8, { message: "Please enter minimum 8 characters" }),
     confirmPassword: z.string().min(8, { message: "Please enter minimum 8 characters" })
+  }).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
   });
   const { register, handleSubmit, formState: { errors },control } = useForm({
     resolver: zodResolver(formSchema),
@@ -81,6 +88,24 @@ const VolunteerRegistrationForm = () => {
       });
     }
   };
+
+  const handleInputPassswordTypeone = () => {
+    if (passwordInputTypeone === "password") {
+        setPasswordInputTypeone("text")
+    }
+    else {
+        setPasswordInputTypeone("password")
+    }
+  }
+
+  const handleInputPassswordTypetwo = () => {
+    if (passwordInputTypetwo === "password") {
+        setPasswordInputTypetwo("text")
+    }
+    else {
+        setPasswordInputTypetwo("password")
+    }
+  }
   
   return (
     <div className="p-6 max-w-1xl mx-auto space-y-6">
@@ -169,16 +194,24 @@ const VolunteerRegistrationForm = () => {
         {/* Password + Confirm Password */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-          <div>
+          <div className="relative">
             <label className="text-sm block mb-1">Enter password</label>
-            <Input type="password" placeholder="Enter Here" register={register} name="password" className="text-sm h-9" />
+            <Input type={passwordInputTypeone} placeholder="Enter Here" register={register} name="password" className="text-sm h-9" />
             {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+            <div className="absolute top-8 right-3 " onClick={handleInputPassswordTypeone}>
+              {passwordInputTypeone === "text" && (<FaEye size={18} />)}
+              {passwordInputTypeone === "password" && (<FaEyeSlash size={18} />)}
+            </div>
           </div>
 
-          <div>
+          <div className="relative">
             <label className="text-sm block mb-1">Re-Enter password</label>
-            <Input type="password" placeholder="Enter Here" register={register} name="confirmPassword" className="text-sm h-9" />
+            <Input type={passwordInputTypetwo} placeholder="Enter Here" register={register} name="confirmPassword" className="text-sm h-9" />
             {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
+            <div className="absolute top-8 right-3 " onClick={handleInputPassswordTypetwo}>
+              {passwordInputTypetwo === "text" && (<FaEye size={18} />)}
+              {passwordInputTypetwo === "password" && (<FaEyeSlash size={18} />)}
+            </div>
           </div>
         </div>
 
