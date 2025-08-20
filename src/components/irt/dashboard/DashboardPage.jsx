@@ -28,14 +28,16 @@ function DashboardPage({ formData, setFormData, errors, setErrors }) {
   };
 
   useEffect(()=>{
-    if(Object.keys(formData).includes("From Date") && Object.keys(formData).includes("To Date")){
-      if(formData["From Date"]> formData["To Date"]){
-        setFormData(prev => {
-          const updated = { ...prev };
-          delete updated["From Date"];
-          delete updated["To Date"];
-          return updated;
-        });
+    if(formData){
+      if(Object.keys(formData).includes("From Date") && Object.keys(formData).includes("To Date")){
+        if(formData["From Date"]> formData["To Date"]){
+          setFormData(prev => {
+            const updated = { ...prev };
+            delete updated["From Date"];
+            delete updated["To Date"];
+            return updated;
+          });
+        }
       }
     }
   },[formData])
