@@ -92,47 +92,47 @@ function AddIncident() {
   };
 
 
-const handleCreateIncident = async () => {
-  if (!validateForm()) return;
+  const handleCreateIncident = async () => {
+    if (!validateForm()) return;
 
-  const payload = {
-    name: formData["Incident Name"],
-    fromDate: formData["From Date"],
-    toDate: formData["To Date"],
-    responsibleOfficer: formData["Responsible Officer"],
-    incidentCommander: formData["Incident Commander"],
-    nodalOfficer: formData["Nodal Officer"],
-    infoMediaOfficer: formData["Information & Media Officer"],
-    district: formData["District"],
-    mandal: formData["Mandal"],
-    village: formData["Village"],
-    devices: formData["Devices"],
-    brief: formData["Brief of Situation"],
-    comments: formData["Comment Box"],
-    icp: formData["ICP"],
-    incidentBase: formData["Incident Base"],
-    camp: formData["Camp"],
-    reliefCamp: formData["Relief Camp"],
-    stagingArea: formData["Staging Area"],
-    medialCamp: formData["Medical Camp"],
-    heliBase: formData["Heli Base"],
-    heliPad: formData["Heli Pad"],
-    location: "Andhra Pradesh",
-    locationLink: "https://maps.example.com/location/123",
-    searchLocation: "Downtown",
-    inCharge: "USR001",
-    createdBy: "USR002",
-    active: true,
-    status: "Ongoing",
+    const payload = {
+      name: formData["Incident Name"],
+      fromDate: formData["From Date"],
+      toDate: formData["To Date"],
+      responsibleOfficer: formData["Responsible Officer"],
+      incidentCommander: formData["Incident Commander"],
+      nodalOfficer: formData["Nodal Officer"],
+      infoMediaOfficer: formData["Information & Media Officer"],
+      district: formData["District"],
+      mandal: formData["Mandal"],
+      village: formData["Village"],
+      devices: formData["Devices"],
+      brief: formData["Brief of Situation"],
+      comments: formData["Comment Box"],
+      icp: formData["ICP"],
+      incidentBase: formData["Incident Base"],
+      camp: formData["Camp"],
+      reliefCamp: formData["Relief Camp"],
+      stagingArea: formData["Staging Area"],
+      medialCamp: formData["Medical Camp"],
+      heliBase: formData["Heli Base"],
+      heliPad: formData["Heli Pad"],
+      location: "Andhra Pradesh",
+      locationLink: "https://maps.example.com/location/123",
+      searchLocation: "Downtown",
+      inCharge: "USR001",
+      createdBy: "USR002",
+      active: true,
+      status: "Ongoing",
+    };
+
+    try {
+      const result = await networkHandler.post("irt", "/incident/addIncident", payload);
+      navigate("/irt/viewincident");
+    } catch (err) {
+      console.error("Error creating incident", err);
+    }
   };
-
-  try {
-    const result = await networkHandler.post("irt","/incident/addIncident", payload);
-    navigate("/irt/viewincident");
-  } catch (err) {
-    console.error("Error creating incident", err);
-  }
-};
 
   return (
     <div className="space-y-8 text-[#1F2937]">
@@ -140,7 +140,8 @@ const handleCreateIncident = async () => {
         formData={formData}
         setFormData={setFormData}
         errors={errors}
-        setErrors={setErrors} />
+        setErrors={setErrors} 
+      />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 space-y-8 text-[#1F2937]">
         {/* Designation IRT */}
         <div className="space-y-4 border-b pb-6">
