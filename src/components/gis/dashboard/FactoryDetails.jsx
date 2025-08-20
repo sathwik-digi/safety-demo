@@ -64,7 +64,7 @@ function FactoryDetails() {
 
             <div className="flex flex-col sm:flex-row flex-wrap gap-4 border-t border-black mt-3 pt-2 text-sm text-gray-800">
               <div className="">
-                <p className="text-[18px] font-semibold text-[#3A3A3A]">Sanjay Kumar</p>
+                <p className="text-[18px] font-semibold text-[#3A3A3A]">{dynamicFactoryDetails.name}</p>
                 <p className="text-[16px] text-[#939393] font-normal">Owner</p>
               </div>
               <div>

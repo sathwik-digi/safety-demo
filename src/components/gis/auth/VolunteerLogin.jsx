@@ -80,6 +80,7 @@ const VolunteerLogin = () => {
               setCookie("siteName", ress?.data?.siteName, 1);
               dispatch(saveAclData(ress?.data));
               setLoading(false);
+              toast.success("Login Successful");
               navigate(`/${ress?.data?.siteName}/dashboard`);
             }
             else {
