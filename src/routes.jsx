@@ -37,6 +37,7 @@ import GisForms from './components/gis/Forms';
 import GisFormDetails from "./components/gis/GisFormDetails";
 import GisUserAnswers from "./components/gis/GisUserAnswers";
 import GisDistrictForms from "./components/gis/GisDistrictForms";
+import GisDistrictAnswerForm from "./components/gis/GisDistrictAnswerForm";
  
 export const routers = createBrowserRouter([
       {
@@ -96,6 +97,10 @@ export const routers = createBrowserRouter([
             {
                 path:"gisDistrictForms",
                 element:<GisDistrictForms/>
+            },
+            {
+                path:"gis-district-answerform",
+                element:<GisDistrictAnswerForm/>
             }
            
         ]
