@@ -63,7 +63,7 @@ const GisFormDetails = () => {
   const handleSave = async () => {
     const payload = {
       formId: formDetails.formId,
-      creatorId: "user1005",
+      creatorId: "user1755158315498",
       assigneeId: assignedTo,
       userType: "department",
       formName,
@@ -91,7 +91,7 @@ const GisFormDetails = () => {
         formName,
         description,
         formDeadline,
-        creatorId: "user1005",
+        creatorId: "user1755158315498",
         formType: "gis",
         dynamicFormQuestionEntities:questions
 
