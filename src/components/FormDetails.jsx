@@ -63,7 +63,7 @@ const FormDetails = () => {
   const handleSave = async () => {
     const payload = {
       formId: formDetails.formId,
-      creatorId: "user1006",
+      creatorId: "user1755185263052",
       assigneeId: assignedTo,
       userType: "department",
       formName,
@@ -91,7 +91,7 @@ const FormDetails = () => {
         formName,
         description,
         formDeadline,
-        creatorId: "user1006",
+        creatorId: "user1755185263052",
         formType: "irs",
         dynamicFormQuestionEntities:questions
 
