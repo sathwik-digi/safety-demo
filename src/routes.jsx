@@ -39,6 +39,7 @@ import GisUserAnswers from "./components/gis/GisUserAnswers";
 import GisDistrictForms from "./components/gis/GisDistrictForms";
 import GisDistrictAnswerForm from "./components/gis/GisDistrictAnswerForm";
 import LearningMS from "./components/gis/dashboard/lms/LearningMS";
+import FirebaseExample from "./components/FirebaseExample";
  
 export const routers = createBrowserRouter([
       {
@@ -158,6 +159,10 @@ export const routers = createBrowserRouter([
             {
                 path:"userAnswers",
                 element:<UserAnswers/>
+            },
+            {
+                path:"firebaseExample",
+                element:<FirebaseExample/>
             }
         ]
     },

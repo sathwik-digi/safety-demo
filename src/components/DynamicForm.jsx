@@ -108,7 +108,7 @@ const DynamicForm = () => {
         const payload = {
             description,
             formName,
-            creatorId: "user1006",
+            creatorId: "user1755185263052",
             formType: "irs",
             departmentIds: assignedTo, // ✅ send selected department IDs
             formDeadline: lastDate,

@@ -1,135 +1,269 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Star } from "lucide-react";
+import { toast } from "sonner";
 
 const UserAnswers = () => {
-  const location = useLocation();
-  const rowData = location.state;
-  const navigate = useNavigate();
+    const { state: form } = useLocation(); // form metadata passed from previous page
+    const [questions, setQuestions] = useState([]);
+    const [answers, setAnswers] = useState({}); // store user answers
+    const navigate = useNavigate();
 
-  if (!rowData || !rowData.answers) {
-    return <div className="p-4">No data available</div>;
-  }
+    useEffect(() => {
+        const fetchQuestion = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:8082/v1/form/get-form/${form.formId}`
+                );
+                const qns = response.data.dynamicFormQuestionEntities || [];
 
-  const renderAnswer = (ans) => {
-    const type = ans.fieldType;
+                // ✅ Normalize options (from dropDownValues object → array)
+                const normalized = qns.map((q) => ({
+                    ...q,
+                    options: q.dropDownValues
+                        ? Object.keys(q.dropDownValues)
+                        : q.options || [],
+                }));
 
-    switch (type) {
-      case "checkbox":
-        return (
-          <div className="flex flex-col gap-2">
-            {Object.entries(ans.answeredOptions || {}).map(([option, checked]) => (
-              <label
-                key={option}
-                className="flex items-center gap-2"
-              >
-                <input type="checkbox" checked={checked} disabled />
-                <span>{option}</span>
-              </label>
+                setQuestions(normalized);
+
+                // ✅ Pre-fill answers if they already exist
+                const existing = {};
+                normalized.forEach((q) => {
+                    if (q.answer) existing[q.questionId] = q.answer;
+                });
+                setAnswers(existing);
+
+                console.log("Fetched Questions:", normalized);
+            } catch (error) {
+                toast.error(error.errorMessage || "Failed to fetch the details");
+            }
+        };
+        fetchQuestion();
+    }, [form.formId]);
+
+    // handle input change
+    const handleChange = (id, value) => {
+        setAnswers((prev) => ({ ...prev, [id]: value }));
+
+    };
+
+    // inside GisDistrictAnswerForm.jsx
+
+    const handleSubmit = async() => {
+        const payload = {
+            formId: form.formId,
+            submittedBy: "user1755185263051", // TODO: replace dynamically
+            answerBeans: questions.map((q) => {
+                const userAnswer = answers[q.questionId];
+
+                // ✅ For checkbox, radio, select → use answeredOptions
+                if (q.fieldType === "checkbox" || q.fieldType === "radio" || q.fieldType === "select") {
+                    const answeredOptions = {};
+                    q.options?.forEach((opt) => {
+                        if (q.fieldType === "checkbox") {
+                            // multiple selection
+                            answeredOptions[opt] = userAnswer?.includes(opt) || false;
+                        } else {
+                            // single selection (radio / select)
+                            answeredOptions[opt] = userAnswer === opt;
+                        }
+                    });
+                    return {
+                        questionId: q.questionId,
+                        answeredOptions,
+                    };
+                }
+
+                // ✅ For file upload
+                if (q.fieldType === "file") {
+                    return {
+                        questionId: q.questionId,
+                        answer: userAnswer || null // file reference
+                    };
+                }
+
+                // ✅ Default: text, number, date, time, email, url, etc.
+                return {
+                    questionId: q.questionId,
+                    answer: userAnswer || null,
+                };
+            }),
+        };
+
+        console.log("Final Payload:", payload);
+
+        try{
+            const response= await axios.post("http://localhost:8082/v1/form/save-answers",payload)
+            console.log(response,"Response")
+            console.log(response.data,"Response data")
+            if(response?.data){
+                toast.success("Form submitted successfully!");
+                navigate(-1)
+            }
+            else{
+                toast.error("Form submission failed!");
+            }
+        }
+        catch(error){
+            toast.error("Form submission failed!");
+        }
+    };
+
+    // Render UI by field type
+    const renderField = (q) => {
+        switch (q.fieldType) {
+            case "text":
+                return (
+                    <input
+                        type="text"
+                        placeholder="Enter text"
+                        className="w-full border-b p-2"
+                        value={answers[q.questionId] || ""}
+                        onChange={(e) => handleChange(q.questionId, e.target.value)}
+                    />
+                );
+
+            case "select":
+                return (
+                    <select
+                        className="w-full border p-2 rounded"
+                        value={answers[q.questionId] || ""}
+                        onChange={(e) => handleChange(q.questionId, e.target.value)}
+                    >
+                        <option value="">Select option</option>
+                        {q.options?.map((opt, idx) => (
+                            <option key={idx} value={opt}>
+                                {opt}
+                            </option>
+                        ))}
+                    </select>
+                );
+
+            case "radio":
+                return (
+                    <div className="space-y-2">
+                        {q.options?.map((opt, idx) => (
+                            <label key={idx} className="flex items-center gap-2">
+                                <input
+                                    type="radio"
+                                    name={q.questionId}
+                                    value={opt}
+                                    checked={answers[q.questionId] === opt}
+                                    onChange={() => handleChange(q.questionId, opt)}
+                                />
+                                {opt}
+                            </label>
+                        ))}
+                    </div>
+                );
+
+            case "checkbox":
+                return (
+                    <div className="space-y-2">
+                        {q.options?.map((opt, idx) => {
+                            const selected = answers[q.questionId] || [];
+                            return (
+                                <label key={idx} className="flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        value={opt}
+                                        checked={selected.includes(opt)}
+                                        onChange={(e) => {
+                                            if (e.target.checked) {
+                                                handleChange(q.questionId, [...selected, opt]);
+                                            } else {
+                                                handleChange(
+                                                    q.questionId,
+                                                    selected.filter((o) => o !== opt)
+                                                );
+                                            }
+                                        }}
+                                    />
+                                    {opt}
+                                </label>
+                            );
+                        })}
+                    </div>
+                );
+
+            case "file":
+                return (
+                    <input
+                        type="file"
+                        className="w-full border p-2"
+                        onChange={(e) => {
+                            const file = e.target.files[0];
+                            handleChange(q.questionId, file ? file.name : ""); // only filename
+                        }}
+                    />
+                );
+
+            case "range":
+                return (
+                    <div className="flex flex-col items-center">
+                        <input
+                            type="range"
+                            min="1"
+                            max="5"
+                            value={answers[q.questionId] || 3}
+                            onChange={(e) => handleChange(q.questionId, e.target.value)}
+                        />
+                        <div className="flex gap-4 mt-2">
+                            {[1, 2, 3, 4, 5].map((n) => (
+                                <span key={n}>{n}⭐</span>
+                            ))}
+                        </div>
+                    </div>
+                );
+
+            case "date":
+                return (
+                    <input
+                        type="date"
+                        className="w-full border p-2"
+                        value={answers[q.questionId] || ""}
+                        onChange={(e) => handleChange(q.questionId, e.target.value)}
+                    />
+                );
+
+            case "time":
+                return (
+                    <input
+                        type="time"
+                        className="w-full border p-2"
+                        value={answers[q.questionId] || ""}
+                        onChange={(e) => handleChange(q.questionId, e.target.value)}
+                    />
+                );
+
+            default:
+                return <p>Unsupported field</p>;
+        }
+    };
+
+    return (
+        <div className="max-w-2xl mx-auto p-4 space-y-6">
+            <h2 className="text-xl font-bold">{form.formName}</h2>
+            <p className="text-gray-500">{form.description}</p>
+
+            {questions.map((q, idx) => (
+                <div key={q.questionId} className="border p-4 rounded space-y-2">
+                    <label className="font-medium">
+                        {q.sequence}. {q.question} {q.required && "*"}
+                    </label>
+                    {renderField(q)}
+                </div>
             ))}
-          </div>
-        );
 
-      case "radio":
-        return (
-          <div className="flex items-center gap-2">
-            <input type="radio" checked disabled />
-            <span>{ans.answer}</span>
-          </div>
-        );
-
-      case "select":
-        return <div className="border rounded-md px-3 py-2 text-gray-700">{ans.answer}</div>;
-
-      case "range":
-        return (
-          <div className="flex gap-1">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Star
-                key={star}
-                size={20}
-                className={star <= Number(ans.answer) ? "text-yellow-500 fill-yellow-500" : "text-gray-300"}
-              />
-            ))}
-          </div>
-        );
-
-      case "file":
-        return ans.answer ? (
-          <a href={ans.answer} target="_blank" rel="noreferrer" className="text-blue-500 underline">
-            View File
-          </a>
-        ) : (
-          "—"
-        );
-
-      case "image":
-        return (
-          <div className="flex gap-4">
-            {ans.image && (
-              <img
-                src={ans.image}
-                alt="Answer"
-                className="w-32 h-32 object-cover rounded-md border"
-              />
-            )}
-            <div>
-              <p className="font-semibold">{ans.title}</p>
-              <p>{ans.answer}</p>
-            </div>
-          </div>
-        );
-
-      case "date":
-        return <span>{ans.answer ? new Date(ans.answer).toLocaleDateString() : "—"}</span>;
-
-      case "time":
-        return <span>{ans.answer || "—"}</span>;
-
-      default:
-        return <p className="text-gray-700">{ans.answer || "—"}</p>;
-    }
-  };
-
-  return (
-    <div className="p-6 max-w-4xl mx-auto">
-      {/* Back Button */}
-      <Button
-        className="bg-white text-black border border-gray-300 hover:bg-gray-100 mb-6"
-        onClick={() => navigate(-1)}
-      >
-        ← Back
-      </Button>
-
-      {/* Form Header */}
-      <div className="bg-white shadow-md rounded-md p-6 mb-6">
-        <h1 className="text-xl font-semibold">
-          {rowData.formName || "Form Answers"}
-        </h1>
-        <p className="text-gray-600 mt-1">{rowData.description}</p>
-      </div>
-
-      {/* Questions */}
-      <div className="space-y-4">
-        {rowData.answers.map((ans, idx) => (
-          <div
-            key={idx}
-            className="bg-white border rounded-md shadow-sm overflow-hidden"
-          >
-            <div className="border-t-4 border-yellow-300 p-4">
-              <p className="font-semibold text-lg mb-2">
-                {ans.question} {ans.required && <span className="text-red-500">*</span>}
-              </p>
-              {ans.description && (
-                <p className="text-gray-600 mb-3">{ans.description}</p>
-              )}
-              {renderAnswer(ans)}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+            <button
+                onClick={handleSubmit}
+                className="bg-yellow-400 text-white px-6 py-2 rounded shadow"
+            >
+                Submit
+            </button>
+        </div>
+    );
 };
 
 export default UserAnswers;
