@@ -21,20 +21,22 @@ import { accessToken } from "../constants";
 import RenderIrtSvgIcon from "../lib/RenderIrtSvgIcon";
 import { toast } from "sonner";
 import { yellowButtonColor } from "../lib/theme";
+import { useDispatch, useSelector } from "react-redux";
+import { changeActiveIndexState } from "../redux/slices/commonSlice";
 
 function IrtDashboardLayout() {
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const token = getCookie(accessToken);
   const siteName = getCookie("siteName");
-  if (!token) {
+  const activeIndex = useSelector((state)=> state.common.activeIndex);
+
+  if (!token){
     return <Navigate to="/" replace />;
   }
   else if (siteName === "gis") {
     return <Navigate to="/gis/dashboard" replace />
   }
-
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(0);
 
   const menuItems = [
     { label: "Dashboard", path: "/irt/dashboard" },
@@ -50,6 +52,7 @@ function IrtDashboardLayout() {
 
   const logoutHandler = () => {
     clearCookie();
+    dispatch(changeActiveIndexState(0));
     toast.success("Logout successful");
     navigate("/auth/login");
   }
@@ -58,7 +61,7 @@ function IrtDashboardLayout() {
     if (item.path) {
       navigate(item.path)
     }
-    setActiveTab(index);
+    dispatch(changeActiveIndexState(index));
   }
 
   return (
@@ -78,8 +81,8 @@ function IrtDashboardLayout() {
             className="flex items-center gap-3 cursor-pointer"
             onClick={() => handleClick(item, index)}
           >
-            <RenderIrtSvgIcon index={index} activeTab={activeTab} />
-            <p className={`text-[14px] font-medium ${activeTab===index ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>{item.label}</p>
+            <RenderIrtSvgIcon index={index} />
+            <p className={`text-[14px] font-medium ${activeIndex===index ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>{item.label}</p>
           </div>
         ))}
 
@@ -133,7 +136,7 @@ function IrtDashboardLayout() {
                         className="flex items-center gap-3 cursor-pointer"
                         onClick={() => item.path && navigate(item.path)}
                       >
-                        <RenderIrtSvgIcon index={index} activeTab={activeTab} />
+                        <RenderIrtSvgIcon index={index} />
                         <p className="text-[14px] font-medium text-[#344054]">{item.label}</p>
                       </div>
                     </SheetClose>

@@ -38,6 +38,7 @@ import GisFormDetails from "./components/gis/GisFormDetails";
 import GisUserAnswers from "./components/gis/GisUserAnswers";
 import GisDistrictForms from "./components/gis/GisDistrictForms";
 import GisDistrictAnswerForm from "./components/gis/GisDistrictAnswerForm";
+import LearningMS from "./components/gis/dashboard/lms/LearningMS";
  
 export const routers = createBrowserRouter([
       {
@@ -77,6 +78,10 @@ export const routers = createBrowserRouter([
             {
                 path: "role-permissions",
                 element: <RolePermissions />,
+            },
+            {
+                path: "learning-management",
+                element: <LearningMS />,
             },
             {
                 path:"formCreation",

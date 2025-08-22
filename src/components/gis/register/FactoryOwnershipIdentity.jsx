@@ -29,7 +29,7 @@ const formSchema = z.object({
     permanentAddress: z.string().min(2, { message: "Permanent Address must be at least 2 characters." }),
     state: z.string().min(2, { message: "State must be at least 2 characters." }),
     district: z.string().min(2, { message: "District must be at least 2 characters." }),
-    pinCode: z.string().min(6, { message: "Pincode must be 6 characters." }),
+    pinCode: z.string().min(6, { message: "Pincode must be 6 characters." }).regex(/[0-9]{6}/,{message:"Enter only digits"}),
     city: z.string().min(2, { message: "City must be at least 2 characters." }),
 });
 
