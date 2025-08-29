@@ -72,7 +72,7 @@ function GisDashboardLayout() {
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 1)}> <RenderGisSvgIcon index={1}   /> <p className={`text-[14px] font-medium ${activeIndex===1 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Sub Admin</p> </div>
       )}
       {sidebarDataForUser.includes("Inventory Management") && (
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("", 2)}> <RenderGisSvgIcon index={2}   /> <p className={`text-[14px] font-medium ${activeIndex===2 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Inventory Management</p> </div>
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/management", 2)}> <RenderGisSvgIcon index={2}   /> <p className={`text-[14px] font-medium ${activeIndex===2 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Inventory Management</p> </div>
       )}
       {sidebarDataForUser.includes("Document Management") && (
          <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("", 3)}> <RenderGisSvgIcon index={3}   /> <p className={`text-[14px] font-medium ${activeIndex===3 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Document Management</p> </div>

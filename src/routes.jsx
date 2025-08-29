@@ -40,6 +40,8 @@ import GisDistrictForms from "./components/gis/GisDistrictForms";
 import GisDistrictAnswerForm from "./components/gis/GisDistrictAnswerForm";
 import LearningMS from "./components/gis/dashboard/lms/LearningMS";
 import FirebaseExample from "./components/FirebaseExample";
+import Management from "./components/gis/dashboard/management/Management";
+
  
 export const routers = createBrowserRouter([
       {
@@ -107,8 +109,11 @@ export const routers = createBrowserRouter([
             {
                 path:"gis-district-answerform",
                 element:<GisDistrictAnswerForm/>
-            }
-           
+            },
+            {
+                path: "management",
+                element: <Management />,
+            },
         ]
     },
     {
