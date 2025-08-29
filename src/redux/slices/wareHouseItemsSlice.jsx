@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    items:[]
+    items:[],
 }
 
 const wareHouseItemsSlice= createSlice({
@@ -9,8 +9,7 @@ const wareHouseItemsSlice= createSlice({
     initialState,
     reducers:{
         saveItem:(state,action)=>{
-            console.log("going inside redux reducer.....")
-            state.items.push(action.payload)
+            state.items.push(action.payload);
         }
     }
 })
