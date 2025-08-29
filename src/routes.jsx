@@ -42,6 +42,7 @@ import LearningMS from "./components/gis/dashboard/lms/LearningMS";
 import FirebaseExample from "./components/FirebaseExample";
 import Management from "./components/gis/dashboard/management/Management";
 
+import DocumentManagement from "./components/gis/dashboard/dms/DocumentManagement";
  
 export const routers = createBrowserRouter([
       {
@@ -114,6 +115,11 @@ export const routers = createBrowserRouter([
                 path: "management",
                 element: <Management />,
             },
+            {
+                path:"document-management",
+                element:<DocumentManagement />
+            },
+           
         ]
     },
     {

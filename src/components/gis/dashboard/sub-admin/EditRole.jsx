@@ -33,7 +33,7 @@ function EditRole() {
             <div className="w-[55vw]">
                 <label className="text-[#666666] block mb-1">Search name</label>
                 <div className="relative">
-                    <img src={SearchNameIcon} className="w-6 h-4 absolute top-1/4 left-2" />
+                    <img src={SearchNameIcon} className="w-6 h-4 absolute top-1/3 left-2" />
                     <Input className="border-[#cccccc] pl-10" type="text" placeholder="Search name here" {...register("firstName")} />
                 </div>
                 
