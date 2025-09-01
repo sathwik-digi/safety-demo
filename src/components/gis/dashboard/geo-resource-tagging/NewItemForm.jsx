@@ -18,6 +18,7 @@ import { yellowButtonColor } from "../../../../lib/theme";
 import { Input } from "@/components/ui/input"
 import { useDispatch } from "react-redux";
 import { saveItem } from "../../../../redux/slices/wareHouseItemsSlice";
+import axios from "axios";
 
 export const formSchema = z.object({
   name: z.string().min(2, { message: "Name of the chemical must be at least 2 characters" }),
@@ -95,12 +96,35 @@ const NewItemForm = ({ isGeo }) => {
   });
 
 
-  const onSubmit = (e) => {
+  const onSubmit = async () => {
     if (isGeo === true) {
       dispatch(saveItem());
     }
     else {
-
+      const payload = {
+    chemicalName: data.name,
+    chemicalType: data.type,
+    casNumber : data.casNumber,
+    phValue : data.phValue,
+    description : data.description,
+    actuallQuantity: data.stockQuantity,
+    unit : data.unit,
+    minRequiredQuantity: data.minRequiredQuantity,
+    maxAllowedQuantity: data.maxAllowedQuantity,
+    receivedDate: data.receivedDate,
+    expiryDate: data.expiryDate,
+    batchNumber: data.batchNo,
+    storageCondition: data.storageConditions,
+    containerType: data.containerType,
+    incompatibleMaterials: data.incompatibleMaterials,
+    supplierName: data.supplierName,
+    phoneNumber: data.supplierContact,
+    email: data.supplierEmail,
+    factoryId: "fa1756466471506",
+    available: data.availability
+}
+  const response = await axios.post("http://localhost:8082/v1/users/addChemicalsInInventory", payload)
+      
     }
     setOpen(false);
   }

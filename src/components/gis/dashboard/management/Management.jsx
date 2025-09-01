@@ -5,6 +5,7 @@ import AddMockDrill from "./AddMockDrill";
 import ResourceManagement from "./ResourceManagement";
 import InventoryManagement from "./InventoryManagement";
 import MockDrill from "./MockDrill";
+import NewItemForm from "../geo-resource-tagging/NewItemForm"
 
 function Management() {
   const [activeTab, setActiveTab] = useState("resource");
@@ -27,6 +28,9 @@ function Management() {
       {/* Top Bar */}
       <div className="flex justify-between items-center mb-6">
         <div></div>
+        {
+          activeTab === "inventory" && (<NewItemForm />)
+        }
         {
           activeTab === "mockdrill" && (<AddMockDrill />)
         }
