@@ -41,8 +41,10 @@ import GisDistrictAnswerForm from "./components/gis/GisDistrictAnswerForm";
 import LearningMS from "./components/gis/dashboard/lms/LearningMS";
 import FirebaseExample from "./components/FirebaseExample";
 import Management from "./components/gis/dashboard/management/Management";
-
 import DocumentManagement from "./components/gis/dashboard/dms/DocumentManagement";
+import Bookmarks from "./components/gis/dashboard/bookmarks/Bookmarks";
+import AddBookmark from "./components/gis/dashboard/bookmarks/AddBookmark";
+import EditBookmark from "./components/gis/dashboard/bookmarks/EditBookmark";
  
 export const routers = createBrowserRouter([
       {
@@ -118,6 +120,18 @@ export const routers = createBrowserRouter([
             {
                 path:"document-management",
                 element:<DocumentManagement />
+            },
+            {
+                path:"bookmarks",
+                element:<Bookmarks />
+            },
+            {
+                path:"add-bookmark",
+                element:<AddBookmark />
+            },
+            {
+                path:"edit-bookmark",
+                element:<EditBookmark />
             },
            
         ]

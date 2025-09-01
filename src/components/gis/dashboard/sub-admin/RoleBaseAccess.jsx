@@ -138,8 +138,8 @@ export default function RoleBaseAccess() {
                   <DropdownMenu>
                     <DropdownMenuTrigger> <img src={ThreeDotsIcon} className="w-4 h-5" /></DropdownMenuTrigger>
                     <DropdownMenuContent className="shadow-xl shadow-gray-300" align="start" >
-                      <DropdownMenuItem onClick={() => navigate('/gis/edit-role')}><img src={EditRoleIcon} className="w-5 h-5" />Edit</DropdownMenuItem>
-                      <DropdownMenuItem><img src={DeleteRoleIcon} className="w-4 h-4" />Delete</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => navigate('/gis/edit-role')} className="text-[#9D9D9D]"><img src={EditRoleIcon} className="w-5 h-5" />Edit</DropdownMenuItem>
+                      <DropdownMenuItem className="text-[#D41414]"><img src={DeleteRoleIcon} className="w-4 h-4" />Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

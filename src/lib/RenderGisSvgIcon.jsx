@@ -68,6 +68,13 @@ const RenderGisSvgIcon = ({ index}) => {
             </svg>
         )
     }
+    if (index === 8) {
+        return (
+            <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.583333 0C0.2625 0 0 0.257143 0 0.571429V15.4286C0 15.7429 0.2625 16 0.583333 16C0.7 16 0.845833 15.9714 0.933333 15.8857L7 11.5714L13.0667 15.8857C13.1542 15.9429 13.2708 16 13.4167 16C13.7375 16 14 15.7429 14 15.4286V0.571429C14 0.257143 13.7375 0 13.4167 0H0.583333Z" fill={index ===  activeIndex ? yellowButtonColor : "#787486"}/>
+            </svg>
+        )
+    }
 }
 
 export default RenderGisSvgIcon;
