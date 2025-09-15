@@ -1,17 +1,20 @@
 import './App.css';
-import { RouterProvider} from "react-router-dom";
-import {routers} from "./routes";
+import { RouterProvider } from "react-router-dom";
+import { routers } from "./routes";
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
 import { Toaster } from 'sonner'
 
 function App() {
   return (
     <Provider store={store}>
-      <Toaster />
-      <RouterProvider router={routers} />
+      <PersistGate loading={null} persistor={persistor}>
+        <Toaster />
+        <RouterProvider router={routers} />
+      </PersistGate>
     </Provider>
-    
+
   );
 }
 

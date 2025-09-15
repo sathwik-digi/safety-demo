@@ -6,6 +6,8 @@ import Kaleesuwari from "../assets/Images/ksw_logo.png";
 import Coromandel from "../assets/Images/CIL-logo.png";
 
 
+export const accessToken = "authToken";
+
 export const factories = [
     {
       name: "One subsea",
@@ -296,3 +298,49 @@ export const factories = [
       status: "Rejected",
     },
   ];
+
+export const irtDashboardData =[
+          { label: "Total No incidents", value: 52 },
+          { label: "Total Task", value: 22 },
+          { label: "Completed Task", value: 52 },
+          { label: "InProgress Task", value: 8 },
+          { label: "Pending Task", value: 12 },
+          { label: "Active Events", value: 5 },
+          { label: "Active Incident", value: 13 },
+        ]
+
+export const teams = [
+  {
+    name: "Team Alpha",
+    location: "Kakinada, Andhra Pradesh",
+    inCharge: "Sanjay Kumar",
+    members: "010",
+    progress: 10,
+    color: "green",
+  },
+  {
+    name: "Team Delta",
+    location: "Kakinada, Andhra Pradesh",
+    inCharge: "Saikumar",
+    members: "08",
+    progress: 7,
+    color: "orange",
+  },
+  {
+    name: "Team Gama",
+    location: "Kakinada, Andhra Pradesh",
+    inCharge: "Venkatesh",
+    members: "05",
+    progress: 2,
+    color: "amber",
+  },
+  {
+    name: "Team Theta",
+    location: "Kakinada, Andhra Pradesh",
+    inCharge: "Prakash",
+    members: "03",
+    progress: 1,
+    color: "red",
+  },
+];       
+

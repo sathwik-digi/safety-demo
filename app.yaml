@@ -1,0 +1,14 @@
+runtime: nodejs20
+env_variables:
+  REACT_APP_End_point: "https://sm-service-registry-985399753008.us-central1.run.app/"
+handlers:
+  # Serve all static files with url ending with a file extension
+  - url: /(.*\..+)$
+    static_files: dist/\1
+    upload: dist/(.*\..+)$
+  # Catch all handler to index.html
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html
+    secure: always
+    redirect_http_response_code: 301

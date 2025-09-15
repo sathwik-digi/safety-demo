@@ -1,0 +1,130 @@
+import React, { useState } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import Header from "../components/gis/Header";
+import IRTSiteLogo from "../assets/Images/irt-logo.png";
+import settings from "../assets/Icons/settings.png";
+import HelpIcon from "../assets/Icons/help-circle.png";
+import LogOutIcon from "../assets/Icons/log-out.png";
+import UnionIcon from "../assets/Icons/Union.png";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { AlignLeft } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import {clearCookie, getCookie} from "../https";
+import { accessToken } from "../constants";
+import RenderGisSvgIcon from "../lib/RenderGisSvgIcon";
+import { toast } from "sonner";
+import { yellowButtonColor } from "../lib/theme";
+import { changeActiveIndexState } from "../redux/slices/commonSlice";
+
+
+
+function GisDashboardLayout() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const activeIndex = useSelector((state)=> state.common.activeIndex);
+  const token = getCookie(accessToken);
+  const siteName = getCookie("siteName");
+
+
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+  else if(siteName==="irt"){
+    return <Navigate to="/irt/dashboard" replace />
+  }
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const sidebarDataForUser = useSelector((state)=>state.acl.sidebarDataForUser);
+  
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const logoutHandler=()=>{
+    clearCookie();
+    dispatch(changeActiveIndexState(0));
+    toast.success("Logout successful");
+    navigate("/auth/login");
+  }
+
+  const handleClick = (path, index) => {
+    if (path) {
+      navigate(path)
+    }
+    dispatch(changeActiveIndexState(index));
+  }
+
+  
+
+  const SidebarContent = () => (
+    <div className="p-5 flex flex-col gap-5 bg-white">
+      <div className="flex justify-center items-center mb-4">
+        <img
+          src={IRTSiteLogo}
+          alt="IRT Site Logo"
+          className="w-[177px] h-[64px] object-contain"
+        />
+      </div>
+      <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/dashboard", 0)}> <RenderGisSvgIcon index={0}   /> <p className={`text-[14px] font-medium ${activeIndex===0 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Dashboard</p> </div>
+      {sidebarDataForUser.includes("Sub Admin") && (
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/role-base-access", 1)}> <RenderGisSvgIcon index={1}   /> <p className={`text-[14px] font-medium ${activeIndex===1 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Sub Admin</p> </div>
+      )}
+      {sidebarDataForUser.includes("Inventory Management") && (
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("", 2)}> <RenderGisSvgIcon index={2}   /> <p className={`text-[14px] font-medium ${activeIndex===2 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Inventory Management</p> </div>
+      )}
+      {sidebarDataForUser.includes("Document Management") && (
+         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("", 3)}> <RenderGisSvgIcon index={3}   /> <p className={`text-[14px] font-medium ${activeIndex===3 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Document Management</p> </div>
+      )}
+      {sidebarDataForUser.includes("LMS") && (
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/learning-management", 4)}> <RenderGisSvgIcon index={4}   /> <p className={`text-[14px] font-medium ${activeIndex===4 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>LMS</p> </div>
+      )}
+      {sidebarDataForUser.includes("Blog") && (
+       <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("", 5)}> <RenderGisSvgIcon index={5}   /> <p className={`text-[14px] font-medium ${activeIndex===5 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Blog</p> </div>
+      )}
+      {sidebarDataForUser.includes("Factory List") && (
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/factorylist", 6)}> <RenderGisSvgIcon index={6}   /> <p className={`text-[14px] font-medium ${activeIndex===6 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Factory List</p></div>
+      )}
+      {sidebarDataForUser.includes("Forms") && (
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleClick("/gis/dynamicForm", 7)}> <RenderGisSvgIcon index={7}   /> <p className={`text-[14px] font-medium ${activeIndex===7 ? `text-[${yellowButtonColor}]`:"text-[#344054]"}`}>Form's</p></div>
+      )}
+      <div className="pt-[50px] pb-[80px]"> <p className="text-[10px] font-medium text-[#757575] tracking-wide uppercase mb-2">Settings</p>
+        <div className="flex items-center justify-between cursor-pointer"> <div className="flex items-center gap-3"> <img src={settings} alt="Settings icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Settings</p> </div> <img src={UnionIcon} alt="Chevron icon" className="w-[9.33px] h-[5.33px]" style={{ color: "#757575" }} /> </div>
+      </div>
+      <div className="flex items-center gap-3 cursor-pointer"> <img src={HelpIcon} alt="Help icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#344054]">Help</p> </div>
+      <div className="flex items-center gap-3 cursor-pointer" onClick={logoutHandler}> <img src={LogOutIcon} alt="Logout icon" className="w-5 h-5" /> <p className="text-[14px] font-medium text-[#D55F5A]">Logout Account</p> </div>
+    </div>
+  );
+
+  return (
+    <div className="flex">
+      {/* Sidebar */}
+      {!isMobile ? (
+        <div className="fixed top-0 left-0 w-[18%] h-screen border-r-2 border-[#b8b9ba] bg-white z-50">
+          <SidebarContent />
+        </div>
+      ) : null}
+
+      {/* Header and Content */}
+      <div className={!isMobile ? "ml-[18%] w-[82%]" : "w-full"}>
+        <div className="w-full flex items-center justify-between p-4 sm:p-0 border-b bg-white">
+          {isMobile && (
+            <Sheet>
+              <SheetTrigger className="mr-4">
+                <AlignLeft className="w-6 h-6" />
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[250px]">
+                <SidebarContent />
+              </SheetContent>
+            </Sheet>
+          )}
+        </div>
+        <Header />
+        <Outlet />
+      </div>
+    </div>
+  );
+}
+
+export default GisDashboardLayout;
