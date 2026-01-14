@@ -1,5 +1,5 @@
 import React from "react";
-import OtpScreen from "../components/auth/Otp";
+import OtpScreen from "../components/gis/auth/Otp";
 
 function Otp() {
   return (

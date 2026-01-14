@@ -1,31 +1,30 @@
 import axios from 'axios';
-import {accessToken} from "../constants"
-import { getCookie } from '.';
+// import {accessToken} from "../constants"
+// import { getCookie } from '.';
 
-const {REACT_APP_API} = process.env;
-const apiClient = axios.create({
-    baseURL:  REACT_APP_API,
-    timeout: 10000,
-});
+const REACT_APP_API = import.meta.env.VITE_REACT_APP_API;
+// const apiClient = axios.create({
+//     baseURL:  REACT_APP_API,
+//     timeout: 10000,
+// });
 
-
-const apiCall = async (method, path, body = null) => {
+const apiCall = async (method, microService, path, body = null) => {
     try {
-        const token = getCookie(accessToken)
-        const headers = {
-            Token: `Bearer ${token}`
-        }
-        if (!headers.Token) {
-            throw new Error("Authorization token is missing!");
-        }
+        // const token = getCookie(accessToken)
+        // const headers = {
+        //     Token: `Bearer ${token}`
+        // }
+        // if (!headers.Token) {
+        //     throw new Error("Authorization token is missing!");
+        // }
         const config = {
             method,
-            url: path,
-            headers,
+            url: `https://sm-${microService}-${REACT_APP_API}${path}`,
+            // headers,
             ...(body ? { data: body } : {}),
         };
         
-        const response = await apiClient(config);
+        const response = await axios(config);
         return response.data;
     } catch (error) {
        console.log(error)
@@ -33,8 +32,8 @@ const apiCall = async (method, path, body = null) => {
 };
 
 export const networkHandler = {
-    get: (path) => apiCall('get', path),
-    post: (path, body) => apiCall('post', path, body),
-    put: (path, body) => apiCall('put', path, body),
-    del: (path, body) => apiCall('del', path, body),
+    get: (microService, path ) => apiCall('get', microService, path),
+    post: (microService, path, body) => apiCall('post', microService, path, body),
+    put: (microService, path, body) => apiCall('put', microService, path, body),
+    del: (microService, path, body) => apiCall('delete', microService, path, body),
 };
